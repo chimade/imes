@@ -1,8 +1,10 @@
-package com.cdc.mes.mapper;
+package com.cdc.mes.sys.mapper;
 
 import java.util.List;
 
-import com.cdc.mes.model.User;
+import com.cdc.mes.sys.model.User;
+
+ 
 
 public interface UserMapper {
 
@@ -17,4 +19,6 @@ public interface UserMapper {
 	List<User> findAll();
 	
 	List<User> findUserBySearch (   User user );
+	
+	Integer  fetchUserNumberBySearch (   User user );
 }

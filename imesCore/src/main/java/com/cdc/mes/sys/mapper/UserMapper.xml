@@ -5,7 +5,7 @@
 	namespace：必须与对应的接口全类名一致
 	id:必须与对应接口的某个对应的方法名一致
  -->
-<mapper namespace="com.cdc.mes.mapper.UserMapper">
+<mapper namespace="com.cdc.mes.sys.mapper.UserMapper">
 	<insert id="save"   parameterType="User">
 		insert into base_user(user_name, password,login_account) values(#{userName},#{password},#{loginAccount})
 	</insert>
@@ -27,29 +27,51 @@
 		select  id,user_name userName ,login_account loginAccount ,password from base_user
 	</select>
 	
+	 
 	  <select id="findUserBySearch"  parameterType="User" resultType="User">  
         select   id,user_name userName ,login_account loginAccount ,password  from base_user   
         <where>  
-            
               <if test="userName!=null and userName!='' ">  
                 and user_name LIKE CONCAT('%', CONCAT(#{userName}, '%')) 
             </if>  
            <if test="loginAccount!=null and  loginAccount!='' ">  
                     and login_account LIKE CONCAT('%', CONCAT(#{loginAccount}, '%')) 
             </if>  
-<!--             <if test="pwd != null">   -->
-<!--                 and pwd LIKE CONCAT('%', CONCAT(#{pwd}, '%')) -->
-<!--             </if>   -->
-
         </where>  
+         <if test="start>-1 and limit>-1">
+            limit #{limit}   offset #{start}
+        </if>
     </select>  
+    <select id="fetchUserNumberBySearch"  parameterType="User"  resultType="Integer">  
+        select  count(id)  from base_user   
+        <where>  
+              <if test="userName!=null and userName!='' ">  
+                and user_name LIKE CONCAT('%', CONCAT(#{userName}, '%')) 
+            </if>  
+           <if test="loginAccount!=null and  loginAccount!='' ">  
+                    and login_account LIKE CONCAT('%', CONCAT(#{loginAccount}, '%')) 
+            </if>  
+        </where>  
+ 
+    </select>  
+<!--       <select id="getListByPagenate" parameterType="PagenateArgs" -->
+<!--         resultType="Visitor"> -->
+<!--         select * from ( -->
+<!--         <include refid="getListSql" /> <include refid="orderBySql"/> -->
+<!--         ) t #{}表示参数化输出，${}表示直接输出不进行任何转义操作，自己进行转移 -->
+<!--         <if test="pageStart>-1 and pageSize>-1"> -->
+<!--             limit #{pageStart}, #{pageSize} -->
+<!--         </if> -->
+<!--     </select> -->
+<!--     <sql id="orderBySql"> -->
+<!--         order by ${orderFieldStr} ${orderDirectionStr} -->
+<!--     </sql> -->
 <!--     <select id="dynamicWherePage" parameterType="java.util.Map" resultType="SUser">   -->
 <!--         select * from Suser    -->
 <!--         <where>   -->
 <!--             <if test="pwd != null">   -->
 <!--                 and pwd LIKE CONCAT('%', CONCAT(#{pwd}, '%')) -->
 <!--             </if>   -->
-
 <!--         </where>   -->
 <!--         limit #{stanum},#{offset}  -->
 <!--     </select>   -->

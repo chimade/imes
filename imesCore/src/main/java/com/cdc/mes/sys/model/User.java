@@ -1,4 +1,4 @@
-package com.cdc.mes.model;
+package com.cdc.mes.sys.model;
 
 
 /**
@@ -6,8 +6,8 @@ package com.cdc.mes.model;
  * @author root
  *
  */
-public class User {
-//extends BaseModel {
+public class User 
+extends BaseModel {
 
 	private int id;
 	private String userName;

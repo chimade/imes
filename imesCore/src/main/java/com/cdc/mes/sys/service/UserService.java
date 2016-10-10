@@ -1,8 +1,10 @@
-package com.cdc.mes.service;
+package com.cdc.mes.sys.service;
 
 import java.util.List;
 
-import com.cdc.mes.model.User;
+import com.cdc.mes.sys.model.User;
+
+ 
 
 public interface UserService {
 	void save(User user);
@@ -11,5 +13,6 @@ public interface UserService {
 	User findById(int id);
 	List<User> findAll();
 	List<User> findBySearch(User user);
+	int fetchUserNumberBySearch(User user);
 	
 }

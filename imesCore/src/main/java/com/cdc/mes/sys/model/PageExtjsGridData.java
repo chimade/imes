@@ -1,4 +1,4 @@
-package com.cdc.mes.model;
+package com.cdc.mes.sys.model;
 
 import java.util.List;
 

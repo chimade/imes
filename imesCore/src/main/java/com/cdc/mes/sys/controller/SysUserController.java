@@ -1,7 +1,6 @@
-package com.cdc.mes.controller;
+package com.cdc.mes.sys.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cdc.mes.model.PageExtjsGridData;
-import com.cdc.mes.model.User;
-import com.cdc.mes.service.UserService;
+import com.cdc.mes.sys.model.PageExtjsGridData;
+import com.cdc.mes.sys.model.User;
+import com.cdc.mes.sys.service.UserService;
+
+ 
 
 /**xx
  * 用户的控制层
@@ -101,7 +102,8 @@ public class SysUserController  {
 		List<User> findAll = userService.findBySearch(  user );
 		PageExtjsGridData<User> pd = new  PageExtjsGridData<User>( ); 
 		pd.setGridDatas(findAll);
-		pd.setTotalProperty(findAll.size());
+		int total = userService.fetchUserNumberBySearch(user);
+		pd.setTotalProperty(  total  );
 //		request.setAttribute("userList", findAll);
 		return pd ;
 	}

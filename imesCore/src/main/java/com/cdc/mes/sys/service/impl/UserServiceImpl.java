@@ -1,4 +1,4 @@
-package com.cdc.mes.service.impl;
+package com.cdc.mes.sys.service.impl;
 
 import java.util.List;
 
@@ -7,9 +7,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cdc.mes.mapper.UserMapper;
-import com.cdc.mes.model.User;
-import com.cdc.mes.service.UserService;
+import com.cdc.mes.sys.mapper.UserMapper;
+import com.cdc.mes.sys.model.User;
+import com.cdc.mes.sys.service.UserService;
+ 
 
 
 @Service
@@ -46,7 +47,10 @@ public class UserServiceImpl implements UserService {
 		return mapper.update(user);
 	}
 
-
+	public  int  fetchUserNumberBySearch (User user ) {
+		return mapper.fetchUserNumberBySearch(user).intValue();
+	}
+	
 	public List<User> findBySearch(User user) {
 		System.out.println(user.toString());
 		List<User> findAllList = mapper.findUserBySearch (user)  ;
