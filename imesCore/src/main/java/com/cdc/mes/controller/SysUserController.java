@@ -1,11 +1,12 @@
 package com.cdc.mes.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-  
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cdc.mes.model.PageExtjsGridData;
 import com.cdc.mes.model.User;
 import com.cdc.mes.service.UserService;
 
@@ -94,10 +96,14 @@ public class SysUserController  {
 	 * @return
 	 */
 	@RequestMapping(value = "/getUserBySearch", method = { RequestMethod.POST, RequestMethod.GET })
-	public @ResponseBody  List<User>    getUserBySearch(@RequestBody User user,HttpServletRequest request){
+	public @ResponseBody    PageExtjsGridData<User>   getUserBySearch(@RequestBody User user,HttpServletRequest request){
+//		public @ResponseBody  List<User>    getUserBySearch(@RequestBody User user,HttpServletRequest request){
 		List<User> findAll = userService.findBySearch(  user );
+		PageExtjsGridData<User> pd = new  PageExtjsGridData<User>( ); 
+		pd.setGridDatas(findAll);
+		pd.setTotalProperty(findAll.size());
 //		request.setAttribute("userList", findAll);
-		return findAll ;
+		return pd ;
 	}
 //
 //	@RequestMapping("/dict")

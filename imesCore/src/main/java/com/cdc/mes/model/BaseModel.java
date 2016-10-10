@@ -3,8 +3,6 @@ package com.cdc.mes.model;
 public class BaseModel {
 
 	/**-----------------------------------------------------------------------------*/
-//	protected int currentPageNumber ;
-//	protected int pageSize ;
 	public int page ; 
 	public int start ;
 	public int limit ;	
@@ -27,19 +25,6 @@ public class BaseModel {
 		this.limit = limit;
 	}
 	/**----------------------------------------------------------------------------*/
-//	public int getCurrentPageNumber() {
-//		return currentPageNumber;
-//	}
-//	public void setCurrentPageNumber(int currentPageNumber) {
-//		this.currentPageNumber = currentPageNumber;
-//	}
-//	public int getPageSize() {
-//		return pageSize;
-//	}
-//	public void setPageSize(int pageSize) {
-//		this.pageSize = pageSize;
-//	}
-	
 	@Override
 	public String toString() {
 		return "BaseModel [page=" + page + ", start=" + start + ", limit=" + limit + "]";

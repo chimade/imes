@@ -27,7 +27,7 @@
 		select  id,user_name userName ,login_account loginAccount ,password from base_user
 	</select>
 	
-	  <select id="findUserBySearch"  parameterType="User" resultType=""User"">  
+	  <select id="findUserBySearch"  parameterType="User" resultType="User">  
         select   id,user_name userName ,login_account loginAccount ,password  from base_user   
         <where>  
             
