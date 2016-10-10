@@ -29,20 +29,19 @@
           <property name="dataSource" ref="dataSource"></property>
          <!-- 加载mybatis.cfg.xml文件 -->
           <property name="configLocation" value="classpath:mybatis-config.xml"></property>
-          <property name="mapperLocations"
-        value="classpath*:com/cdc/mes/mapper/*Mapper.xml"></property>
+          <property name="mapperLocations"  value="classpath*:com/cdc/mes/sys/mapper/*Mapper.xml"></property>
 <!--           <property name="mapperLocations"> -->
 <!--           	<array> -->
 <!--           		<value>classpath:mapper/*.xml</value> -->
 <!--           	</array> -->
 <!--   	</property> -->
          <!-- 自动扫描需要定义类别名的包，将包内的JAVA类的类名作为类别名 -->
-        <property name="typeAliasesPackage" value="com.cdc.mes..model"></property>
+        <property name="typeAliasesPackage" value="com.cdc.mes.sys.model"></property>
       </bean>
       
     <!-- 自动扫描所有的Mapper接口与文件 -->
       <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-          <property name="basePackage" value="com.cdc.mes.mapper"></property>
+          <property name="basePackage" value="com.cdc.mes.sys.mapper"></property>
           <!-- why need below attribute ? -->
           <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
       </bean>
@@ -78,7 +77,7 @@
    
    <aop:config>
        <!-- 配置一个切入点 -->
-       <aop:pointcut id="myBatisServiceMethods" expression="execution(* com.cy.ssm.service.impl.*ServiceImpl.*(..))" />
+       <aop:pointcut id="myBatisServiceMethods" expression="execution(* com.cdc.mes.sys.service.impl.*ServiceImpl.*(..))" />
        <aop:advisor advice-ref="myBatisTxAdvice" pointcut-ref="myBatisServiceMethods" />
    </aop:config>
    

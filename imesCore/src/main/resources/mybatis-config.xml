@@ -5,7 +5,7 @@
 
 	<!-- 实体类,简称 -设置别名 -->
 	<typeAliases>
-		<typeAlias alias="User" type="com.cdc.mes.model.User" />
+		<typeAlias alias="User" type="com.cdc.mes.sys.model.User" />
 	</typeAliases>
 	<!-- 实体接口映射资源 -->
 	<!--
