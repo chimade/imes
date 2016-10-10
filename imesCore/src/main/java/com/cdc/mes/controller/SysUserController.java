@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+  
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cdc.mes.model.User;
 import com.cdc.mes.service.UserService;
 
-/**
+/**xx
  * 用户的控制层
  * @框架唯一的升级和技术支持地址：http://shop111863449.taobao.com
  */
