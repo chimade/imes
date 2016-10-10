@@ -1,0 +1,20 @@
+package com.cdc.mes.mapper;
+
+import java.util.List;
+
+import com.cdc.mes.model.User;
+
+public interface UserMapper {
+
+	void save(User user);
+	
+	boolean update(User user);
+	
+	boolean delete(int id);
+	
+	User findById(int id);
+	
+	List<User> findAll();
+	
+	List<User> findUserBySearch (   User user );
+}
