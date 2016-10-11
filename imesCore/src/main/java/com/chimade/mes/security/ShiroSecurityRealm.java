@@ -1,4 +1,4 @@
-package com.cdc.mes.security;
+package com.chimade.mes.security;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;

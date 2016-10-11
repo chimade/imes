@@ -1,4 +1,4 @@
-package com.cdc.mes.sys.controller;
+package com.chimade.mes.sys.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cdc.mes.sys.model.PageExtjsGridData;
-import com.cdc.mes.sys.model.User;
-import com.cdc.mes.sys.service.UserService;
+import com.chimade.mes.sys.model.PageExtjsGridData;
+import com.chimade.mes.sys.model.User;
+import com.chimade.mes.sys.service.UserService;
 
  
 

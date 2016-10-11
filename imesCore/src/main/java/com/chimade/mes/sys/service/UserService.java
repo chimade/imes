@@ -1,8 +1,8 @@
-package com.cdc.mes.sys.service;
+package com.chimade.mes.sys.service;
 
 import java.util.List;
 
-import com.cdc.mes.sys.model.User;
+import com.chimade.mes.sys.model.User;
 
  
 

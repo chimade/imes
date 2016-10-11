@@ -47,9 +47,9 @@ var storeBaseUser = Ext.create('Ext.data.JsonStore', {
 		actionMethods : 'post',
         reader: { 
         	type: 'json',
-        	    root: 'data',
-            idProperty: 'id',
-            totalProperty: 'total'
+        	 root: 'gridDatas',
+        	 idProperty: 'id',
+            totalProperty: 'totalProperty'
         }
     },
 //    sorters: [{
@@ -73,9 +73,10 @@ Ext.define('KitchenSink.view.examples.forms.User', {
                'Ext.form.field.Text'
     ], 
     layout: {
-        type: 'vbox',
-        align: 'center',
-        pack: 'center'
+        type: 'hbox',
+//        align: 'center',
+        align: 'left',
+//        pack: 'center'
     },
     
     defaults: {
@@ -133,8 +134,11 @@ Ext.define('KitchenSink.view.examples.forms.User', {
        		                fieldLabel: 'User Name',
        		                anchor: '-5',
        		                name: 'userName'
-       		            }
-
+       		            },
+       		         {
+    		                xtype:'hiddenfield',
+    		                name: 'start'
+    		            }
        		            ]
        		        }, {
        		            items: [{
@@ -151,12 +155,12 @@ Ext.define('KitchenSink.view.examples.forms.User', {
                        	handler: function() {
 		                       		 var form = this.up('form').getForm();
 		                       		 var 	 user = form.getValues();
-		                       		 var userStr = Ext.encode(user);
 		                       		storeBaseUser.on('beforeload', function (store, options) {
 		                       			var new_params = user;
 		                       			Ext.apply(store.proxy.extraParams, user) ;
 		                       		}) ;
-		                       		storeBaseUser.load() ;
+		                       		storeBaseUser.currentPage=1 ;
+		                       		storeBaseUser.load( ) ;
                        	}
        		        }, {
        		            text: 'Reset',

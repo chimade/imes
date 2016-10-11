@@ -1,4 +1,4 @@
-package com.cdc.mes.security;
+package com.chimade.mes.security;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

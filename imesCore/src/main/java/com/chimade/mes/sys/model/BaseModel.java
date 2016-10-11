@@ -1,4 +1,4 @@
-package com.cdc.mes.sys.model;
+package com.chimade.mes.sys.model;
 
 public class BaseModel {
  

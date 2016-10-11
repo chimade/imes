@@ -1,8 +1,8 @@
-package com.cdc.mes.sys.mapper;
+package com.chimade.mes.sys.mapper;
 
 import java.util.List;
 
-import com.cdc.mes.sys.model.User;
+import com.chimade.mes.sys.model.User;
 
  
 

@@ -12,7 +12,7 @@
     <!-- Enable annotation configuration -->
 	<context:annotation-config />
 	<!-- Scan packages for Spring annotations -->
-	<context:component-scan base-package="com.cdc.mes" />
+	<context:component-scan base-package="com.chimade.mes" />
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver"/>
 		<property name="url" value="jdbc:postgresql://127.0.0.1:5432/imes" />
@@ -29,19 +29,19 @@
           <property name="dataSource" ref="dataSource"></property>
          <!-- 加载mybatis.cfg.xml文件 -->
           <property name="configLocation" value="classpath:mybatis-config.xml"></property>
-          <property name="mapperLocations"  value="classpath*:com/cdc/mes/sys/mapper/*Mapper.xml"></property>
+          <property name="mapperLocations"  value="classpath*:com/chimade/mes/sys/mapper/*Mapper.xml"></property>
 <!--           <property name="mapperLocations"> -->
 <!--           	<array> -->
 <!--           		<value>classpath:mapper/*.xml</value> -->
 <!--           	</array> -->
 <!--   	</property> -->
          <!-- 自动扫描需要定义类别名的包，将包内的JAVA类的类名作为类别名 -->
-        <property name="typeAliasesPackage" value="com.cdc.mes.sys.model"></property>
+        <property name="typeAliasesPackage" value="com.chimade.mes.sys.model"></property>
       </bean>
       
     <!-- 自动扫描所有的Mapper接口与文件 -->
       <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-          <property name="basePackage" value="com.cdc.mes.sys.mapper"></property>
+          <property name="basePackage" value="com.chimade.mes.sys.mapper"></property>
           <!-- why need below attribute ? -->
           <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
       </bean>
@@ -77,12 +77,12 @@
    
    <aop:config>
        <!-- 配置一个切入点 -->
-       <aop:pointcut id="myBatisServiceMethods" expression="execution(* com.cdc.mes.sys.service.impl.*ServiceImpl.*(..))" />
+       <aop:pointcut id="myBatisServiceMethods" expression="execution(* com.chimade.mes.sys.service.impl.*ServiceImpl.*(..))" />
        <aop:advisor advice-ref="myBatisTxAdvice" pointcut-ref="myBatisServiceMethods" />
    </aop:config>
    
    
-<!--    <bean id="shiroSecurityRealm"   class="com.cdc.mes.security.ShiroSecurityRealm" /> -->
+<!--    <bean id="shiroSecurityRealm"   class="com.chimade.mes.security.ShiroSecurityRealm" /> -->
    	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="shiroSecurityRealm" />
 	</bean>

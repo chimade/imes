@@ -1,4 +1,4 @@
-package com.cdc.mes.sys.service.impl;
+package com.chimade.mes.sys.service.impl;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cdc.mes.sys.mapper.UserMapper;
-import com.cdc.mes.sys.model.User;
-import com.cdc.mes.sys.service.UserService;
+import com.chimade.mes.sys.mapper.UserMapper;
+import com.chimade.mes.sys.model.User;
+import com.chimade.mes.sys.service.UserService;
  
 
 

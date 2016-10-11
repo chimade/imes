@@ -1,4 +1,4 @@
-package com.cdc.mes.web;
+package com.chimade.mes.web;
 
 import java.io.UnsupportedEncodingException;
 

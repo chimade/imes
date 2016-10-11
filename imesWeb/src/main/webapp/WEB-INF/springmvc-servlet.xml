@@ -15,7 +15,7 @@
 	
 	<mvc:resources location="/static/" mapping="/static/**"/>
 <!-- 		<mvc:resources location="/" mapping="/**"/> -->
-	<context:component-scan base-package="com.cdc.mes.sys.controller" />
+	<context:component-scan base-package="com.chimade.mes.sys.controller" />
 	
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
 	
