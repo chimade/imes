@@ -9,6 +9,7 @@ package com.chimade.mes.config.model;
  */
 public class LabelPrinter {
 	private int id;
+	private String code;
 	
 
 }
