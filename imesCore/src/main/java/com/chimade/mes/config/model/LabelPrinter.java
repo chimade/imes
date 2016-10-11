@@ -12,6 +12,7 @@ public class LabelPrinter {
 	private String code;
 	private String host;
 	private String port;
+	private String description;
 	
 
 }
