@@ -5,7 +5,7 @@ package com.chimade.mes.sys.model;
  * @author root
  *
  */
-public class User extends BaseModel {
+public class User extends PageableBaseModel {
 
 	private int id;
 	private String userName;

@@ -1,23 +1,33 @@
 package com.chimade.mes.sys.model;
 
+/**
+ * 
+ * @author tommy1860
+ *
+ */
+
 public class BaseModel {
- 
-	public int start  ;
-	public int limit  ;	
-	public int getStart() {
-		return start;
+
+	private int id;
+	private String code;
+
+	public int getId() {
+		return id;
 	}
-	public void setStart(int start) {
-		this.start = start;
+
+	public void setId(int id) {
+		this.id = id;
 	}
-	public int getLimit() {
-		return limit;
+
+	public String getCode() {
+		return code;
 	}
-	public void setLimit(int limit) {
-		this.limit = limit;
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 	@Override
 	public String toString() {
-		return "BaseModel [start=" + start + ", limit=" + limit + "]";
+		return "BaseModel [id=" + id + ", code=" + code + "]";
 	}
 }
