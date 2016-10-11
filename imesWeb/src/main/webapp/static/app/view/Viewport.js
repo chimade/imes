@@ -18,12 +18,11 @@ Ext.define('KitchenSink.view.Viewport', {
             region: 'center',
             
             layout: {
-                type : 'hbox',
+//                type : 'hbox',
                  align: 'stretch' ,
-//            	  type: 'border',
+            	  type: 'border',
             	  padding: 5
             },
-            
             items: [
                 {
                     width: 250,
@@ -31,18 +30,22 @@ Ext.define('KitchenSink.view.Viewport', {
                     xtype: 'exampleList',
                     split: true,
                     region: 'west',
-//                    collapsible: true,
+                    collapsible: true,
+                    title:'Menu'
 //                    titleCollapse : true 
                 },
                 
                 {
+                	   region: 'center',
+          
                     cls: 'x-example-panel',
                     flex: 1,
                     title: '&nbsp;',
                     id   : 'examplePanel',
                     layout: {
-                        type: 'vbox',
-                        align: 'center',
+                        type: 'fit',
+//                        type: 'vbox',
+//                        align: 'center',
                         pack: 'center'
                     },
                     overflowY: 'auto',
