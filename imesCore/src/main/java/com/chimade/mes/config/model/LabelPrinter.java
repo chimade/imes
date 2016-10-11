@@ -4,7 +4,7 @@
 package com.chimade.mes.config.model;
 
 /**
- * @author tommy_yin
+ * @author tommy1860
  *
  */
 public class LabelPrinter {
