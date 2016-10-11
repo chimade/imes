@@ -61,37 +61,39 @@ var storeBaseUser = Ext.create('Ext.data.JsonStore', {
 });
  
 Ext.define('KitchenSink.view.examples.forms.User', {
-    extend: 'KitchenSink.view.examples.Example',
+//    extend: 'KitchenSink.view.examples.Example',
 //    extend:  'Ext.grid.Panel',
 //    extend:  'Ext.panel.Panel',
-//    extend: 'Ext.Container',
+    extend: 'Ext.Container',
+    /*
     requires: [
                'Ext.layout.container.VBox',
                'Ext.form.Panel',
                'Ext.grid.Panel',
                'Ext.form.field.Checkbox',
                'Ext.form.field.Text'
-    ], 
+    ], */
     layout: {
-        type: 'hbox',
+//        type: 'hbox',
+    	type:'fit',
 //        align: 'center',
-        align: 'left',
+//        align: 'left',
 //        pack: 'center'
     },
     
-    defaults: {
-        defaults: {
-            width: 650,
-            height: 500,
+//    defaults: {
+//        defaults: {
+//            width: 650,
+//            height: 500,
 //            bodyPadding: 10,
-            autoScroll:  true,
+//            autoScroll:  true,
 //            margin: 10
-        },
-//        margin: '0 0 10 0'
-    }, 
+//        },
+//    }, 
     items: [
-
     {
+    	
+    	 margin: ' 0 0  0 10',
     	   xtype : 'gridpanel',
     	    store:  storeBaseUser , 
     	    columns: [
@@ -99,7 +101,7 @@ Ext.define('KitchenSink.view.examples.forms.User', {
          	        { text: 'Login Account', dataIndex: 'loginAccount', flex: 1 },
          	        { text: 'Id', dataIndex: 'id' ,hidden:false }
     	    ],
-    	    height: 400,
+//    	    height: 400,
 //    	    autoScroll : false ,
 //    	    width: 290,
     		   dockedItems: [ 
@@ -110,12 +112,14 @@ Ext.define('KitchenSink.view.examples.forms.User', {
 				    displayInfo: true
 				},
     		     {
+					
+    		     layout:'fit',
        		    xtype: 'toolbar',
        		    dock: 'top',
        		    items: {
        		    	xtype:'form',
        		       bodyStyle: 'padding:5px 5px 0',
-       		        width: 600,
+//       		        width: 600,
        		        fieldDefaults: {
        		            labelAlign: 'top',
        		            msgTarget: 'side'
@@ -172,7 +176,6 @@ Ext.define('KitchenSink.view.examples.forms.User', {
        		        {
        		            text: 'New',
        		            	handler: function() {
- 
        		            		var p =  this.up('gridpanel').up() ;
        		            		var constrainedWin = Ext.create('Ext.Window', {
        		            		    title: 'Add User',
@@ -180,15 +183,12 @@ Ext.define('KitchenSink.view.examples.forms.User', {
        		            		    height: 200,
        		            		    x: 300,
        		            		    y: 20,
-//       		            		    constrain: true,
-       		            		    constrainTo : p ,
+       		            		    constrain: true,
+       		            		    constrainTo : p.getEl(), 
        		            		    layout: 'fit',
        		            		    items: {
        		            		        xtype: 'form',
        		            		        layout: 'form',
-//       		            		        collapsible: true,
-//       		            		        id: 'simpleForm',
-//       		            		        url: 'save-form.php',
        		            		        frame: true,
 //       		            		        title: 'Simple Form',
        		            		        bodyPadding: '5 5 0',
