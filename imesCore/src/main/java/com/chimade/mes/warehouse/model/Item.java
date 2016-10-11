@@ -1,5 +1,7 @@
-package com.chimade.mes.wareshouse.model;
+package com.chimade.mes.warehouse.model;
 
-public class Item {
+import com.chimade.mes.sys.model.PageableBaseModel;
+
+public class Item extends PageableBaseModel{
 
 }
