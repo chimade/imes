@@ -42,7 +42,7 @@
             limit #{limit}   offset #{start}
         </if>
     </select>  
-    <select id="fetchUserNumberBySearch"  parameterType="User"  resultType="Integer">  
+    <select id="fetchTotalNumberForSearch"  parameterType="User"  resultType="Integer">  
         select  count(id)  from base_user   
         <where>  
               <if test="userName!=null and userName!='' ">  

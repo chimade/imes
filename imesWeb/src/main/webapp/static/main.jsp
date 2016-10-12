@@ -5,9 +5,9 @@
 <script>
 	var menuManagerTxt = "System Maintenance";
 </script>
-	    <link rel="stylesheet" type="text/css" href="resources/css/ext-all-debug.css" />
+<!-- 	    <link rel="stylesheet" type="text/css" href="resources/css/ext-all-debug.css" /> -->
 	    <link rel="stylesheet" type="text/css" href="resources/css/sink.css" />
-<!-- 	    <link rel="stylesheet" type="text/css" href="resources/css/ext-neptune.css" /> -->
+	    <link rel="stylesheet" type="text/css" href="resources/css/ext-neptune.css" />
 	    <!-- Ext JS -->
 	    <script type="text/javascript" src="js/ext-all.js"></script>
 <%-- 	

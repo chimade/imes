@@ -28,9 +28,15 @@ Ext.define('KitchenSink.controller.Main', {
     init: function() {
         this.control({
             'viewport exampleList': {
+            	//itemclick for support tabpanel
+//            	'itemclick' :function ( v,   record,  item,   index,  e,   eOpts ){
+//            		 this.setActiveExample(this.classNameFromRecord(record), record.raw['label']  );
+//            	},
+ 
                 'select': function(me, record, item, index, e) {
                     if (!record.isLeaf()) {
-                        return;
+                        return; 
+                      
                     }
                     this.setActiveExample(this.classNameFromRecord(record), record.raw['label']  );
 //                    this.setActiveExample(this.classNameFromRecord(record), record.get('text'));
@@ -73,11 +79,10 @@ Ext.define('KitchenSink.controller.Main', {
         if (!title) {
             title = className.split('.').reverse()[0];
         }
-        
         //update the title on the panel
 //        console.info( "set panel title:"+title);
 //        examplePanel.setTitle(title);
-        examplePanel.getHeader().hide();
+     
         //remember the className so we can load up this example next time
         location.hash = title.toLowerCase().replace(' ', '-');
 
@@ -85,12 +90,36 @@ Ext.define('KitchenSink.controller.Main', {
         document.title = document.title.split(' - ')[0] + ' - ' + title;
         
         //create the example
-//        console.info( className);
+ 
         example = Ext.create(className);
-        
+ 
         //remove all items from the example panel and add new example
         examplePanel.removeAll();
-        examplePanel.add(example);
+        examplePanel.add(      example )
+        
+        //for tabpanel
+        /*
+        var addFlag  =true ;
+        var tab = null ;
+        if ( examplePanel 	) {
+        	if ( examplePanel.items.items.length　)
+        	for( var k=0 ;k< examplePanel.items.items.length ; k++	) {
+        		if (  className == examplePanel.items.items[k].items.items[0] .__proto__ .$className) {
+        			addFlag = false ;
+        			tab=  examplePanel.items.items[k] ;
+        			break;
+        		}
+        	}
+        }  
+        if ( addFlag ) {
+        		examplePanel.add(      		{ items: example, closable: true 	}        	);
+        		examplePanel.setActiveTab(  examplePanel.items.items.length-1 );
+        }
+        else { 
+        	examplePanel.setActiveTab( tab );
+        }
+ */
+        examplePanel.getHeader().hide();
     },
     
     // Will be used for source file code

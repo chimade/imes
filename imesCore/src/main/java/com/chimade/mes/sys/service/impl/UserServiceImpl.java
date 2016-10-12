@@ -21,7 +21,6 @@ public class UserServiceImpl implements UserService {
 	private UserMapper mapper;
 
 	public boolean delete(int id) {
-		
 		return mapper.delete(id);
 	}
 
@@ -31,28 +30,23 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public User findById(int id) {
-
 		User user = mapper.findById(id);
-		
 		return user;
 	}
 
 	public void save(User user) {
-
 		mapper.save(user);
 	}
 
 	public boolean update(User user) {
-
 		return mapper.update(user);
 	}
 
-	public  int  fetchUserNumberBySearch (User user ) {
-		return mapper.fetchUserNumberBySearch(user).intValue();
+	public  int  fetchTotalNumberForSearch (User user ) {
+		return mapper.fetchTotalNumberForSearch(user).intValue();
 	}
 	
 	public List<User> findBySearch(User user) {
-		System.out.println(user.toString());
 		List<User> findAllList = mapper.findUserBySearch (user)  ;
 		return findAllList;
 	}

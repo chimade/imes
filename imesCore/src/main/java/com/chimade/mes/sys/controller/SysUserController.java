@@ -102,7 +102,7 @@ public class SysUserController  {
 		List<User> findAll = userService.findBySearch(  user );
 		PageExtjsGridData<User> pd = new  PageExtjsGridData<User>( ); 
 		pd.setGridDatas(findAll);
-		int total = userService.fetchUserNumberBySearch(user);
+		int total = userService.fetchTotalNumberForSearch(user);
 		pd.setTotalProperty(  total  );
 //		request.setAttribute("userList", findAll);
 		return pd ;

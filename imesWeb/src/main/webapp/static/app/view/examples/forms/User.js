@@ -65,6 +65,7 @@ Ext.define('KitchenSink.view.examples.forms.User', {
 //    extend:  'Ext.grid.Panel',
 //    extend:  'Ext.panel.Panel',
     extend: 'Ext.Container',
+    alias: 'user',
     /*
     requires: [
                'Ext.layout.container.VBox',
@@ -73,6 +74,7 @@ Ext.define('KitchenSink.view.examples.forms.User', {
                'Ext.form.field.Checkbox',
                'Ext.form.field.Text'
     ], */
+    title : '',
     layout: {
 //        type: 'hbox',
     	type:'fit',
