@@ -4,7 +4,7 @@ Ext.define('KitchenSink.controller.Main', {
     stores: [
         'Examples',
 //        'Companies',
-//        'Restaurants',
+        'Restaurants',
 //        'States',
 //        'TreeStore'
     ],
@@ -29,16 +29,18 @@ Ext.define('KitchenSink.controller.Main', {
         this.control({
             'viewport exampleList': {
             	//itemclick for support tabpanel
-//            	'itemclick' :function ( v,   record,  item,   index,  e,   eOpts ){
-//            		 this.setActiveExample(this.classNameFromRecord(record), record.raw['label']  );
-//            	},
+            	'itemclick' :function ( v,   record,  item,   index,  e,   eOpts ){
+                    if (!record.isLeaf()) {
+                        return; 
+                    }
+            		 this.setActiveExample(this.classNameFromRecord(record), record.raw['label']  );
+            	},
  
                 'select': function(me, record, item, index, e) {
                     if (!record.isLeaf()) {
                         return; 
-                      
                     }
-                    this.setActiveExample(this.classNameFromRecord(record), record.raw['label']  );
+                    this.setActiveExample(this.classNameFromRecord(record), record.raw['label']    );
 //                    this.setActiveExample(this.classNameFromRecord(record), record.get('text'));
                 },
                 afterrender: function(){
@@ -63,7 +65,6 @@ Ext.define('KitchenSink.controller.Main', {
 							record = exampleList.view.store.find('label', 'grouped header grid');
 //							record = exampleList.view.store.find('text', 'grouped header grid');
 						}
-//                        console.info( record);
                         if ( record !=-1) 
                         exampleList.view.select(record);
                     }, 0);
@@ -80,9 +81,7 @@ Ext.define('KitchenSink.controller.Main', {
             title = className.split('.').reverse()[0];
         }
         //update the title on the panel
-//        console.info( "set panel title:"+title);
 //        examplePanel.setTitle(title);
-     
         //remember the className so we can load up this example next time
         location.hash = title.toLowerCase().replace(' ', '-');
 
@@ -90,15 +89,15 @@ Ext.define('KitchenSink.controller.Main', {
         document.title = document.title.split(' - ')[0] + ' - ' + title;
         
         //create the example
- 
+// console.info( className);
         example = Ext.create(className);
  
         //remove all items from the example panel and add new example
-        examplePanel.removeAll();
-        examplePanel.add(      example )
+//        examplePanel.removeAll();
+//        examplePanel.add(      example )
         
         //for tabpanel
-        /*
+    
         var addFlag  =true ;
         var tab = null ;
         if ( examplePanel 	) {
@@ -111,14 +110,17 @@ Ext.define('KitchenSink.controller.Main', {
         		}
         	}
         }  
+      
         if ( addFlag ) {
-        		examplePanel.add(      		{ items: example, closable: true 	}        	);
+        		examplePanel.add(      		{ items: example, closable: true ,   header: false , title :title	}        	);
         		examplePanel.setActiveTab(  examplePanel.items.items.length-1 );
+        		examplePanel.getActiveTab( ).getHeader().hide();
         }
         else { 
         	examplePanel.setActiveTab( tab );
         }
- */
+ 
+        if ( examplePanel.getHeader() )
         examplePanel.getHeader().hide();
     },
     

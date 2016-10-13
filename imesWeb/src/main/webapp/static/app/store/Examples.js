@@ -5,6 +5,13 @@ Ext.define('KitchenSink.store.Examples', {
         expanded: true,
         label :'Root',
         children: [
+                   {
+                       text: 'Grids',label:'Grids',
+                       expanded: true,
+                       children: [
+                           { leaf: true, text: 'Basic Grid', label :'Basic Grid' },
+                       ]
+                   },
        /*     {
                 text: 'Panels',
                 expanded: true,

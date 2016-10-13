@@ -9,7 +9,7 @@ Ext.define('KitchenSink.view.List', {
 //        'KitchenSink.view.examples.forms.Contact',
 //        'KitchenSink.view.examples.forms.Login',
 //        'KitchenSink.view.examples.forms.Register',
-//        'KitchenSink.view.examples.grids.BasicGrid',
+        'KitchenSink.view.examples.grids.BasicGrid',
 //        'KitchenSink.view.examples.grids.GroupedGrid',
 //        'KitchenSink.view.examples.grids.GroupedHeaderGrid',
 //        'KitchenSink.view.examples.grids.LockedGrid',

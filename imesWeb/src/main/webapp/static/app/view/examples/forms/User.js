@@ -1,71 +1,88 @@
-Ext.define('BaseUser', {
-    extend: 'Ext.data.Model',
-    fields: [
-       {name: 'userName'},
-       {name: 'loginAccount'},
-       {name: 'id',      type: 'int',      defaultValue: undefined}
-    ]
-});
+Ext.define('KitchenSink.view.examples.forms.UserEdit' , 	{ 
+		    extend:  'Ext.Window',
+		    alias: 'chmade.UserEdit',
+		    actionUrl : '',
+		    constructor: function(config) {
+		    	actionUrl = config.actionUrl ;
+		    	config = Ext.apply({
+		    		width: 365,
+		    		height: 200,
+		    		x: 300,
+		    		y: 20,
+		    		constrain: true,
+    		    layout: 'fit',
+    		    items: {
+    		        xtype: 'form',
+    		        layout: 'form',
+    		        frame: true,
+    		        bodyPadding: '5 5 0',
+    		        width: 350,
+    		        fieldDefaults: {
+    		            msgTarget: 'side',
+    		            labelWidth: 105
+    		        },
+    		        defaultType: 'textfield',
+    		        items: [{
+    		            fieldLabel: 'User Name',
+    		            name: 'userName',
+    		            allowBlank: false
+    		        },{
+    		            fieldLabel: 'Login Account',
+    		            name: 'loginAccount',
+    		            allowBlank: false
+    		        } ,
+    		        {
+    		            name: 'id',
+    		            hidden:true
+    		        }
+    		        ],
 
-Ext.define('Ext.ux.data.proxy.JsonAjaxProxy', {
-	extend:'Ext.data.proxy.Ajax',
-	alias:'proxy.jsonajax',
-	actionMethods : {
-		create: "POST",
-		read: "POST",
-		update: "POST",
-		destroy: "POST"
-	},
-	buildRequest:function (operation) {
-		var request = this.callParent(arguments);
-	        // For documentation on jsonData see Ext.Ajax.request
-        	request.jsonData = request.params;
-        	request.params = {};
-	        return request;
-	},
-	/*
-	 * @override
-	 * Inherit docs. We don't apply any encoding here because
-	 * all of the direct requests go out as jsonData
-	 */
-	applyEncoding: function(value){
-		return value;
-	}
-});
-var storeBaseUser = Ext.create('Ext.data.JsonStore', {
-//	var storeBaseUser = Ext.create('Ext.data.Store', {
-//    autoDestroy: true,
-    model: 'BaseUser',
-    proxy: {
-    	  headers: { 
-    	        'Accept': 'application/json',
-    	        'Content-Type': 'application/json' 
-    	    },
-        type: 'jsonajax', 
-        url:'/imes/sys/sysuser/getUserBySearch',
-		method:'post',
-		actionMethods : 'post',
-        reader: { 
-        	type: 'json',
-        	 root: 'gridDatas',
-        	 idProperty: 'id',
-            totalProperty: 'totalProperty'
-        }
-    },
-//    sorters: [{
-//        property: 'userName',
-//        direction: 'ASC'
-//    }],
-    pageSize: 2,
-    autoLoad : true 
-});
+    		        buttons: [{
+    		            text: 'Save'
+    		         ,   handler: function() {
+    		                this.up('form').getForm().isValid();
+    		                var form = this.up('form').getForm();
+    		                user = form.getValues();
+    		                Ext.Ajax.request({
+    		                	url:  actionUrl ,
+    		                	method:'post',
+    		                	jsonData: user
+						     ,
+						     success:function(response){
+						    	 var txt=response.responseText;
+						     }
+    		                });
+    		            }
+    		        },{
+    		            text: 'Cancel'
+    		            , handler: function() {
+    		            	this.up('window').close();
+    		            }
+    		        }]
+    		    }
+    		} , config
+		    	  );
+		    	   this.callParent([config]);
+		    }
+		}
+) ;
  
 Ext.define('KitchenSink.view.examples.forms.User', {
 //    extend: 'KitchenSink.view.examples.Example',
 //    extend:  'Ext.grid.Panel',
-//    extend:  'Ext.panel.Panel',
-    extend: 'Ext.Container',
-    alias: 'user',
+    extend:  'Ext.panel.Panel',
+//    extend: 'Ext.Container',
+    alias: 'chmade.sysUser',
+    header: false,
+    storeBaseUser : undefined ,
+//    initComponent: function() {
+    beforeRender: function() {
+        var me = this;
+        me.callParent();
+     	storeBaseUser =  Ext.create('SysUserStore');
+    	 this.down('gridpanel') .reconfigure(  storeBaseUser );
+    	 this.down('pagingtoolbar') .bindStore(  storeBaseUser );
+    } ,
     /*
     requires: [
                'Ext.layout.container.VBox',
@@ -80,9 +97,9 @@ Ext.define('KitchenSink.view.examples.forms.User', {
     	type:'fit',
 //        align: 'center',
 //        align: 'left',
-//        pack: 'center'
+        pack: 'center'
     },
-    
+//    minHeight : 500,
 //    defaults: {
 //        defaults: {
 //            width: 650,
@@ -95,21 +112,17 @@ Ext.define('KitchenSink.view.examples.forms.User', {
     items: [
     {
     	
-    	 margin: ' 0 0  0 10',
-    	   xtype : 'gridpanel',
-    	    store:  storeBaseUser , 
+    	 	margin: ' 0 0  0 10',
+    	 	xtype : 'gridpanel',
+    	 	selModel  : Ext.create('Ext.selection.CheckboxModel'    ),
     	    columns: [
            	        { text: 'Name',  dataIndex: 'userName' },
          	        { text: 'Login Account', dataIndex: 'loginAccount', flex: 1 },
          	        { text: 'Id', dataIndex: 'id' ,hidden:false }
     	    ],
-//    	    height: 400,
-//    	    autoScroll : false ,
-//    	    width: 290,
     		   dockedItems: [ 
 				{
 				    xtype: 'pagingtoolbar',
-				    store: storeBaseUser,
 				    dock: 'bottom',
 				    displayInfo: true
 				},
@@ -121,7 +134,6 @@ Ext.define('KitchenSink.view.examples.forms.User', {
        		    items: {
        		    	xtype:'form',
        		       bodyStyle: 'padding:5px 5px 0',
-//       		        width: 600,
        		        fieldDefaults: {
        		            labelAlign: 'top',
        		            msgTarget: 'side'
@@ -153,7 +165,6 @@ Ext.define('KitchenSink.view.examples.forms.User', {
        		                anchor: '100%',
        		                name: 'loginAccount'
        		            }
-
        		            ]
        		        }],
        		        buttons: ['->', {
@@ -178,68 +189,35 @@ Ext.define('KitchenSink.view.examples.forms.User', {
        		        {
        		            text: 'New',
        		            	handler: function() {
-       		            		var p =  this.up('gridpanel').up() ;
-       		            		var constrainedWin = Ext.create('Ext.Window', {
-       		            		    title: 'Add User',
-       		            		    width: 365,
-       		            		    height: 200,
-       		            		    x: 300,
-       		            		    y: 20,
-       		            		    constrain: true,
-       		            		    constrainTo : p.getEl(), 
-       		            		    layout: 'fit',
-       		            		    items: {
-       		            		        xtype: 'form',
-       		            		        layout: 'form',
-       		            		        frame: true,
-//       		            		        title: 'Simple Form',
-       		            		        bodyPadding: '5 5 0',
-       		            		        width: 350,
-       		            		        fieldDefaults: {
-       		            		            msgTarget: 'side',
-       		            		            labelWidth: 105
-       		            		        },
-       		            		        defaultType: 'textfield',
-       		            		        items: [{
-       		            		            fieldLabel: 'User Name',
-       		            		            afterLabelTextTpl: true,
-       		            		            name: 'userName',
-       		            		            allowBlank: false
-       		            		        },{
-       		            		            fieldLabel: 'Login Account',
-       		            		            afterLabelTextTpl: true,
-       		            		            name: 'loginAccount',
-       		            		            allowBlank: false
-       		            		        } ],
-
-       		            		        buttons: [{
-       		            		            text: 'Save',
-       		            		            handler: function() {
-       		            		                this.up('form').getForm().isValid();
-       		            		                var form = this.up('form').getForm();
-       		            		                user = form.getValues();
-       		            		                console.info(   user );
-       		            		                Ext.Ajax.request({
-       		            		                	url:'/imes/sys/sysuser/addUser',
-       		            		                	method:'post',
-       		            		                	jsonData: user
-       		      						     ,
-       		      						     success:function(response){
-       		      						    	 var txt=response.responseText;
-//       		      						    	 console.info( txt);
-       		      						     }
-       		            		                });
-       		            		            }
-       		            		        },{
-       		            		            text: 'Cancel',
-       		            		            handler: function() {
-       		            		            	constrainedWin.close();
-       		            		            }
-       		            		        }]
-       		            		    }
-       		            		});
+       		            		var p =  this.up('gridpanel').up().up() ;
+       		            		var   constrainedWin = Ext.create(  'chmade.UserEdit', { title:'Add User', constrainTo : p.getEl() ,actionUrl:  '/imes/sys/sysuser/addUser' } );
        		            		constrainedWin.show();
        	                	}
+       		        },{
+       		 
+        		            text: 'Edit',
+        		            	handler: function() {
+        		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ; 
+        		            		if  ( selModel.length == 1 ) {
+            		            		var p =  this.up('gridpanel').up().up() ;
+            		            		var   constrainedWin = Ext.create(  'chmade.UserEdit', { title:'Edit User', constrainTo : p.getEl() ,actionUrl:  '/imes/sys/sysuser/userEdit' } );
+            		            		constrainedWin.down('form').getForm().loadRecord( selModel[0]  );
+            		            		constrainedWin.show();
+        		            		} else {
+        		            			 alert("please select  one record  to edit ");
+        		            		}
+        		            	}
+       		        },{
+        		            text: 'Delete',
+        		            	handler: function() {
+        		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ;
+        		            		var ids = "";
+        		            		for(var k=0 ;k<selModel.length ;k++){
+        		            			ids = ids+ selModel[k].data.id +",";
+        		            		}
+        		            		alert("delete ids:"+ids);
+        		            		 this.up('gridpanel').getStore().load();
+        		            	}
        		        }
        		        ]
        		    }

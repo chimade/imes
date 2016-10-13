@@ -41,10 +41,10 @@ Ext.define('KitchenSink.view.Viewport', {
                 
                 {
                 	   region: 'center',
-//                	   xtype:'tabpanel',
+                	   xtype:'tabpanel',
                     cls: 'x-example-panel',
                     flex: 1,
-                    title: '&nbsp;',
+//                    title: '&nbsp;',
                     id   : 'examplePanel',
                     layout: {
                         type: 'fit',

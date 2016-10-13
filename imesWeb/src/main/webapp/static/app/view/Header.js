@@ -7,6 +7,7 @@ Ext.define('KitchenSink.view.Header', {
     
     items: [
         {
+//            xtype: 'panel',
             xtype: 'component',
             cls  : 'x-logo',
             html : 'Welcome Mini MES'

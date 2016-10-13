@@ -5,11 +5,15 @@
 <script>
 	var menuManagerTxt = "System Maintenance";
 </script>
-<!-- 	    <link rel="stylesheet" type="text/css" href="resources/css/ext-all-debug.css" /> -->
+	    <link rel="stylesheet" type="text/css" href="resources/css/ext-all-debug.css" />
 	    <link rel="stylesheet" type="text/css" href="resources/css/sink.css" />
-	    <link rel="stylesheet" type="text/css" href="resources/css/ext-neptune.css" />
+<!-- 	    <link rel="stylesheet" type="text/css" href="resources/css/ext-neptune.css" /> -->
 	    <!-- Ext JS -->
 	    <script type="text/javascript" src="js/ext-all.js"></script>
+	    <script type="text/javascript" src="js/chmade-util.js"></script>
+	      
+	      <script type="text/javascript" src="app/view/examples/Example.js"></script>
+	    <script type="text/javascript" src="app/store/Examples.js"></script>
 <%-- 	
 	    	    <script type="text/javascript" src="app/view/examples/trees/BasicTree.js"></script>
 
@@ -22,7 +26,7 @@
 <script type="text/javascript" src="app/view/examples/grids/GroupedHeaderGrid.js"></script>
 <script type="text/javascript" src="app/view/examples/grids/GroupedGrid.js"></script>
 <script type="text/javascript" src="app/view/examples/grids/LockedGrid.js"></script>
-<script type="text/javascript" src="app/view/examples/grids/BasicGrid.js"></script>
+
 <script type="text/javascript" src="app/view/examples/toolbars/DockedToolbar.js"></script>
 <script type="text/javascript" src="app/view/examples/toolbars/BasicToolbar.js"></script>
 
@@ -33,7 +37,13 @@
 
 
    --%>
-   <script type="text/javascript" src="app/view/examples/Example.js"></script>
+   <script type="text/javascript" src="app/model/Restaurant.js"></script>
+   <script type="text/javascript" src="app/store/Restaurants.js"></script>
+   <script type="text/javascript" src="app/view/examples/grids/BasicGrid.js"></script>
+   
+     <script type="text/javascript" src="app/model/SysUser.js"></script>
+   <script type="text/javascript" src="app/store/SysUserStore.js"></script> 
+
 <!--    <script type="text/javascript" src="app/view/examples/PanelExample.js"></script> -->
 <script type="text/javascript" src="app/store/States.js"></script>
 <script type="text/javascript" src="app/view/examples/forms/Register.js"></script>
@@ -41,10 +51,10 @@
  <script type="text/javascript" src="app/view/examples/forms/Login.js"></script>
  <script type="text/javascript" src="app/view/examples/forms/User.js"></script>
 <!--  <script type="text/javascript" src="app/store/TreeStore.js"></script> -->
-<script type="text/javascript" src="app/store/Examples.js"></script>
-<!-- <script type="text/javascript" src="app/store/Restaurants.js"></script> -->
+
+
 <!-- <script type="text/javascript" src="app/store/Companies.js"></script> -->
-<!-- <script type="text/javascript" src="app/model/Restaurant.js"></script> -->
+
    <script type="text/javascript" src="app/view/List.js"></script>
    <script type="text/javascript" src="app/view/Header.js"></script>
    <script type="text/javascript" src="app/view/Viewport.js"></script>
