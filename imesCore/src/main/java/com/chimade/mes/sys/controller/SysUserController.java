@@ -125,7 +125,7 @@ public class SysUserController  {
 //	@RequestMapping("/role")
 //	public String role(HttpServletRequest request, HttpServletResponse response) throws IOException {
 //		return "back/systemmanage/role";
-//	}
+//	}sysuser
 //
 //	@RequestMapping("/department")
 //	public String department(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -237,6 +237,7 @@ public class SysUserController  {
 //		return "back/chartandreport/charts";
 //	}
 //
+	/*
 	@RequestMapping("/callError404")
 	public String callError404(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		return "redirect:/sys/sysuser/error404";
@@ -267,5 +268,5 @@ public class SysUserController  {
 		return "back/unauthorized";
 	}
  
-
+*/
 }

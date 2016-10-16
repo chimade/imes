@@ -14,7 +14,7 @@ public interface BaseMapper<T> {
 	
 	List<T> findAll();
 	
-	List<T> findUserBySearch (   T t );
+	List<T> findBySearch (   T t );
 	
 	Integer  fetchTotalNumberForSearch (   T  t );
 	
