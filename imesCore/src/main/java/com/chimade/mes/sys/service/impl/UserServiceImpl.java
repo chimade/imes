@@ -34,8 +34,14 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
-	public void save(User user) {
-		mapper.save(user);
+	public boolean save(User user) {
+		boolean f=true ;
+		try {
+			mapper.save(user);
+		}catch(Exception e) {
+			f = false ;
+		}
+		return f ;
 	}
 
 	public boolean update(User user) {
@@ -47,7 +53,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public List<User> findBySearch(User user) {
-		List<User> findAllList = mapper.findUserBySearch (user)  ;
+		List<User> findAllList = mapper.findBySearch (user)  ;
 		return findAllList;
 	}
 	

@@ -82,11 +82,12 @@
    </aop:config>
    
    
-<!--    <bean id="shiroSecurityRealm"   class="com.chimade.mes.security.ShiroSecurityRealm" /> -->
+   <bean id="shiroSecurityRealm"   class="com.chimade.mes.security.ShiroSecurityRealm" />
    	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="shiroSecurityRealm" />
 	</bean>
     
+     
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/login.jsp"/>
@@ -101,6 +102,7 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
+            	/** = anon
             	/static/** = anon
             	/index.jsp = anon
             	/login.jsp = anon
@@ -108,12 +110,13 @@
 <!--             	/sys/sysuser/register = anon -->
 <!--             	/sys/sysuser/retrievePassword = anon -->
 <!--             	/client/face = anon -->
+ 
             	/sys/sysuser/logout = logout
-            	/** = authc
+<!--             	/** = authc -->
             </value>
         </property>
     </bean>
-    
+     
     <!-- Post processor that automatically invokes init() and destroy() methods -->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 </beans>

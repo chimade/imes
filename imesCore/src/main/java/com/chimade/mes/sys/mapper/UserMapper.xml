@@ -28,7 +28,7 @@
 	</select>
 	
 	 
-	  <select id="findUserBySearch"  parameterType="User" resultType="User">  
+	  <select id="findBySearch"  parameterType="User" resultType="User">  
         select   id,user_name userName ,login_account loginAccount ,password  from base_user   
         <where>  
               <if test="userName!=null and userName!='' ">  

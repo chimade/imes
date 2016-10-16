@@ -6,14 +6,14 @@ Ext.define('SysUserStore', {
 
     constructor: function(config) {
         config = Ext.apply({
-        model: 'model.SysUser',
+        model: 'model.SysUserModel',
         proxy: {
         	  headers: { 
         	        'Accept': 'application/json',
         	        'Content-Type': 'application/json' 
         	    },
             type: 'jsonajax', 
-            url:'/imes/sys/sysuser/getUserBySearch',
+            url:'/imes/sys//user/users',
     		method:'post',
     		actionMethods : 'post',
             reader: { 
