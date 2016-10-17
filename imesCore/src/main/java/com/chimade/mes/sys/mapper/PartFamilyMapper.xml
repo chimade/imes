@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chimade.mes.sys.mapper.PartFamilyMapper">
+	<insert id="save"   parameterType="PartFamily">
+	INSERT INTO part_family(code,name,description ) VALUES (#{code},#{name},#{description})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+	DELETE FROM part_family WHERE id=#{id}
+	</delete>
+
+	<update id="update" parameterType="PartFamily">
+	UPDATE part_family SET code=#{code},name=#{name},description=#{description} WHERE id=#{id}
+	</update>
+
+	<select id="findById" parameterType="int" resultType="PartFamily">
+ SELECT id,code,name,description FROM part_family  WHERE id=#{id} 
+	</select>
+
+	<select id="findAll"  resultType="PartFamily">
+	SELECT id,code,name,description FROM part_family  
+	</select>
+
+	<select id="findBySearch" parameterType="PartFamily" resultType="PartFamily">
+ 	SELECT id,code,name,description FROM part_family    
+	<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="code!=null and code!='' "> 
+			and code LIKE CONCAT('%', CONCAT(#{code}, '%'))
+	 		</if>  
+			<if test="name!=null and name!='' "> 
+			and name LIKE CONCAT('%', CONCAT(#{name}, '%'))
+	 		</if>  
+			<if test="description!=null and description!='' "> 
+			and description LIKE CONCAT('%', CONCAT(#{description}, '%'))
+	 		</if>  
+	</where>
+ 	<if test="start>-1 and limit>-1">
+ 	  limit #{limit}   offset #{start}  	 </if> 
+	</select>
+
+ 	<select id="fetchTotalNumberForSearch"  parameterType="PartFamily"  resultType="Integer">
+ 	SELECT      count(id)      FROM part_family    
+	<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="code!=null and code!='' "> 
+			and code LIKE CONCAT('%', CONCAT(#{code}, '%'))
+	 		</if>  
+			<if test="name!=null and name!='' "> 
+			and name LIKE CONCAT('%', CONCAT(#{name}, '%'))
+	 		</if>  
+			<if test="description!=null and description!='' "> 
+			and description LIKE CONCAT('%', CONCAT(#{description}, '%'))
+	 		</if>  
+	</where>
+	</select>
+
+</mapper>

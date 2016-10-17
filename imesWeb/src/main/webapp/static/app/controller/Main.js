@@ -65,8 +65,9 @@ Ext.define('KitchenSink.controller.Main', {
 							record = exampleList.view.store.find('label', 'grouped header grid');
 //							record = exampleList.view.store.find('text', 'grouped header grid');
 						}
-                        if ( record !=-1) 
-                        exampleList.view.select(record);
+                        if ( record !=-1) {
+                        		exampleList.view.select(record);
+                        }
                     }, 0);
                 }
             }
@@ -89,7 +90,7 @@ Ext.define('KitchenSink.controller.Main', {
         document.title = document.title.split(' - ')[0] + ' - ' + title;
         
         //create the example
-// console.info( className);
+ console.info( className);
         example = Ext.create(className);
  
         //remove all items from the example panel and add new example

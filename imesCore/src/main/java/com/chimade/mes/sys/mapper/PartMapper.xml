@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chimade.mes.sys.mapper.PartMapper">
+	<insert id="save"   parameterType="Part">
+	INSERT INTO part(code,description,revision,length,width,height,weight,graphic,label_data,model_code,model_description,customer_code,part_family_id ) VALUES (#{code},#{description},#{revision},#{length},#{width},#{height},#{weight},#{graphic},#{labelData},#{modelCode},#{modelDescription},#{customerCode},#{partFamilyId})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+	DELETE FROM part WHERE id=#{id}
+	</delete>
+
+	<update id="update" parameterType="Part">
+	UPDATE part SET code=#{code},description=#{description},revision=#{revision},length=#{length},width=#{width},height=#{height},weight=#{weight},graphic=#{graphic},label_data=#{labelData},model_code=#{modelCode},model_description=#{modelDescription},customer_code=#{customerCode},part_family_id=#{partFamilyId} WHERE id=#{id}
+	</update>
+
+	<select id="findById" parameterType="int" resultType="Part">
+ SELECT id,code,description,revision,length,width,height,weight,graphic,label_data  labelData,model_code  modelCode,model_description  modelDescription,customer_code  customerCode,part_family_id  partFamilyId FROM part  WHERE id=#{id} 
+	</select>
+
+	<select id="findAll"  resultType="Part">
+	SELECT id,code,description,revision,length,width,height,weight,graphic,label_data  labelData,model_code  modelCode,model_description  modelDescription,customer_code  customerCode,part_family_id  partFamilyId FROM part  
+	</select>
+
+	<select id="findBySearch" parameterType="Part" resultType="Part">
+ 	SELECT id,code,description,revision,length,width,height,weight,graphic,label_data  labelData,model_code  modelCode,model_description  modelDescription,customer_code  customerCode,part_family_id  partFamilyId FROM part    
+	<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="code!=null and code!='' "> 
+			and code LIKE CONCAT('%', CONCAT(#{code}, '%'))
+	 		</if>  
+			<if test="description!=null and description!='' "> 
+			and description LIKE CONCAT('%', CONCAT(#{description}, '%'))
+	 		</if>  
+			<if test="revision!=null and revision!='' "> 
+			and revision LIKE CONCAT('%', CONCAT(#{revision}, '%'))
+	 		</if>  
+			<if test="length!=null and length!='' "> 
+			and length LIKE CONCAT('%', CONCAT(#{length}, '%'))
+	 		</if>  
+			<if test="width!=null and width!='' "> 
+			and width LIKE CONCAT('%', CONCAT(#{width}, '%'))
+	 		</if>  
+			<if test="height!=null and height!='' "> 
+			and height LIKE CONCAT('%', CONCAT(#{height}, '%'))
+	 		</if>  
+			<if test="weight!=null and weight!='' "> 
+			and weight LIKE CONCAT('%', CONCAT(#{weight}, '%'))
+	 		</if>  
+			<if test="graphic!=null and graphic!='' "> 
+			and graphic LIKE CONCAT('%', CONCAT(#{graphic}, '%'))
+	 		</if>  
+			<if test="labelData!=null and labelData!='' "> 
+			and label_data LIKE CONCAT('%', CONCAT(#{labelData}, '%'))
+	 		</if>  
+			<if test="modelCode!=null and modelCode!='' "> 
+			and model_code LIKE CONCAT('%', CONCAT(#{modelCode}, '%'))
+	 		</if>  
+			<if test="modelDescription!=null and modelDescription!='' "> 
+			and model_description LIKE CONCAT('%', CONCAT(#{modelDescription}, '%'))
+	 		</if>  
+			<if test="customerCode!=null and customerCode!='' "> 
+			and customer_code LIKE CONCAT('%', CONCAT(#{customerCode}, '%'))
+	 		</if>  
+			<if test="partFamilyId!=null and partFamilyId!='' "> 
+			and part_family_id LIKE CONCAT('%', CONCAT(#{partFamilyId}, '%'))
+	 		</if>  
+	</where>
+ 	<if test="start>-1 and limit>-1">
+ 	  limit #{limit}   offset #{start}  	 </if> 
+	</select>
+
+ 	<select id="fetchTotalNumberForSearch"  parameterType="Part"  resultType="Integer">
+ 	SELECT      count(id)      FROM part    
+	<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="code!=null and code!='' "> 
+			and code LIKE CONCAT('%', CONCAT(#{code}, '%'))
+	 		</if>  
+			<if test="description!=null and description!='' "> 
+			and description LIKE CONCAT('%', CONCAT(#{description}, '%'))
+	 		</if>  
+			<if test="revision!=null and revision!='' "> 
+			and revision LIKE CONCAT('%', CONCAT(#{revision}, '%'))
+	 		</if>  
+			<if test="length!=null and length!='' "> 
+			and length LIKE CONCAT('%', CONCAT(#{length}, '%'))
+	 		</if>  
+			<if test="width!=null and width!='' "> 
+			and width LIKE CONCAT('%', CONCAT(#{width}, '%'))
+	 		</if>  
+			<if test="height!=null and height!='' "> 
+			and height LIKE CONCAT('%', CONCAT(#{height}, '%'))
+	 		</if>  
+			<if test="weight!=null and weight!='' "> 
+			and weight LIKE CONCAT('%', CONCAT(#{weight}, '%'))
+	 		</if>  
+			<if test="graphic!=null and graphic!='' "> 
+			and graphic LIKE CONCAT('%', CONCAT(#{graphic}, '%'))
+	 		</if>  
+			<if test="labelData!=null and labelData!='' "> 
+			and label_data LIKE CONCAT('%', CONCAT(#{labelData}, '%'))
+	 		</if>  
+			<if test="modelCode!=null and modelCode!='' "> 
+			and model_code LIKE CONCAT('%', CONCAT(#{modelCode}, '%'))
+	 		</if>  
+			<if test="modelDescription!=null and modelDescription!='' "> 
+			and model_description LIKE CONCAT('%', CONCAT(#{modelDescription}, '%'))
+	 		</if>  
+			<if test="customerCode!=null and customerCode!='' "> 
+			and customer_code LIKE CONCAT('%', CONCAT(#{customerCode}, '%'))
+	 		</if>  
+			<if test="partFamilyId!=null and partFamilyId!='' "> 
+			and part_family_id LIKE CONCAT('%', CONCAT(#{partFamilyId}, '%'))
+	 		</if>  
+	</where>
+	</select>
+
+</mapper>

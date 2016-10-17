@@ -14,6 +14,17 @@
 	      
 	      <script type="text/javascript" src="app/view/examples/Example.js"></script>
 	    <script type="text/javascript" src="app/store/Examples.js"></script>
+	    
+	    
+	    <%-- below is projectt --%>
+	      <script type="text/javascript" src="app/store/SysCompanyStore.js"></script>
+	       <script type="text/javascript" src="app/model/SysCompanyModel.js"></script>
+	       <script type="text/javascript" src="app/view/examples/forms/Company.js"></script>
+	       
+	       	 <script type="text/javascript" src="app/store/SysFactoryStore.js"></script>
+	       <script type="text/javascript" src="app/model/SysFactoryModel.js"></script>
+	       <script type="text/javascript" src="app/view/examples/forms/Factory.js"></script>
+	       
 <%-- 	
 	    	    <script type="text/javascript" src="app/view/examples/trees/BasicTree.js"></script>
 
@@ -41,7 +52,7 @@
    <script type="text/javascript" src="app/store/Restaurants.js"></script>
    <script type="text/javascript" src="app/view/examples/grids/BasicGrid.js"></script>
    
-     <script type="text/javascript" src="app/model/SysUser.js"></script>
+     <script type="text/javascript" src="app/model/SysUserModel.js"></script>
    <script type="text/javascript" src="app/store/SysUserStore.js"></script> 
 
 <!--    <script type="text/javascript" src="app/view/examples/PanelExample.js"></script> -->

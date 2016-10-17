@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chimade.mes.sys.mapper.ShopfloorMapper">
+	<insert id="save"   parameterType="Shopfloor">
+	INSERT INTO shopfloor(code,name,factory_id ) VALUES (#{code},#{name},#{factoryId})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+	DELETE FROM shopfloor WHERE id=#{id}
+	</delete>
+
+	<update id="update" parameterType="Shopfloor">
+	UPDATE shopfloor SET code=#{code},name=#{name},factory_id=#{factoryId} WHERE id=#{id}
+	</update>
+
+	<select id="findById" parameterType="int" resultType="Shopfloor">
+ SELECT id,code,name,factory_id  factoryId FROM shopfloor  WHERE id=#{id} 
+	</select>
+
+	<select id="findAll"  resultType="Shopfloor">
+	SELECT id,code,name,factory_id  factoryId FROM shopfloor  
+	</select>
+
+	<select id="findBySearch" parameterType="Shopfloor" resultType="Shopfloor">
+ 	SELECT id,code,name,factory_id  factoryId FROM shopfloor    
+	<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="code!=null and code!='' "> 
+			and code LIKE CONCAT('%', CONCAT(#{code}, '%'))
+	 		</if>  
+			<if test="name!=null and name!='' "> 
+			and name LIKE CONCAT('%', CONCAT(#{name}, '%'))
+	 		</if>  
+			<if test="factoryId!=null and factoryId!='' "> 
+			and factory_id LIKE CONCAT('%', CONCAT(#{factoryId}, '%'))
+	 		</if>  
+	</where>
+ 	<if test="start>-1 and limit>-1">
+ 	  limit #{limit}   offset #{start}  	 </if> 
+	</select>
+
+ 	<select id="fetchTotalNumberForSearch"  parameterType="Shopfloor"  resultType="Integer">
+ 	SELECT      count(id)      FROM shopfloor    
+	<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="code!=null and code!='' "> 
+			and code LIKE CONCAT('%', CONCAT(#{code}, '%'))
+	 		</if>  
+			<if test="name!=null and name!='' "> 
+			and name LIKE CONCAT('%', CONCAT(#{name}, '%'))
+	 		</if>  
+			<if test="factoryId!=null and factoryId!='' "> 
+			and factory_id LIKE CONCAT('%', CONCAT(#{factoryId}, '%'))
+	 		</if>  
+	</where>
+	</select>
+
+</mapper>

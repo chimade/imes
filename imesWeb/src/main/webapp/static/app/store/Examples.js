@@ -64,6 +64,8 @@ Ext.define('KitchenSink.store.Examples', {
 //                    { leaf: true, text: 'Contact' },
                     { leaf: true, text: 'Register',label :'Register' },
                     { leaf: true, text: 'Add User',label :'User' },
+                    { leaf: true, text: '公司',label :'Company' },
+                    { leaf: true, text: '工厂',label :'Factory' },
 //                    { leaf: true, text: 'User Manager Maintenace',label :'UserManager' }
                 ]
             }

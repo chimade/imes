@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chimade.mes.sys.mapper.LabelDetailMapper">
+	<insert id="save"   parameterType="LabelDetail">
+	INSERT INTO label_detail(label_id,label_data1,lable_data2,label_data3,lable_data4,label_data5,lable_data6 ) VALUES (#{labelId},#{labelData1},#{lableData2},#{labelData3},#{lableData4},#{labelData5},#{lableData6})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+	DELETE FROM label_detail WHERE id=#{id}
+	</delete>
+
+	<update id="update" parameterType="LabelDetail">
+	UPDATE label_detail SET label_id=#{labelId},label_data1=#{labelData1},lable_data2=#{lableData2},label_data3=#{labelData3},lable_data4=#{lableData4},label_data5=#{labelData5},lable_data6=#{lableData6} WHERE id=#{id}
+	</update>
+
+	<select id="findById" parameterType="int" resultType="LabelDetail">
+ SELECT id,label_id  labelId,label_data1  labelData1,lable_data2  lableData2,label_data3  labelData3,lable_data4  lableData4,label_data5  labelData5,lable_data6  lableData6 FROM label_detail  WHERE id=#{id} 
+	</select>
+
+	<select id="findAll"  resultType="LabelDetail">
+	SELECT id,label_id  labelId,label_data1  labelData1,lable_data2  lableData2,label_data3  labelData3,lable_data4  lableData4,label_data5  labelData5,lable_data6  lableData6 FROM label_detail  
+	</select>
+
+	<select id="findBySearch" parameterType="LabelDetail" resultType="LabelDetail">
+ 	SELECT id,label_id  labelId,label_data1  labelData1,lable_data2  lableData2,label_data3  labelData3,lable_data4  lableData4,label_data5  labelData5,lable_data6  lableData6 FROM label_detail    
+	<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="labelId!=null and labelId!='' "> 
+			and label_id LIKE CONCAT('%', CONCAT(#{labelId}, '%'))
+	 		</if>  
+			<if test="labelData1!=null and labelData1!='' "> 
+			and label_data1 LIKE CONCAT('%', CONCAT(#{labelData1}, '%'))
+	 		</if>  
+			<if test="lableData2!=null and lableData2!='' "> 
+			and lable_data2 LIKE CONCAT('%', CONCAT(#{lableData2}, '%'))
+	 		</if>  
+			<if test="labelData3!=null and labelData3!='' "> 
+			and label_data3 LIKE CONCAT('%', CONCAT(#{labelData3}, '%'))
+	 		</if>  
+			<if test="lableData4!=null and lableData4!='' "> 
+			and lable_data4 LIKE CONCAT('%', CONCAT(#{lableData4}, '%'))
+	 		</if>  
+			<if test="labelData5!=null and labelData5!='' "> 
+			and label_data5 LIKE CONCAT('%', CONCAT(#{labelData5}, '%'))
+	 		</if>  
+			<if test="lableData6!=null and lableData6!='' "> 
+			and lable_data6 LIKE CONCAT('%', CONCAT(#{lableData6}, '%'))
+	 		</if>  
+	</where>
+ 	<if test="start>-1 and limit>-1">
+ 	  limit #{limit}   offset #{start}  	 </if> 
+	</select>
+
+ 	<select id="fetchTotalNumberForSearch"  parameterType="LabelDetail"  resultType="Integer">
+ 	SELECT      count(id)      FROM label_detail    
+	<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="labelId!=null and labelId!='' "> 
+			and label_id LIKE CONCAT('%', CONCAT(#{labelId}, '%'))
+	 		</if>  
+			<if test="labelData1!=null and labelData1!='' "> 
+			and label_data1 LIKE CONCAT('%', CONCAT(#{labelData1}, '%'))
+	 		</if>  
+			<if test="lableData2!=null and lableData2!='' "> 
+			and lable_data2 LIKE CONCAT('%', CONCAT(#{lableData2}, '%'))
+	 		</if>  
+			<if test="labelData3!=null and labelData3!='' "> 
+			and label_data3 LIKE CONCAT('%', CONCAT(#{labelData3}, '%'))
+	 		</if>  
+			<if test="lableData4!=null and lableData4!='' "> 
+			and lable_data4 LIKE CONCAT('%', CONCAT(#{lableData4}, '%'))
+	 		</if>  
+			<if test="labelData5!=null and labelData5!='' "> 
+			and label_data5 LIKE CONCAT('%', CONCAT(#{labelData5}, '%'))
+	 		</if>  
+			<if test="lableData6!=null and lableData6!='' "> 
+			and lable_data6 LIKE CONCAT('%', CONCAT(#{lableData6}, '%'))
+	 		</if>  
+	</where>
+	</select>
+
+</mapper>

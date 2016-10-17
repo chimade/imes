@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chimade.mes.sys.mapper.LabelMapper">
+	<insert id="save"   parameterType="Label">
+	INSERT INTO label(label_template_id,printed_copy,status,created_date ) VALUES (#{labelTemplateId},#{printedCopy},#{status},#{createdDate})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+	DELETE FROM label WHERE id=#{id}
+	</delete>
+
+	<update id="update" parameterType="Label">
+	UPDATE label SET label_template_id=#{labelTemplateId},printed_copy=#{printedCopy},status=#{status},created_date=#{createdDate} WHERE id=#{id}
+	</update>
+
+	<select id="findById" parameterType="int" resultType="Label">
+ SELECT id,label_template_id  labelTemplateId,printed_copy  printedCopy,status,created_date  createdDate FROM label  WHERE id=#{id} 
+	</select>
+
+	<select id="findAll"  resultType="Label">
+	SELECT id,label_template_id  labelTemplateId,printed_copy  printedCopy,status,created_date  createdDate FROM label  
+	</select>
+
+	<select id="findBySearch" parameterType="Label" resultType="Label">
+ 	SELECT id,label_template_id  labelTemplateId,printed_copy  printedCopy,status,created_date  createdDate FROM label    
+	<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="labelTemplateId!=null and labelTemplateId!='' "> 
+			and label_template_id LIKE CONCAT('%', CONCAT(#{labelTemplateId}, '%'))
+	 		</if>  
+			<if test="printedCopy!=null and printedCopy!='' "> 
+			and printed_copy LIKE CONCAT('%', CONCAT(#{printedCopy}, '%'))
+	 		</if>  
+			<if test="status!=null and status!='' "> 
+			and status LIKE CONCAT('%', CONCAT(#{status}, '%'))
+	 		</if>  
+			<if test="createdDate!=null and createdDate!='' "> 
+			and created_date LIKE CONCAT('%', CONCAT(#{createdDate}, '%'))
+	 		</if>  
+	</where>
+ 	<if test="start>-1 and limit>-1">
+ 	  limit #{limit}   offset #{start}  	 </if> 
+	</select>
+
+ 	<select id="fetchTotalNumberForSearch"  parameterType="Label"  resultType="Integer">
+ 	SELECT      count(id)      FROM label    
+	<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="labelTemplateId!=null and labelTemplateId!='' "> 
+			and label_template_id LIKE CONCAT('%', CONCAT(#{labelTemplateId}, '%'))
+	 		</if>  
+			<if test="printedCopy!=null and printedCopy!='' "> 
+			and printed_copy LIKE CONCAT('%', CONCAT(#{printedCopy}, '%'))
+	 		</if>  
+			<if test="status!=null and status!='' "> 
+			and status LIKE CONCAT('%', CONCAT(#{status}, '%'))
+	 		</if>  
+			<if test="createdDate!=null and createdDate!='' "> 
+			and created_date LIKE CONCAT('%', CONCAT(#{createdDate}, '%'))
+	 		</if>  
+	</where>
+	</select>
+
+</mapper>

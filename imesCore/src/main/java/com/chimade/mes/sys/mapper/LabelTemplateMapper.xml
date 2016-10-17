@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chimade.mes.sys.mapper.LabelTemplateMapper">
+	<insert id="save"   parameterType="LabelTemplate">
+	INSERT INTO label_template(code,name,template_file,description,label_field1,label_field2,label_field3,label_field4,label_field5,label_field6 ) VALUES (#{code},#{name},#{templateFile},#{description},#{labelField1},#{labelField2},#{labelField3},#{labelField4},#{labelField5},#{labelField6})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+	DELETE FROM label_template WHERE id=#{id}
+	</delete>
+
+	<update id="update" parameterType="LabelTemplate">
+	UPDATE label_template SET code=#{code},name=#{name},template_file=#{templateFile},description=#{description},label_field1=#{labelField1},label_field2=#{labelField2},label_field3=#{labelField3},label_field4=#{labelField4},label_field5=#{labelField5},label_field6=#{labelField6} WHERE id=#{id}
+	</update>
+
+	<select id="findById" parameterType="int" resultType="LabelTemplate">
+ SELECT id,code,name,template_file  templateFile,description,label_field1  labelField1,label_field2  labelField2,label_field3  labelField3,label_field4  labelField4,label_field5  labelField5,label_field6  labelField6 FROM label_template  WHERE id=#{id} 
+	</select>
+
+	<select id="findAll"  resultType="LabelTemplate">
+	SELECT id,code,name,template_file  templateFile,description,label_field1  labelField1,label_field2  labelField2,label_field3  labelField3,label_field4  labelField4,label_field5  labelField5,label_field6  labelField6 FROM label_template  
+	</select>
+
+	<select id="findBySearch" parameterType="LabelTemplate" resultType="LabelTemplate">
+ 	SELECT id,code,name,template_file  templateFile,description,label_field1  labelField1,label_field2  labelField2,label_field3  labelField3,label_field4  labelField4,label_field5  labelField5,label_field6  labelField6 FROM label_template    
+	<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="code!=null and code!='' "> 
+			and code LIKE CONCAT('%', CONCAT(#{code}, '%'))
+	 		</if>  
+			<if test="name!=null and name!='' "> 
+			and name LIKE CONCAT('%', CONCAT(#{name}, '%'))
+	 		</if>  
+			<if test="templateFile!=null and templateFile!='' "> 
+			and template_file LIKE CONCAT('%', CONCAT(#{templateFile}, '%'))
+	 		</if>  
+			<if test="description!=null and description!='' "> 
+			and description LIKE CONCAT('%', CONCAT(#{description}, '%'))
+	 		</if>  
+			<if test="labelField1!=null and labelField1!='' "> 
+			and label_field1 LIKE CONCAT('%', CONCAT(#{labelField1}, '%'))
+	 		</if>  
+			<if test="labelField2!=null and labelField2!='' "> 
+			and label_field2 LIKE CONCAT('%', CONCAT(#{labelField2}, '%'))
+	 		</if>  
+			<if test="labelField3!=null and labelField3!='' "> 
+			and label_field3 LIKE CONCAT('%', CONCAT(#{labelField3}, '%'))
+	 		</if>  
+			<if test="labelField4!=null and labelField4!='' "> 
+			and label_field4 LIKE CONCAT('%', CONCAT(#{labelField4}, '%'))
+	 		</if>  
+			<if test="labelField5!=null and labelField5!='' "> 
+			and label_field5 LIKE CONCAT('%', CONCAT(#{labelField5}, '%'))
+	 		</if>  
+			<if test="labelField6!=null and labelField6!='' "> 
+			and label_field6 LIKE CONCAT('%', CONCAT(#{labelField6}, '%'))
+	 		</if>  
+	</where>
+ 	<if test="start>-1 and limit>-1">
+ 	  limit #{limit}   offset #{start}  	 </if> 
+	</select>
+
+ 	<select id="fetchTotalNumberForSearch"  parameterType="LabelTemplate"  resultType="Integer">
+ 	SELECT      count(id)      FROM label_template    
+	<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="code!=null and code!='' "> 
+			and code LIKE CONCAT('%', CONCAT(#{code}, '%'))
+	 		</if>  
+			<if test="name!=null and name!='' "> 
+			and name LIKE CONCAT('%', CONCAT(#{name}, '%'))
+	 		</if>  
+			<if test="templateFile!=null and templateFile!='' "> 
+			and template_file LIKE CONCAT('%', CONCAT(#{templateFile}, '%'))
+	 		</if>  
+			<if test="description!=null and description!='' "> 
+			and description LIKE CONCAT('%', CONCAT(#{description}, '%'))
+	 		</if>  
+			<if test="labelField1!=null and labelField1!='' "> 
+			and label_field1 LIKE CONCAT('%', CONCAT(#{labelField1}, '%'))
+	 		</if>  
+			<if test="labelField2!=null and labelField2!='' "> 
+			and label_field2 LIKE CONCAT('%', CONCAT(#{labelField2}, '%'))
+	 		</if>  
+			<if test="labelField3!=null and labelField3!='' "> 
+			and label_field3 LIKE CONCAT('%', CONCAT(#{labelField3}, '%'))
+	 		</if>  
+			<if test="labelField4!=null and labelField4!='' "> 
+			and label_field4 LIKE CONCAT('%', CONCAT(#{labelField4}, '%'))
+	 		</if>  
+			<if test="labelField5!=null and labelField5!='' "> 
+			and label_field5 LIKE CONCAT('%', CONCAT(#{labelField5}, '%'))
+	 		</if>  
+			<if test="labelField6!=null and labelField6!='' "> 
+			and label_field6 LIKE CONCAT('%', CONCAT(#{labelField6}, '%'))
+	 		</if>  
+	</where>
+	</select>
+
+</mapper>

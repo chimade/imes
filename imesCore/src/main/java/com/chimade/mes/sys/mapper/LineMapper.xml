@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chimade.mes.sys.mapper.LineMapper">
+	<insert id="save"   parameterType="Line">
+	INSERT INTO line(shopfloor_id,code,name,revision,short_name,long_name,status,workorder_id,description,created_date ) VALUES (#{shopfloorId},#{code},#{name},#{revision},#{shortName},#{longName},#{status},#{workorderId},#{description},#{createdDate})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+	DELETE FROM line WHERE id=#{id}
+	</delete>
+
+	<update id="update" parameterType="Line">
+	UPDATE line SET shopfloor_id=#{shopfloorId},code=#{code},name=#{name},revision=#{revision},short_name=#{shortName},long_name=#{longName},status=#{status},workorder_id=#{workorderId},description=#{description},created_date=#{createdDate} WHERE id=#{id}
+	</update>
+
+	<select id="findById" parameterType="int" resultType="Line">
+ SELECT shopfloor_id  shopfloorId,id,code,name,revision,short_name  shortName,long_name  longName,status,workorder_id  workorderId,description,created_date  createdDate FROM line  WHERE id=#{id} 
+	</select>
+
+	<select id="findAll"  resultType="Line">
+	SELECT shopfloor_id  shopfloorId,id,code,name,revision,short_name  shortName,long_name  longName,status,workorder_id  workorderId,description,created_date  createdDate FROM line  
+	</select>
+
+	<select id="findBySearch" parameterType="Line" resultType="Line">
+ 	SELECT shopfloor_id  shopfloorId,id,code,name,revision,short_name  shortName,long_name  longName,status,workorder_id  workorderId,description,created_date  createdDate FROM line    
+	<where>
+			<if test="shopfloorId!=null and shopfloorId!='' "> 
+			and shopfloor_id LIKE CONCAT('%', CONCAT(#{shopfloorId}, '%'))
+	 		</if>  
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="code!=null and code!='' "> 
+			and code LIKE CONCAT('%', CONCAT(#{code}, '%'))
+	 		</if>  
+			<if test="name!=null and name!='' "> 
+			and name LIKE CONCAT('%', CONCAT(#{name}, '%'))
+	 		</if>  
+			<if test="revision!=null and revision!='' "> 
+			and revision LIKE CONCAT('%', CONCAT(#{revision}, '%'))
+	 		</if>  
+			<if test="shortName!=null and shortName!='' "> 
+			and short_name LIKE CONCAT('%', CONCAT(#{shortName}, '%'))
+	 		</if>  
+			<if test="longName!=null and longName!='' "> 
+			and long_name LIKE CONCAT('%', CONCAT(#{longName}, '%'))
+	 		</if>  
+			<if test="status!=null and status!='' "> 
+			and status LIKE CONCAT('%', CONCAT(#{status}, '%'))
+	 		</if>  
+			<if test="workorderId!=null and workorderId!='' "> 
+			and workorder_id LIKE CONCAT('%', CONCAT(#{workorderId}, '%'))
+	 		</if>  
+			<if test="description!=null and description!='' "> 
+			and description LIKE CONCAT('%', CONCAT(#{description}, '%'))
+	 		</if>  
+			<if test="createdDate!=null and createdDate!='' "> 
+			and created_date LIKE CONCAT('%', CONCAT(#{createdDate}, '%'))
+	 		</if>  
+	</where>
+ 	<if test="start>-1 and limit>-1">
+ 	  limit #{limit}   offset #{start}  	 </if> 
+	</select>
+
+ 	<select id="fetchTotalNumberForSearch"  parameterType="Line"  resultType="Integer">
+ 	SELECT      count(id)      FROM line    
+	<where>
+			<if test="shopfloorId!=null and shopfloorId!='' "> 
+			and shopfloor_id LIKE CONCAT('%', CONCAT(#{shopfloorId}, '%'))
+	 		</if>  
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="code!=null and code!='' "> 
+			and code LIKE CONCAT('%', CONCAT(#{code}, '%'))
+	 		</if>  
+			<if test="name!=null and name!='' "> 
+			and name LIKE CONCAT('%', CONCAT(#{name}, '%'))
+	 		</if>  
+			<if test="revision!=null and revision!='' "> 
+			and revision LIKE CONCAT('%', CONCAT(#{revision}, '%'))
+	 		</if>  
+			<if test="shortName!=null and shortName!='' "> 
+			and short_name LIKE CONCAT('%', CONCAT(#{shortName}, '%'))
+	 		</if>  
+			<if test="longName!=null and longName!='' "> 
+			and long_name LIKE CONCAT('%', CONCAT(#{longName}, '%'))
+	 		</if>  
+			<if test="status!=null and status!='' "> 
+			and status LIKE CONCAT('%', CONCAT(#{status}, '%'))
+	 		</if>  
+			<if test="workorderId!=null and workorderId!='' "> 
+			and workorder_id LIKE CONCAT('%', CONCAT(#{workorderId}, '%'))
+	 		</if>  
+			<if test="description!=null and description!='' "> 
+			and description LIKE CONCAT('%', CONCAT(#{description}, '%'))
+	 		</if>  
+			<if test="createdDate!=null and createdDate!='' "> 
+			and created_date LIKE CONCAT('%', CONCAT(#{createdDate}, '%'))
+	 		</if>  
+	</where>
+	</select>
+
+</mapper>
