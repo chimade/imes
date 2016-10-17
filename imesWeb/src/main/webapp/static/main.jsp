@@ -41,7 +41,7 @@
    <script type="text/javascript" src="app/store/Restaurants.js"></script>
    <script type="text/javascript" src="app/view/examples/grids/BasicGrid.js"></script>
    
-     <script type="text/javascript" src="app/model/SysUserModel.js"></script>
+     <script type="text/javascript" src="app/model/SysUser.js"></script>
    <script type="text/javascript" src="app/store/SysUserStore.js"></script> 
 
 <!--    <script type="text/javascript" src="app/view/examples/PanelExample.js"></script> -->

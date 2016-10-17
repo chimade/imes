@@ -1,9 +1,9 @@
 Ext.define('KitchenSink.view.examples.forms.UserEdit' , 	{ 
 		    extend:  'Ext.Window',
 		    alias: 'chmade.UserEdit',
-		    refreshStore : null ,
+		    actionUrl : '',
 		    constructor: function(config) {
-		    	refreshStore = config.refreshStore ;
+		    	actionUrl = config.actionUrl ;
 		    	config = Ext.apply({
 		    		width: 365,
 		    		height: 200,
@@ -30,8 +30,7 @@ Ext.define('KitchenSink.view.examples.forms.UserEdit' , 	{
     		            fieldLabel: 'Login Account',
     		            name: 'loginAccount',
     		            allowBlank: false
-    		        }
-    		        ,
+    		        } ,
     		        {
     		            name: 'id',
     		            hidden:true
@@ -41,24 +40,18 @@ Ext.define('KitchenSink.view.examples.forms.UserEdit' , 	{
     		        buttons: [{
     		            text: 'Save'
     		         ,   handler: function() {
-    		        	 
-    		        	 	var win = this.up('window');
     		                this.up('form').getForm().isValid();
     		                var form = this.up('form').getForm();
-    		                var userForm = form.getValues();
-    		                var userModel = Ext.create('model.SysUserModel',  userForm);
-    		                userModel.save({
-    		                	success: function(record ,response ) {
-    		                		var r = Ext.decode(response.response.responseText) ;
-    		                		if (r.resultFlag){
-    		                			refreshStore.load();
-    		                			win.close();
-    		                		}
-    		                 
-   		                	    }
-    		                	}
-    		                );
-    		  
+    		                user = form.getValues();
+    		                Ext.Ajax.request({
+    		                	url:  actionUrl ,
+    		                	method:'post',
+    		                	jsonData: user
+						     ,
+						     success:function(response){
+						    	 var txt=response.responseText;
+						     }
+    		                });
     		            }
     		        },{
     		            text: 'Cancel'
@@ -197,7 +190,7 @@ Ext.define('KitchenSink.view.examples.forms.User', {
        		            text: 'New',
        		            	handler: function() {
        		            		var p =  this.up('gridpanel').up().up() ;
-       		            		var   constrainedWin = Ext.create(  'chmade.UserEdit', { title:'Add User', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore() } );
+       		            		var   constrainedWin = Ext.create(  'chmade.UserEdit', { title:'Add User', constrainTo : p.getEl() ,actionUrl:  '/imes/sys/sysuser/addUser' } );
        		            		constrainedWin.show();
        	                	}
        		        },{
@@ -207,7 +200,7 @@ Ext.define('KitchenSink.view.examples.forms.User', {
         		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ; 
         		            		if  ( selModel.length == 1 ) {
             		            		var p =  this.up('gridpanel').up().up() ;
-            		            		var   constrainedWin = Ext.create(  'chmade.UserEdit', { title:'Edit User', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore()  } );
+            		            		var   constrainedWin = Ext.create(  'chmade.UserEdit', { title:'Edit User', constrainTo : p.getEl() ,actionUrl:  '/imes/sys/sysuser/userEdit' } );
             		            		constrainedWin.down('form').getForm().loadRecord( selModel[0]  );
             		            		constrainedWin.show();
         		            		} else {
@@ -221,14 +214,9 @@ Ext.define('KitchenSink.view.examples.forms.User', {
         		            		var ids = "";
         		            		for(var k=0 ;k<selModel.length ;k++){
         		            			ids = ids+ selModel[k].data.id +",";
-        		            			selModel[k].destroy({
-        		            			    success: function() {
-        		            			        console.log('The User was destroyed!');
-        		            			    }
-        		            			});
         		            		}
         		            		alert("delete ids:"+ids);
-        		            		this.up('gridpanel').getStore().load();
+        		            		 this.up('gridpanel').getStore().load();
         		            	}
        		        }
        		        ]
