@@ -104,7 +104,7 @@ Ext.define('KitchenSink.view.examples.forms.User', {
     	type:'fit',
 //        align: 'center',
 //        align: 'left',
-        pack: 'center'
+//        pack: 'center'
     },
 //    minHeight : 500,
 //    defaults: {
@@ -118,7 +118,8 @@ Ext.define('KitchenSink.view.examples.forms.User', {
 //    }, 
     items: [
     {
-    	
+//		  collapsible: true,
+//          collapseDirection: Ext.Component.DIRECTION_LEFT,
     	 	margin: ' 0 0  0 10',
     	 	xtype : 'gridpanel',
     	 	selModel  : Ext.create('Ext.selection.CheckboxModel'    ),
@@ -134,11 +135,12 @@ Ext.define('KitchenSink.view.examples.forms.User', {
 				    displayInfo: true
 				},
     		     {
-					
     		     layout:'fit',
        		    xtype: 'toolbar',
        		    dock: 'top',
        		    items: {
+       		    	titleCollapse :true,
+       		    	collapsible: true,
        		    	xtype:'form',
        		       bodyStyle: 'padding:5px 5px 0',
        		        fieldDefaults: {

@@ -5,6 +5,7 @@ Ext.define('KitchenSink.store.Examples', {
         expanded: true,
         label :'Root',
         children: [
+                   /*
                    {
                        text: 'Grids',label:'Grids',
                        expanded: true,
@@ -12,7 +13,7 @@ Ext.define('KitchenSink.store.Examples', {
                            { leaf: true, text: 'Basic Grid', label :'Basic Grid' },
                        ]
                    },
-       /*     {
+           {
                 text: 'Panels',
                 expanded: true,
                 children: [
@@ -66,9 +67,19 @@ Ext.define('KitchenSink.store.Examples', {
                     { leaf: true, text: 'Add User',label :'User' },
                     { leaf: true, text: '公司',label :'Company' },
                     { leaf: true, text: '工厂',label :'Factory' },
+                    { leaf: true, text: '条码',label :'Label' },
+                    { leaf: true, text: '条码详细',label :'LabelDetail' },
+                    { leaf: true, text: '标签模版',label :'LabelTemplate' },
+                    { leaf: true, text: '拉',label :'Line' },
+                    { leaf: true, text: '工位',label :'Location' },
+                    { leaf: true, text: '部件',label :'Part' },
+                    { leaf: true, text: '部件种类',label :'PartFamily' },
+                    { leaf: true, text: '打印',label :'Printer' },
+                    { leaf: true, text: '流程',label :'Process' },
+                    { leaf: true, text: '车间',label :'Shopfloor' }
 //                    { leaf: true, text: 'User Manager Maintenace',label :'UserManager' }
                 ]
-            }
+            }  
             /*,
             {
                 text: 'Toolbars',

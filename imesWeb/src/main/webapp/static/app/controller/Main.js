@@ -90,7 +90,7 @@ Ext.define('KitchenSink.controller.Main', {
         document.title = document.title.split(' - ')[0] + ' - ' + title;
         
         //create the example
- console.info( className);
+// console.info( className);
         example = Ext.create(className);
  
         //remove all items from the example panel and add new example
@@ -121,8 +121,9 @@ Ext.define('KitchenSink.controller.Main', {
         	examplePanel.setActiveTab( tab );
         }
  
-        if ( examplePanel.getHeader() )
-        examplePanel.getHeader().hide();
+        if ( examplePanel.getHeader() ){
+        	examplePanel.getHeader().hide();
+        }
     },
     
     // Will be used for source file code

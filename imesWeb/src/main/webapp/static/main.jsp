@@ -17,13 +17,42 @@
 	    
 	    
 	    <%-- below is projectt --%>
-	      <script type="text/javascript" src="app/store/SysCompanyStore.js"></script>
-	       <script type="text/javascript" src="app/model/SysCompanyModel.js"></script>
-	       <script type="text/javascript" src="app/view/examples/forms/Company.js"></script>
-	       
-	       	 <script type="text/javascript" src="app/store/SysFactoryStore.js"></script>
-	       <script type="text/javascript" src="app/model/SysFactoryModel.js"></script>
-	       <script type="text/javascript" src="app/view/examples/forms/Factory.js"></script>
+<script type="text/javascript" src="app/store/SysCompanyStore.js"></script>
+<script type="text/javascript" src="app/model/SysCompanyModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/Company.js"></script>
+<script type="text/javascript" src="app/store/SysFactoryStore.js"></script>
+<script type="text/javascript" src="app/model/SysFactoryModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/Factory.js"></script>
+<script type="text/javascript" src="app/store/SysLabelStore.js"></script>
+<script type="text/javascript" src="app/model/SysLabelModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/Label.js"></script>
+<script type="text/javascript" src="app/store/SysLabelDetailStore.js"></script>
+<script type="text/javascript" src="app/model/SysLabelDetailModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/LabelDetail.js"></script>
+<script type="text/javascript" src="app/store/SysLabelTemplateStore.js"></script>
+<script type="text/javascript" src="app/model/SysLabelTemplateModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/LabelTemplate.js"></script>
+<script type="text/javascript" src="app/store/SysLineStore.js"></script>
+<script type="text/javascript" src="app/model/SysLineModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/Line.js"></script>
+<script type="text/javascript" src="app/store/SysLocationStore.js"></script>
+<script type="text/javascript" src="app/model/SysLocationModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/Location.js"></script>
+<script type="text/javascript" src="app/store/SysPartStore.js"></script>
+<script type="text/javascript" src="app/model/SysPartModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/Part.js"></script>
+<script type="text/javascript" src="app/store/SysPartFamilyStore.js"></script>
+<script type="text/javascript" src="app/model/SysPartFamilyModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/PartFamily.js"></script>
+<script type="text/javascript" src="app/store/SysPrinterStore.js"></script>
+<script type="text/javascript" src="app/model/SysPrinterModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/Printer.js"></script>
+<script type="text/javascript" src="app/store/SysProcessStore.js"></script>
+<script type="text/javascript" src="app/model/SysProcessModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/Process.js"></script>
+<script type="text/javascript" src="app/store/SysShopfloorStore.js"></script>
+<script type="text/javascript" src="app/model/SysShopfloorModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/Shopfloor.js"></script>
 	       
 <%-- 	
 	    	    <script type="text/javascript" src="app/view/examples/trees/BasicTree.js"></script>

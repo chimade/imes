@@ -183,6 +183,8 @@ Ext.define('KitchenSink.view.examples.forms.Part', {
        		    xtype: 'toolbar',
        		    dock: 'top',
        		    items: {
+       		        titleCollapse :true,
+       		    	collapsible: true,
        		    	xtype:'form',
        		       bodyStyle: 'padding:5px 5px 0',
        		        fieldDefaults: {
