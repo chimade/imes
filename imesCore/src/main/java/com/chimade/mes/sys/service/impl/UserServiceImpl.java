@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +38,8 @@ public class UserServiceImpl implements UserService {
 	public boolean save(User user) {
 		boolean f=true ;
 		try {
+			if ( user.getPassword() !=null &&  !"".equals(  user.getPassword() ))
+				user.setPassword(new Sha256Hash(user.getPassword()).toHex());
 			mapper.save(user);
 		}catch(Exception e) {
 			f = false ;
@@ -45,6 +48,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean update(User user) {
+		if ( user.getPassword() !=null &&  !"".equals(  user.getPassword() ))
+			user.setPassword(new Sha256Hash(user.getPassword()).toHex());
 		return mapper.update(user);
 	}
 
@@ -55,6 +60,12 @@ public class UserServiceImpl implements UserService {
 	public List<User> findBySearch(User user) {
 		List<User> findAllList = mapper.findBySearch (user)  ;
 		return findAllList;
+	}
+
+ 
+	public User getUserByLoginAccount(String loginAccount) {
+		User user = mapper.findUserByLoginAccount( loginAccount );
+		return user;
 	}
 	
 	

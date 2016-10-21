@@ -5,24 +5,119 @@ response.setHeader(   "Content-Type"   ,   "text/html;charset=utf-8" );
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
-<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> -->
 <html>
 	<head>
-	    <title>Kitchen Sink</title>
+	    <title>CHIMADE</title>
 
-	    <!-- Ext JS -->
-	    <link rel="stylesheet" type="text/css" href="${contextPath}/static/css/ext-neptune.css" />
-	    <script type="text/javascript" src="${contextPath}/static/js/ext-all.js"></script>
-		<script type="text/javascript" src="${contextPath}/static/js/all-classes.js"></script>
-	    <script type="text/javascript" src="${contextPath}/static/js/ext-neptune.js"></script>
+	    <link rel="stylesheet" type="text/css" href="static/resources/css/ext-all-debug.css" />
+	    <link rel="stylesheet" type="text/css" href="static/resources/css/sink.css" />
+ 
+	    <script type="text/javascript" src="static/js/ext-all.js"></script>
+<!-- 	    <script type="text/javascript" src="static/js/chmade-util.js"></script> -->
+<%-- 	    <script type="text/javascript" src="${contextPath}/static/app/view/examples/forms/Login.js"></script> --%>
+	    <script>
 
-	    <!-- Example -->
-	    <link rel="stylesheet" type="text/css" href="${contextPath}/static/resources/css/sink.css" />
-
-    <!-- GC -->
-
-	    <script type="text/javascript" src="${contextPath}/static/app.js"></script>
+	             Ext.onReady(function() {
+	                 Ext.QuickTips.init();
+	                 
+// 	                 Ext.create('Ext.panel.Panel', {
+	 Ext.create('Ext.Viewport', {
+		    layout: {
+		        type: 'vbox',
+		        align: 'center',
+		        pack: 'center'
+		    },
+		    
+		    defaults: {
+		        width: 400,
+		        height: 295
+		    },
+	                     items:[
+	             /*               {
+	                                xtype: 'form',
+	                                bodyPadding: 5,
+	                                width: 350,
+	                                title: 'Login',
+	                                frame:true,
+	                                bodyPadding: 13,
+	                                height: null,
+	                                
+	                                defaultType: 'textfield',
+	                                defaults: { anchor: '100%' },
+	                                
+	                                items: [
+	                                    { allowBlank:false, fieldLabel: 'User ID', name: 'user', emptyText: 'user id' },
+	                                    { allowBlank:false, fieldLabel: 'Password', name: 'pass', emptyText: 'password', inputType: 'password' },
+	                                    { xtype:'checkbox', fieldLabel: 'Remember me', name: 'remember' }
+	                                ],
+	                                
+	                                buttons: [
+	                                    {text:'Register'},
+	                                    {text:'Login' , 
+	                                    	handler: function() {
+	                                            alert('You clicked the button!');
+	                                         
+	                                    }
+	                                    }
+	                                ]
+	                            }
+	                            ,
+	                            */
+	                            {
+	                                xtype: 'form',
+	                                bodyPadding: 5,
+	                                width: 350,
+	                                title: '登陆窗口',
+	                                frame:true,
+	                                bodyPadding: 13,
+	                                height: null,
+	                                defaultType: 'textfield',
+	                                defaults: { anchor: '100%' },
+	                                items: [{
+	                                    fieldLabel: '登陆账号',
+	                                    name: 'loginAccount',
+	                                    emptyText :  '系统登陆的账号 ',
+	                                    allowBlank: false
+	                                },{
+	                                    fieldLabel: '登陆密码',
+	                                    name: 'password',
+	                                    emptyText :  '系统登陆的密码 ',
+	                                    allowBlank: false
+	                                }],
+	                                buttons: [{
+	                                    text: '重置',
+	                                    handler: function() {
+	                                        this.up('form').getForm().reset();
+	                                    }
+	                                }, {
+	                                    text: '登陆',
+	                                    formBind: true, 
+	                                    disabled: true,
+	                                    handler: function() {
+	                                        var form = this.up('form').getForm();
+	                                        if (form.isValid()) {
+	                                            form.submit({
+	                                                success: function(form, action) {
+	                                                   Ext.Msg.alert('Success', action.result.msg);
+	                                                },
+	                                                failure: function(form, action) {
+	                                                    Ext.Msg.alert('Failed', action.result.msg);
+	                                                }
+	                                            });
+	                                        }
+	                                    }
+	                                }],
+	                            }
+	                          
+	                     ],
+	                	    renderTo: Ext.getBody()
+	                	});
+ 
+	           
+	             });
+	    </script>
 	</head>
 	
-	<body></body>
+	<body  class='x-panel-body-default-framed'></body>
+	<div>copy@right 2000-2017</div>
 </html>

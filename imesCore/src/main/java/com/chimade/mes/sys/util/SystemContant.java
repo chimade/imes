@@ -7,5 +7,8 @@ public class SystemContant {
 	public static String CONTROLLER_DELETE_FAILURE ="删除记录失败";
 	public static String CONTROLLER_UPDATE_SUCCESS ="成功更改记录";
 	public static String CONTROLLER_UPDATE_FAILURE ="更改记录失败";
-
+	public static String CONTROLLER_FIND_SUCCESS ="成功查找记录";
+	public static String CONTROLLER_FIND_FAILURE ="查找记录失败";
+	
+	public static final String SESSION_SYS_USER = "SESSION_SYS_USER";
 }

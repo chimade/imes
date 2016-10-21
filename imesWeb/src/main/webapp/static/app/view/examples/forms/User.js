@@ -13,25 +13,74 @@ Ext.define('KitchenSink.view.examples.forms.UserEdit' , 	{
     		    layout: 'fit',
     		    items: {
     		        xtype: 'form',
-    		        layout: 'form',
+//    		        layout: 'form',
     		        frame: true,
-    		        bodyPadding: '5 5 0',
+//    		        bodyPadding: '5 5 0',
     		        width: 350,
     		        fieldDefaults: {
     		            msgTarget: 'side',
     		            labelWidth: 105
     		        },
     		        defaultType: 'textfield',
-    		        items: [{
-    		            fieldLabel: 'User Name',
+    		        items: [
+    		         {
+    		            fieldLabel: '名字',
     		            name: 'userName',
+   		                blankText : '名字,不能为空',
     		            allowBlank: false
     		        },{
-    		            fieldLabel: 'Login Account',
+    		            fieldLabel: '账号',
+   		                blankText : '账号,不能为空',
     		            name: 'loginAccount',
+    		            listeners: {
+    		            	'blur' :function( component, event,  obj) {
+    		            		var  idFlag = this.up('form').getForm().findField('id').getValue() ;
+    		            		var oldEqualNew = true ;
+    		            		if ( idFlag != "" ) {
+  		            			  var rec  = refreshStore.findRecord('id',   this.up('form').getForm().findField('id').getValue() ) ;
+		            			  var old =rec.get("loginAccount");
+		            			  if (  old != component.getValue() )
+		            				  oldEqualNew = false ;
+    		            		}
+    		            		if (  this.up('form').getForm().findField('id').getValue() == "" || oldEqualNew == false  ) {
+	    		            		var url = '/imes/sys/user/'+component.getValue()  ;
+	    		            		Ext.Ajax.request({     
+	    		            		       url:  url ,  
+	    		            		        method: 'get',
+	    		            		        success: function(resp,opts) {  
+	    		            		        	var r =Ext.decode(  resp.responseText);
+	    		            		        	if ( r.resultFlag  ) {
+	    		            		        		component.markInvalid("重复的用户账号");
+	    		            		        	}
+	    		            		        },   
+	    		            	             failure: function(resp,opts) { }         		            		         
+	    		            		  });  
+    		            		}  
+    		            	}
+    		            } ,
+    		            allowBlank: false
+    		        },
+    		        {
+    		            fieldLabel: '密码',
+    		            minLength: 6,
+    		            maxLength: 30,
+    		            inputType: 'password',
+    		            name: 'password',
+   		                blankText : '密码,不能为空',
     		            allowBlank: false
     		        }
     		        ,
+    		        {
+    		        	
+    		          xtype: 'combo',
+ 		                blankText : '状态,不能为空',
+    		            fieldLabel: '状态',
+    		            name: 'status',
+    		            displayField: 'name',
+    		            valueField: 'key',
+    		            store  :{  xtype: 'store', fields:['name', 'key'] , data:[   {'name': '激活' , key: 1} ,{name:'禁止', key:0} ]  } ,
+    		            allowBlank: false
+    		        },
     		        {
     		            name: 'id',
     		            hidden:true
@@ -39,8 +88,10 @@ Ext.define('KitchenSink.view.examples.forms.UserEdit' , 	{
     		        ],
 
     		        buttons: [{
-    		            text: 'Save'
-    		         ,   handler: function() {
+    		            text: 'Save',
+                        formBind: true, 
+                        disabled: true,
+    		            handler: function() {
     		        	 
     		        	 	var win = this.up('window');
     		                this.up('form').getForm().isValid();
@@ -54,7 +105,6 @@ Ext.define('KitchenSink.view.examples.forms.UserEdit' , 	{
     		                			refreshStore.load();
     		                			win.close();
     		                		}
-    		                 
    		                	    }
     		                	}
     		                );
@@ -107,7 +157,7 @@ Ext.define('KitchenSink.view.examples.forms.User', {
 //        pack: 'center'
     },
 //    minHeight : 500,
-//    defaults: {
+//    defaults: {refreshStore.load();
 //        defaults: {
 //            width: 650,
 //            height: 500,
@@ -160,7 +210,7 @@ Ext.define('KitchenSink.view.examples.forms.User', {
        		            items: [{
        		                xtype:'textfield',
        		                fieldLabel: 'User Name',
-       		                anchor: '-5',
+//       		                anchor: '-5',
        		                name: 'userName'
        		            },
        		         {
@@ -179,7 +229,7 @@ Ext.define('KitchenSink.view.examples.forms.User', {
        		        }
        		        ],
        		        buttons: ['->', {
-       		            text: 'Search',
+       		            text: '查找',
                        	handler: function() {
 		                       		 var form = this.up('form').getForm();
 		                       		 var 	 user = form.getValues();
@@ -191,14 +241,14 @@ Ext.define('KitchenSink.view.examples.forms.User', {
 		                       		storeBaseUser.load( ) ;
                        	}
        		        }, {
-       		            text: 'Reset',
+       		            text: '重置',
        		            	handler: function() {
        	                		 var form = this.up('form').getForm();
        	                         form.reset();
        	                	}
        		        },
        		        {
-       		            text: 'New',
+       		            text: '新增',
        		            	handler: function() {
        		            		var p =  this.up('gridpanel').up().up() ;
        		            		var   constrainedWin = Ext.create(  'chmade.UserEdit', { title:'Add User', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore() } );
@@ -206,20 +256,25 @@ Ext.define('KitchenSink.view.examples.forms.User', {
        	                	}
        		        },{
        		 
-        		            text: 'Edit',
+        		            text: '编辑',
         		            	handler: function() {
         		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ; 
         		            		if  ( selModel.length == 1 ) {
             		            		var p =  this.up('gridpanel').up().up() ;
             		            		var   constrainedWin = Ext.create(  'chmade.UserEdit', { title:'Edit User', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore()  } );
-            		            		constrainedWin.down('form').getForm().loadRecord( selModel[0]  );
+            		            		constrainedWin.down('form').getForm().findField('password') .allowBlank = true ;
+//            		            		constrainedWin.down('form').getForm().findField('password') .blankText = '' ;
+//            		            		constrainedWin.down('form').getForm().findField('password') .wasValid =true ;
+            		             		constrainedWin.down('form').getForm().loadRecord( selModel[0]  );
+            		             		constrainedWin.down('form').getForm().findField('password') .setValue('');
+ 
             		            		constrainedWin.show();
         		            		} else {
         		            			 alert("please select  one record  to edit ");
         		            		}
         		            	}
        		        },{
-        		            text: 'Delete',
+        		            text: '删除',
         		            	handler: function() {
         		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ;
         		            		var ids = "";
@@ -231,7 +286,7 @@ Ext.define('KitchenSink.view.examples.forms.User', {
         		            			    }
         		            			});
         		            		}
-        		            		alert("delete ids:"+ids);
+//        		            		alert("delete ids:"+ids);
         		            		this.up('gridpanel').getStore().load();
         		            	}
        		        }

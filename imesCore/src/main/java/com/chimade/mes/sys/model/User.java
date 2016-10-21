@@ -7,15 +7,31 @@ package com.chimade.mes.sys.model;
  */
 public class User extends PageableBaseModel {
 
+	public static int ENABLED = 1 ;
+	
+	public static int DIS_ENABLED = 0 ;
+	
 	private int id;
 	private String userName;
 	private String password;
 	private String loginAccount;
+	/**
+	 *  1 enable , 0 disabled
+	 */
+	private int status;
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", userName=" + userName + ", password=" + password + ", loginAccount=" + loginAccount
-				+ "] " + super.toString();
+				+ ", status=" + status + "]";
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public int getId() {
@@ -54,11 +70,12 @@ public class User extends PageableBaseModel {
 		super();
 	}
 
-	public User(int id, String userName, String password, String loginAccount) {
+	public User(int id, String userName, String password, String loginAccount,int status) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
 		this.loginAccount = loginAccount;
+		this.status =status;
 	}
 }

@@ -6,12 +6,20 @@
 	id:必须与对应接口的某个对应的方法名一致
  -->
 <mapper namespace="com.chimade.mes.sys.mapper.UserMapper">
+	<sql id="userColumns">
+	 		 id,user_name userName ,login_account loginAccount ,password  , status 
+	</sql>
+
 	<insert id="save"   parameterType="User">
-		insert into base_user(user_name, password,login_account) values(#{userName},#{password},#{loginAccount})
+		insert into base_user(user_name, password,login_account ,status ) values(#{userName},#{password},#{loginAccount},#{status} )
 	</insert>
 	
 	<update id="update" parameterType="User">
-		update base_user  set user_name=#{userName},password=#{password} ,login_account=#{loginAccount} where id=#{id}
+		update base_user  set user_name=#{userName},
+           <if test="password!=null and  password!='' ">  
+					password=#{password} ,
+			</if>
+		login_account=#{loginAccount}, status=#{status}  where id=#{id}
 	</update>
 	
 	<delete id="delete" parameterType="int">
@@ -20,16 +28,20 @@
 	
 	 <!-- mybsits_config中配置的alias类别名,也可直接配置resultType为类路劲 -->  
 	<select id="findById" parameterType="int" resultType="User">
-		select id,user_name userName,password,login_account  loginAccount from base_user where id=#{id}
+		select <include refid="userColumns" />  from base_user where id=#{id}
+	</select>
+	
+	<select id="findUserByLoginAccount" 		parameterType="String"	 resultType="User">
+		select    <include refid="userColumns" />  from base_user where login_account=#{loginAccount}  limit 1
 	</select>
 	
 	<select id="findAll" resultType="User">
-		select  id,user_name userName ,login_account loginAccount ,password from base_user
+		select    <include refid="userColumns" />  from base_user
 	</select>
 	
 	 
 	  <select id="findBySearch"  parameterType="User" resultType="User">  
-        select   id,user_name userName ,login_account loginAccount ,password  from base_user   
+        select   <include refid="userColumns" />   from base_user   
         <where>  
               <if test="userName!=null and userName!='' ">  
                 and user_name LIKE CONCAT('%', CONCAT(#{userName}, '%')) 

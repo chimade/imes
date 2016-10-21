@@ -101,15 +101,17 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
-            	/static/** = anon
-            	/index.jsp = anon
-            	/login.jsp = anon
-            	/sys/sysuser/login = anon
+            	/** = anon
+<!--             	/static/** = anon -->
+<!--             	/index.jsp = anon -->
+<!--             	/login.jsp = anon -->
+<!--             	/sys/sysuser/login = anon -->
 <!--             	/sys/sysuser/register = anon -->
 <!--             	/sys/sysuser/retrievePassword = anon -->
 <!--             	/client/face = anon -->
-            	/sys/sysuser/logout = logout
-            	/** = authc
+ 
+<!--             	/sys/sysuser/logout = logout -->
+<!--             	/** = authc -->
             </value>
         </property>
     </bean>

@@ -57,16 +57,18 @@ Ext.define('KitchenSink.store.Examples', {
             },
             */ 
             {
-                text: 'System Admin',
+                text: '系统管理',
                 label : 'Forms',
                 expanded: true,
                 children: [
+                      { leaf: true, text: '公司',label :'Company' },
+                     { leaf: true, text: '工厂',label :'Factory' },
                     { leaf: true, text: 'Login' ,label:'Login'},
+                    
 //                    { leaf: true, text: 'Contact' },
                     { leaf: true, text: 'Register',label :'Register' },
-                    { leaf: true, text: 'Add User',label :'User' },
-                    { leaf: true, text: '公司',label :'Company' },
-                    { leaf: true, text: '工厂',label :'Factory' },
+                    { leaf: true, text: '用户管理',label :'User' },
+
                     { leaf: true, text: '条码',label :'Label' },
                     { leaf: true, text: '条码详细',label :'LabelDetail' },
                     { leaf: true, text: '标签模版',label :'LabelTemplate' },

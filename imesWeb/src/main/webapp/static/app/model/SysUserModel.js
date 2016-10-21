@@ -3,6 +3,8 @@ Ext.define('model.SysUserModel', {
     fields: [
        {name: 'userName'},
        {name: 'loginAccount'},
+       {name: 'password'},
+       {name: 'status'},
        {name: 'id',      type: 'int',      defaultValue: undefined}
     ]
 	,

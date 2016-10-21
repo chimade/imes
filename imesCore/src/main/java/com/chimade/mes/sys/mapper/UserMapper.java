@@ -6,6 +6,8 @@ import com.chimade.mes.sys.model.User;
 
 public interface UserMapper extends BaseMapper<User> {
 
+	User findUserByLoginAccount(String loginAccount);
+
 //	void save(User user);
 //	
 //	boolean update(User user);
