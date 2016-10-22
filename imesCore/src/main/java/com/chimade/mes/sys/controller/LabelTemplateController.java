@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.chimade.mes.sys.model.LabelTemplate;
 import com.chimade.mes.sys.model.PageExtjsGridData;
 import com.chimade.mes.sys.model.PageReturnMsgBean;
-import com.chimade.mes.sys.model.LabelTemplate;
 import com.chimade.mes.sys.service.LabelTemplateService;
 import com.chimade.mes.sys.util.SystemContant;
 
@@ -31,10 +31,11 @@ public class LabelTemplateController {
 	 
 	@RequestMapping(value = "/labelTemplate", method = { RequestMethod.POST})
 	public  @ResponseBody   PageReturnMsgBean addLabelTemplate(@RequestBody LabelTemplate labelTemplate,HttpServletRequest request){
-		boolean b = labelTemplateService.save(labelTemplate);
+		boolean b = labelTemplateService.save(labelTemplate); 
 		PageReturnMsgBean mb = new PageReturnMsgBean();
 		if ( b == true ){
 			mb.setResultFlag(true);
+			mb.setSuccess(true);
 			mb.setMsg(  SystemContant.CONTROLLER_ADD_SUCCESS );
 		} else {
 			mb.setMsg(  SystemContant.CONTROLLER_ADD_FAILURE );
@@ -48,6 +49,7 @@ public class LabelTemplateController {
 		PageReturnMsgBean mb = new PageReturnMsgBean();
 		if ( b == true ){
 			mb.setResultFlag(true);
+			mb.setSuccess(true);
 			mb.setMsg(  SystemContant.CONTROLLER_DELETE_SUCCESS );
 		} else {
 			mb.setMsg(  SystemContant.CONTROLLER_DELETE_FAILURE );
@@ -61,6 +63,7 @@ public class LabelTemplateController {
 		PageReturnMsgBean mb = new PageReturnMsgBean();
 		if ( b == true ){
 			mb.setResultFlag(true);
+			mb.setSuccess(true);
 			mb.setMsg(  SystemContant.CONTROLLER_UPDATE_SUCCESS );
 		} else {
 			mb.setMsg(  SystemContant.CONTROLLER_UPDATE_FAILURE );

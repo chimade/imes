@@ -3,6 +3,13 @@ package com.chimade.mes.sys.model;
 public class PageReturnMsgBean {
 	private String msg ;
 	private boolean resultFlag = false ;
+	private boolean success ; 
+	public boolean isSuccess() {
+		return success;
+	}
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
 	public String getMsg() {
 		return msg;
 	}

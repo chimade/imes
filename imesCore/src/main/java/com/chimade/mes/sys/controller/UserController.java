@@ -45,6 +45,7 @@ public class UserController {
 		PageReturnMsgBean mb = new PageReturnMsgBean();
 		if ( b == true ){
 			mb.setResultFlag(true);
+			mb.setSuccess(true);
 			mb.setMsg(  SystemContant.CONTROLLER_ADD_SUCCESS );
 		} else {
 			mb.setMsg(  SystemContant.CONTROLLER_ADD_FAILURE );
@@ -58,6 +59,7 @@ public class UserController {
 		PageReturnMsgBean mb = new PageReturnMsgBean();
 		if ( b == true ){
 			mb.setResultFlag(true);
+			mb.setSuccess(true);
 			mb.setMsg(  SystemContant.CONTROLLER_DELETE_SUCCESS );
 		} else {
 			mb.setMsg(  SystemContant.CONTROLLER_DELETE_FAILURE );
@@ -71,6 +73,7 @@ public class UserController {
 		PageReturnMsgBean mb = new PageReturnMsgBean();
 		if ( b == true ){
 			mb.setResultFlag(true);
+			mb.setSuccess(true);
 			mb.setMsg(  SystemContant.CONTROLLER_UPDATE_SUCCESS );
 		} else {
 			mb.setMsg(  SystemContant.CONTROLLER_UPDATE_FAILURE );
@@ -89,8 +92,12 @@ public class UserController {
 	}
 	 
 	@RequestMapping( value="/login",method = { RequestMethod.POST })
-	public  @ResponseBody   PageReturnMsgBean login(@RequestBody  User loginUser, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public  @ResponseBody   PageReturnMsgBean login(
+//			@RequestBody
+			User loginUser, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	
 		PageReturnMsgBean mb = new PageReturnMsgBean();
+		mb.setSuccess(false);
 		mb.setResultFlag(false);
 		if ( loginUser == null   ) {
 			mb.setMsg("请填写登陆表格");
@@ -111,6 +118,7 @@ public class UserController {
 //		sysUserService.update(sysUser);
 		request.getSession().setAttribute(SystemContant.SESSION_SYS_USER, sysUser);
 		mb.setResultFlag(true);
+		mb.setSuccess(true);
 		return mb;
  
 	}

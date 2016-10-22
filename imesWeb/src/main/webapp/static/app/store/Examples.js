@@ -61,15 +61,15 @@ Ext.define('KitchenSink.store.Examples', {
                 label : 'Forms',
                 expanded: true,
                 children: [
-                      { leaf: true, text: '公司',label :'Company' },
-                     { leaf: true, text: '工厂',label :'Factory' },
+                      { leaf: true, text: '公司管理',label :'Company' },
+                     { leaf: true, text: '工厂管理',label :'Factory' },
                     { leaf: true, text: 'Login' ,label:'Login'},
                     
 //                    { leaf: true, text: 'Contact' },
                     { leaf: true, text: 'Register',label :'Register' },
                     { leaf: true, text: '用户管理',label :'User' },
 
-                    { leaf: true, text: '条码',label :'Label' },
+                    { leaf: true, text: '条码管理',label :'Label' },
                     { leaf: true, text: '条码详细',label :'LabelDetail' },
                     { leaf: true, text: '标签模版',label :'LabelTemplate' },
                     { leaf: true, text: '拉',label :'Line' },
@@ -81,7 +81,19 @@ Ext.define('KitchenSink.store.Examples', {
                     { leaf: true, text: '车间',label :'Shopfloor' }
 //                    { leaf: true, text: 'User Manager Maintenace',label :'UserManager' }
                 ]
-            }  
+            } 
+            ,{
+            	
+            	text: '仓库管理' ,
+            		label: 'Grids',
+                expanded: true
+//                children: [
+//                    { leaf: true, text: 'Basic Grid' },
+//                    { leaf: true, text: 'Grouped Grid' },
+//                    { leaf: true, text: 'Locked Grid' },
+//                    { leaf: true, text: 'Grouped Header Grid' }
+//                ]
+            }
             /*,
             {
                 text: 'Toolbars',

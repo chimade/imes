@@ -15,7 +15,7 @@ Ext.define('KitchenSink.view.examples.forms.CompanyEdit' , 	{
     		        xtype: 'form',
     		        layout: 'form',
     		        frame: true,
-    		        bodyPadding: '5 5 0',
+//    		        bodyPadding: '5 5 0',
     		        width: 350,
     		        fieldDefaults: {
     		            msgTarget: 'side',
@@ -24,32 +24,32 @@ Ext.define('KitchenSink.view.examples.forms.CompanyEdit' , 	{
     		        defaultType: 'textfield',
     		        items: [
     		        			{
-			  fieldLabel:'code' ,
+			  fieldLabel:'编号' ,
 			  name:'code',
 			  allowBlank:false
 			}	,
 			{
-			  fieldLabel:'name' ,
+			  fieldLabel:'名字' ,
 			  name:'name',
 			  allowBlank:false
 			}	,
 			{
-			  fieldLabel:'address' ,
+			  fieldLabel:'地址' ,
 			  name:'address',
 			  allowBlank:false
 			}	,
 			{
-			  fieldLabel:'website' ,
+			  fieldLabel:'网址' ,
 			  name:'website',
 			  allowBlank:false
 			}	,
 			{
-			  fieldLabel:'telephone' ,
+			  fieldLabel:'电话' ,
 			  name:'telephone',
 			  allowBlank:false
 			}	,
 			{
-			  fieldLabel:'description' ,
+			  fieldLabel:'描述' ,
 			  name:'description',
 			  allowBlank:false
 			}
@@ -61,9 +61,8 @@ Ext.define('KitchenSink.view.examples.forms.CompanyEdit' , 	{
     		        ],
 
     		        buttons: [{
-    		            text: 'Save'
+    		            text: '保存'
     		         ,   handler: function() {
-    		        	 
     		        	 	var win = this.up('window');
     		                this.up('form').getForm().isValid();
     		                var form = this.up('form').getForm();
@@ -83,7 +82,7 @@ Ext.define('KitchenSink.view.examples.forms.CompanyEdit' , 	{
     		  
     		            }
     		        },{
-    		            text: 'Cancel'
+    		            text: '取消'
     		            , handler: function() {
     		            	this.up('window').close();
     		            }
@@ -121,13 +120,13 @@ Ext.define('KitchenSink.view.examples.forms.Company', {
     	 	xtype : 'gridpanel',
     	 	selModel  : Ext.create('Ext.selection.CheckboxModel'    ),
     	    columns: [
-    	    	{ text:'id' ,		dataIndex:'id' } ,
-		{ text:'code' ,		dataIndex:'code' } ,
-		{ text:'name' ,		dataIndex:'name' } ,
-		{ text:'address' ,		dataIndex:'address' } ,
-		{ text:'website' ,		dataIndex:'website' } ,
-		{ text:'telephone' ,		dataIndex:'telephone' } ,
-		{ text:'description' ,		dataIndex:'description' }
+    	    	{ text:'id' ,		dataIndex:'id'  ,hidden:true} ,
+		{ text:'编号' ,		dataIndex:'code' } ,
+		{ text:'名字' ,		dataIndex:'name' } ,
+		{ text:'地址' ,		dataIndex:'address' } ,
+		{ text:'网址' ,		dataIndex:'website' } ,
+		{ text:'电话' ,		dataIndex:'telephone' } ,
+		{ text:'描述' ,		dataIndex:'description' }
     	    ],
     		   dockedItems: [ 
 				{
@@ -163,24 +162,25 @@ Ext.define('KitchenSink.view.examples.forms.Company', {
 				{ 
     				  xtype:'textfield',
 				  fieldLabel:'id',
-				  name:'id'
+				  name:'id',
+				  hidden: true
 				} 
 				,
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'name',
+				  fieldLabel:'名字',
 				  name:'name'
 				} 
 				,
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'website',
+				  fieldLabel:'网址',
 				  name:'website'
 				} 
 				,
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'description',
+				  fieldLabel:'描述',
 				  name:'description'
 				} 
 				
@@ -190,19 +190,19 @@ Ext.define('KitchenSink.view.examples.forms.Company', {
 			  items: [ 
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'code',
+				  fieldLabel:'编码',
 				  name:'code'
 				} 
 				,
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'address',
+				  fieldLabel:'地址',
 				  name:'address'
 				} 
 				,
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'telephone',
+				  fieldLabel:'电话',
 				  name:'telephone'
 				} 
 				
@@ -210,7 +210,7 @@ Ext.define('KitchenSink.view.examples.forms.Company', {
  		       }
        		        ],
        		        buttons: ['->', {
-       		            text: 'Search',
+       		            text: '查找',
                        	handler: function() {
 		                       		 var form = this.up('form').getForm();
 		                       		 var 	 company = form.getValues();
@@ -223,14 +223,14 @@ Ext.define('KitchenSink.view.examples.forms.Company', {
 		                       		st.load( ) ;
                        	}
        		        }, {
-       		            text: 'Reset',
+       		            text: '重置',
        		            	handler: function() {
        	                		 var form = this.up('form').getForm();
        	                         form.reset();
        	                	}
        		        },
        		        {
-       		            text: 'New',
+       		            text: '新增',
        		            	handler: function() {
        		            		var p =  this.up('gridpanel').up().up() ;
        		            		var   constrainedWin = Ext.create(  'chmade.CompanyEdit', { title:'Add Company', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore() } );
@@ -238,7 +238,7 @@ Ext.define('KitchenSink.view.examples.forms.Company', {
        	                	}
        		        },{
        		 
-        		            text: 'Edit',
+        		            text: '编辑',
         		            	handler: function() {
         		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ; 
         		            		if  ( selModel.length == 1 ) {
@@ -251,20 +251,25 @@ Ext.define('KitchenSink.view.examples.forms.Company', {
         		            		}
         		            	}
        		        },{
-        		            text: 'Delete',
+        		            text: '删除',
         		            	handler: function() {
-        		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ;
-        		            		var ids = "";
-        		            		for(var k=0 ;k<selModel.length ;k++){
-        		            			ids = ids+ selModel[k].data.id +",";
-        		            			selModel[k].destroy({
-        		            			    success: function() {
-        		            			        console.log('The Company was destroyed!');
-        		            			    }
-        		            			});
+        		            		var gridPanel =  this.up('gridpanel') ;
+        		            		var selModel =  gridPanel.getSelectionModel().getSelection() ;
+        		            		if ( selModel.length && selModel.length> 0) { 
+//        		            		var ids = "";
+        		            		Ext.MessageBox.confirm('提示', '确认删除吗',  function(btn) { 
+        		            			 if ( btn =='yes'){
+        	        		            		for(var k=0 ;k<selModel.length ;k++){
+//        	        		            			ids = ids+ selModel[k].data.id +",";
+        	        		            			selModel[k].destroy({
+        	        		            			    success: function() {
+        	        		            			    }
+        	        		            			});
+        	        		            		}
+        	        		            		gridPanel.getStore().load();
+        		            			 }
+        		            		}); 
         		            		}
-        		            		alert("delete ids:"+ids);
-        		            		this.up('gridpanel').getStore().load();
         		            	}
        		        }
        		        ]

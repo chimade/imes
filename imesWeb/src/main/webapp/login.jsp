@@ -65,6 +65,7 @@ response.setHeader(   "Content-Type"   ,   "text/html;charset=utf-8" );
 	                            */
 	                            {
 	                                xtype: 'form',
+	                                url :'/imes/sys/login',
 	                                bodyPadding: 5,
 	                                width: 350,
 	                                title: '登陆窗口',
@@ -81,6 +82,9 @@ response.setHeader(   "Content-Type"   ,   "text/html;charset=utf-8" );
 	                                },{
 	                                    fieldLabel: '登陆密码',
 	                                    name: 'password',
+	                                    inputType: 'password',
+	                                    minLength: 6,
+	                                    maxLength: 30,
 	                                    emptyText :  '系统登陆的密码 ',
 	                                    allowBlank: false
 	                                }],
@@ -97,11 +101,14 @@ response.setHeader(   "Content-Type"   ,   "text/html;charset=utf-8" );
 	                                        var form = this.up('form').getForm();
 	                                        if (form.isValid()) {
 	                                            form.submit({
+	                                               method : 'POST',
 	                                                success: function(form, action) {
-	                                                   Ext.Msg.alert('Success', action.result.msg);
+	                                                	var r =Ext.decode(  action.response.responseText) ;
+	                                                	if ( r.resultFlag 	)
+	                                                		document.location.href =   "../imes/static/main.jsp";
 	                                                },
 	                                                failure: function(form, action) {
-	                                                    Ext.Msg.alert('Failed', action.result.msg);
+	                                                	 Ext.Msg.alert('失败', action.result ? action.result.msg : 'No response');
 	                                                }
 	                                            });
 	                                        }
