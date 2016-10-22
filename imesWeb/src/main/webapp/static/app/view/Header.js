@@ -27,15 +27,75 @@ Ext.define('KitchenSink.view.Header', {
 		{
 		xtype: 'component',
 		cls  : 'x-logo',
+  		style: {
+  			'font-size': '18px' ,'color': '#fff' ,'font-weight':'bold'
+        } ,
 		html : 'Welcome Mini MES'
 		}
 		,
       '->',
+		{ 
+			xtype:'combo' ,
+//		    fieldLabel: 'Choose State',
+			ui   : 'sencha',
+		    store:   {
+		        fields: ['abbr', 'name'],
+		        data : [
+		            {"abbr":"AL", "name":"Alabama"},
+		            {"abbr":"AK", "name":"Alaska"},
+		            {"abbr":"AZ", "name":"Arizona"}
+		        ]},
+		    queryMode: 'local',
+		    displayField: 'name',
+		    valueField: 'abbr',
+		    hideTrigger : true,
+		},
+ /*
 		{
   		xtype: 'component',
-  		cls  : 'x-logo',
-  		html : ' 切换 | 退出'
-  		}
+  		style: {
+  			'font-size': '18px' ,'color': '#fff' ,'font-weight':'bold'
+        } ,
+  		html : ' <div id="changeCompany" style="display:inline">切换</div>',
+  		listeners: {
+            render: function(component){
+ 
+            	component.getEl().on('click', function( e ){
+            		console.info("run here...");
+            		var  m =Ext.create('Ext.menu.Menu', {
+            		    width: 100,
+            		    plain: true,
+            		    floating: false, 
+            		    items: [{
+            		        text: 'plain item 1'
+            		    },{
+            		        text: 'plain item 2'
+            		    },{
+            		        text: 'plain item 3'
+            		    }]
+            		});
+            		m.show( this );
+                      });    
+              }
+        	}
+  		},
+  		*/
+  		'|',
+		{
+  	  		xtype: 'component',
+//  	  		cls  : 'x-logo',
+  	  		style: {
+  	  			'font-size': '18px' ,'color': '#fff' ,'font-weight':'bold'
+  	        } ,
+  	  		html : ' <div style="display:inline"> 退出</div>',
+  	  		listeners: {
+  	            render: function(component){
+  	            	component.getEl().on('click', function( e ){
+
+  	                      });    
+  	              }
+  	        	}
+  	  		}
 		]
 }
 

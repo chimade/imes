@@ -24,18 +24,19 @@ Ext.define('KitchenSink.view.examples.forms.FactoryEdit' , 	{
     		        defaultType: 'textfield',
     		        items: [
     		        			{
-			  fieldLabel:'code' ,
+			  fieldLabel:'编码' ,
 			  name:'code',
 			  allowBlank:false
 			}	,
 			{
-			  fieldLabel:'name' ,
+			  fieldLabel:'名字' ,
 			  name:'name',
 			  allowBlank:false
 			}	,
 			{
 			  fieldLabel:'company_id' ,
 			  name:'companyId',
+			  hidden: true ,
 			  allowBlank:false
 			}
     		        ,
@@ -46,7 +47,7 @@ Ext.define('KitchenSink.view.examples.forms.FactoryEdit' , 	{
     		        ],
 
     		        buttons: [{
-    		            text: 'Save'
+    		            text: '保存'
     		         ,   handler: function() {
     		        	 
     		        	 	var win = this.up('window');
@@ -68,7 +69,7 @@ Ext.define('KitchenSink.view.examples.forms.FactoryEdit' , 	{
     		  
     		            }
     		        },{
-    		            text: 'Cancel'
+    		            text: '取消'
     		            , handler: function() {
     		            	this.up('window').close();
     		            }
@@ -106,9 +107,9 @@ Ext.define('KitchenSink.view.examples.forms.Factory', {
     	 	xtype : 'gridpanel',
     	 	selModel  : Ext.create('Ext.selection.CheckboxModel'    ),
     	    columns: [
-    	    	{ text:'id' ,		dataIndex:'id' } ,
-		{ text:'code' ,		dataIndex:'code' } ,
-		{ text:'name' ,		dataIndex:'name' } ,
+    	    	{ text:'id' ,		dataIndex:'id' ,hidden:true } ,
+		{ text:'编码' ,		dataIndex:'code' } ,
+		{ text:'名字' ,		dataIndex:'name' } ,
 		{ text:'company_id' ,		dataIndex:'companyId' }
     	    ],
     		   dockedItems: [ 
@@ -145,12 +146,13 @@ Ext.define('KitchenSink.view.examples.forms.Factory', {
 				{ 
     				  xtype:'textfield',
 				  fieldLabel:'id',
-				  name:'id'
+				  name:'id',
+				  hidden:true
 				} 
 				,
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'name',
+				  fieldLabel:'名字',
 				  name:'name'
 				} 
 				
@@ -160,21 +162,36 @@ Ext.define('KitchenSink.view.examples.forms.Factory', {
 			  items: [ 
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'code',
+				  fieldLabel:'编码',
 				  name:'code'
 				} 
 				,
 				{ 
-    				  xtype:'textfield',
-				  fieldLabel:'company_id',
-				  name:'companyId'
+    				  xtype:'combo',
+    				 store:  Ext.create('SysCompanyStore') ,
+//    				  store :  {
+//    					     model: 'model.SysCompanyModel',
+//    					     proxy: {
+//    					         type: 'ajax',
+//    					         url: '/users.json',
+//    					         reader: {
+//    					             type: 'json',
+//    					             root: 'users'
+//    					         }
+//    					     },
+//    					     autoLoad: true
+//    					 },
+    				 displayField: 'name',
+    				    valueField: 'id',
+    				  fieldLabel:'公司',
+    				  name:'companyId'
 				} 
 				
  			]
  		       }
        		        ],
        		        buttons: ['->', {
-       		            text: 'Search',
+       		            text: '查询',
                        	handler: function() {
 		                       		 var form = this.up('form').getForm();
 		                       		 var 	 factory = form.getValues();
@@ -187,14 +204,14 @@ Ext.define('KitchenSink.view.examples.forms.Factory', {
 		                       		st.load( ) ;
                        	}
        		        }, {
-       		            text: 'Reset',
+       		            text: '重置',
        		            	handler: function() {
        	                		 var form = this.up('form').getForm();
        	                         form.reset();
        	                	}
        		        },
        		        {
-       		            text: 'New',
+       		            text: '新增',
        		            	handler: function() {
        		            		var p =  this.up('gridpanel').up().up() ;
        		            		var   constrainedWin = Ext.create(  'chmade.FactoryEdit', { title:'Add Factory', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore() } );
@@ -202,7 +219,7 @@ Ext.define('KitchenSink.view.examples.forms.Factory', {
        	                	}
        		        },{
        		 
-        		            text: 'Edit',
+        		            text: '编辑',
         		            	handler: function() {
         		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ; 
         		            		if  ( selModel.length == 1 ) {
@@ -215,20 +232,25 @@ Ext.define('KitchenSink.view.examples.forms.Factory', {
         		            		}
         		            	}
        		        },{
-        		            text: 'Delete',
+        		            text: '删除',
         		            	handler: function() {
-        		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ;
-        		            		var ids = "";
-        		            		for(var k=0 ;k<selModel.length ;k++){
-        		            			ids = ids+ selModel[k].data.id +",";
-        		            			selModel[k].destroy({
-        		            			    success: function() {
-        		            			        console.log('The Factory was destroyed!');
-        		            			    }
-        		            			});
+        		            		var gridPanel =  this.up('gridpanel') ;
+        		            		var selModel =  gridPanel.getSelectionModel().getSelection() ;
+        		            		if ( selModel.length && selModel.length> 0) { 
+//        		            		var ids = "";
+        		            		Ext.MessageBox.confirm('提示', '确认删除吗',  function(btn) { 
+        		            			 if ( btn =='yes'){
+        	        		            		for(var k=0 ;k<selModel.length ;k++){
+//        	        		            			ids = ids+ selModel[k].data.id +",";
+        	        		            			selModel[k].destroy({
+        	        		            			    success: function() {
+        	        		            			    }
+        	        		            			});
+        	        		            		}
+        	        		            		gridPanel.getStore().load();
+        		            			 }
+        		            		}); 
         		            		}
-        		            		alert("delete ids:"+ids);
-        		            		this.up('gridpanel').getStore().load();
         		            	}
        		        }
        		        ]

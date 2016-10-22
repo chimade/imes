@@ -25,7 +25,8 @@
  	SELECT id,code,name,company_id  companyId FROM factory    
 	<where>
 			<if test="id!=null and id!='' "> 
-			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+			and id =#{id}
+<!-- 			and id LIKE CONCAT('%', CONCAT(#{id}, '%')) -->
 	 		</if>  
 			<if test="code!=null and code!='' "> 
 			and code LIKE CONCAT('%', CONCAT(#{code}, '%'))
@@ -34,7 +35,8 @@
 			and name LIKE CONCAT('%', CONCAT(#{name}, '%'))
 	 		</if>  
 			<if test="companyId!=null and companyId!='' "> 
-			and company_id LIKE CONCAT('%', CONCAT(#{companyId}, '%'))
+<!-- 			and company_id LIKE CONCAT('%', CONCAT(#{companyId}, '%')) -->
+and company_id =#{companyId}
 	 		</if>  
 	</where>
  	<if test="start>-1 and limit>-1">
@@ -45,7 +47,8 @@
  	SELECT      count(id)      FROM factory    
 	<where>
 			<if test="id!=null and id!='' "> 
-			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+						and id =#{id}
+<!-- 			and id LIKE CONCAT('%', CONCAT(#{id}, '%')) -->
 	 		</if>  
 			<if test="code!=null and code!='' "> 
 			and code LIKE CONCAT('%', CONCAT(#{code}, '%'))
@@ -54,7 +57,8 @@
 			and name LIKE CONCAT('%', CONCAT(#{name}, '%'))
 	 		</if>  
 			<if test="companyId!=null and companyId!='' "> 
-			and company_id LIKE CONCAT('%', CONCAT(#{companyId}, '%'))
+<!-- 			and company_id LIKE CONCAT('%', CONCAT(#{companyId}, '%')) -->
+and company_id =#{companyId}
 	 		</if>  
 	</where>
 	</select>
