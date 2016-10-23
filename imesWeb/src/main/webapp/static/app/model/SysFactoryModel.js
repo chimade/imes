@@ -7,6 +7,7 @@ Ext.define('model.SysFactoryModel', {
 	{ name:'companyId' }
     ]
 	,
+//	 associations: { type: 'hasOne', model: 'model.SysCompanyModel' } ,
 	proxy: {
 	    type: 'rest',
 	    url:'/imes/sys/factory'

@@ -98,6 +98,9 @@ Ext.define('KitchenSink.view.examples.forms.UserEdit' , 	{
     		                var form = this.up('form').getForm();
     		                var userForm = form.getValues();
     		                var userModel = Ext.create('model.SysUserModel',  userForm);
+//    		                var validation = userModel.validate();  
+//    		                var isValid = userModel.isValid();  
+    		                return ;
     		                userModel.save({
     		                	success: function(record ,response ) {
     		                		var r = Ext.decode(response.response.responseText) ;

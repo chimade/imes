@@ -15,30 +15,33 @@ Ext.define('KitchenSink.view.examples.forms.FactoryEdit' , 	{
     		        xtype: 'form',
     		        layout: 'form',
     		        frame: true,
-    		        bodyPadding: '5 5 0',
+//    		        bodyPadding: '5 5 0',
     		        width: 350,
     		        fieldDefaults: {
     		            msgTarget: 'side',
-    		            labelWidth: 105
+//    		            labelWidth: 105
     		        },
     		        defaultType: 'textfield',
-    		        items: [
-    		        			{
-			  fieldLabel:'编码' ,
-			  name:'code',
-			  allowBlank:false
-			}	,
-			{
-			  fieldLabel:'名字' ,
-			  name:'name',
-			  allowBlank:false
-			}	,
-			{
-			  fieldLabel:'company_id' ,
-			  name:'companyId',
-			  hidden: true ,
-			  allowBlank:false
-			}
+    		        items: [  
+    		        {
+    		        	fieldLabel:'名字' ,
+    		        	name:'name',
+    		        	allowBlank:false
+    		        }	,
+    		        {
+    		        	fieldLabel:'编码' ,
+    		        	name:'code',
+    		        	allowBlank:false
+    		        }	,
+    		        {
+    		        	xtype:'combo',
+    		        	store:  Ext.create('SysCompanyStore') ,
+    		        	displayField: 'name',
+    		        	valueField: 'id',
+    		        	fieldLabel:'公司',
+    		        	allowBlank:false ,
+    		        	name:'companyId'
+    		        }
     		        ,
     		        {
     		            name: 'id',
@@ -110,7 +113,10 @@ Ext.define('KitchenSink.view.examples.forms.Factory', {
     	    	{ text:'id' ,		dataIndex:'id' ,hidden:true } ,
 		{ text:'编码' ,		dataIndex:'code' } ,
 		{ text:'名字' ,		dataIndex:'name' } ,
-		{ text:'company_id' ,		dataIndex:'companyId' }
+		{ text:'公司名字' ,		 renderer: function (value, meta, record) {   return record.raw.company.name; 	}   	},
+	 
+//		 {text: 'Department (Yrs)', xtype:'templatecolumn', tpl:'{company.name}'},
+		{ text:'company_id' ,		dataIndex:'companyId' ,hidden:true  }
     	    ],
     		   dockedItems: [ 
 				{
@@ -214,7 +220,7 @@ Ext.define('KitchenSink.view.examples.forms.Factory', {
        		            text: '新增',
        		            	handler: function() {
        		            		var p =  this.up('gridpanel').up().up() ;
-       		            		var   constrainedWin = Ext.create(  'chmade.FactoryEdit', { title:'Add Factory', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore() } );
+       		            		var   constrainedWin = Ext.create(  'chmade.FactoryEdit', { title:'新增工厂', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore() } );
        		            		constrainedWin.show();
        	                	}
        		        },{
@@ -224,11 +230,11 @@ Ext.define('KitchenSink.view.examples.forms.Factory', {
         		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ; 
         		            		if  ( selModel.length == 1 ) {
             		            		var p =  this.up('gridpanel').up().up() ;
-            		            		var   constrainedWin = Ext.create(  'chmade.FactoryEdit', { title:'Edit Factory', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore()  } );
+            		            		var   constrainedWin = Ext.create(  'chmade.FactoryEdit', { title:'编辑工厂', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore()  } );
             		            		constrainedWin.down('form').getForm().loadRecord( selModel[0]  );
             		            		constrainedWin.show();
         		            		} else {
-        		            			 alert("please select  one record  to edit ");
+        		            			 alert("请选择一条记录进行编辑");
         		            		}
         		            	}
        		        },{
@@ -237,16 +243,15 @@ Ext.define('KitchenSink.view.examples.forms.Factory', {
         		            		var gridPanel =  this.up('gridpanel') ;
         		            		var selModel =  gridPanel.getSelectionModel().getSelection() ;
         		            		if ( selModel.length && selModel.length> 0) { 
-//        		            		var ids = "";
         		            		Ext.MessageBox.confirm('提示', '确认删除吗',  function(btn) { 
         		            			 if ( btn =='yes'){
         	        		            		for(var k=0 ;k<selModel.length ;k++){
-//        	        		            			ids = ids+ selModel[k].data.id +",";
         	        		            			selModel[k].destroy({
         	        		            			    success: function() {
         	        		            			    }
         	        		            			});
         	        		            		}
+        	        		            		console.info("befoore reload");
         	        		            		gridPanel.getStore().load();
         		            			 }
         		            		}); 

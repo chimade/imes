@@ -38,16 +38,11 @@ Ext.define('KitchenSink.view.Header', {
 			xtype:'combo' ,
 //		    fieldLabel: 'Choose State',
 			ui   : 'sencha',
-		    store:   {
-		        fields: ['abbr', 'name'],
-		        data : [
-		            {"abbr":"AL", "name":"Alabama"},
-		            {"abbr":"AK", "name":"Alaska"},
-		            {"abbr":"AZ", "name":"Arizona"}
-		        ]},
-		    queryMode: 'local',
-		    displayField: 'name',
-		    valueField: 'abbr',
+			  xtype:'combo',
+			 store:  Ext.create('SysCompanyStore') ,
+			 displayField: 'name',
+		    valueField: 'id',
+ 
 		    hideTrigger : true,
 		},
  /*

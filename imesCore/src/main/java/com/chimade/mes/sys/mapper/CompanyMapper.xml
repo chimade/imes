@@ -6,7 +6,7 @@
 	</insert>
 
 	<delete id="delete" parameterType="int">
-	DELETE FROM company WHERE id=#{id}
+		DELETE FROM company WHERE id=#{id}
 	</delete>
 <!-- 		update base_user  set user_name=#{userName},password=#{password} ,login_account=#{loginAccount} where id=#{id} -->
 	<update id="update" parameterType="Company">
@@ -14,9 +14,9 @@
 	</update>
 
 	<select id="findById" parameterType="int" resultType="Company">
- SELECT id,code,name,address,website,telephone,description FROM company  WHERE id=#{id} 
+ 		SELECT id,code,name,address,website,telephone,description FROM company  WHERE id=#{id} 
 	</select>
-
+ 
 	<select id="findAll"  resultType="Company">
 	SELECT id,code,name,address,website,telephone,description FROM company  
 	</select>
