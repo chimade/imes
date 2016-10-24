@@ -53,7 +53,7 @@ public class Company  extends PageableBaseModel {
    public  String   getDescription ()  {
    		return description;
    } 
-   public  Company() {
+/*   public  Company() {
      super();
   }
   public  Company(Integer Id,String Code,String Name,String Address,String Website,String Telephone,String Description) {
@@ -65,5 +65,5 @@ public class Company  extends PageableBaseModel {
       this.website=website;
       this.telephone=telephone;
       this.description=description;
-  }
+  }*/
 }

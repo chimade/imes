@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chimade.mes.sys.mapper.ModelMapper">
+	<insert id="save"   parameterType="Model">
+	INSERT INTO base_model(name,url ) VALUES (#{name},#{url})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+	DELETE FROM base_model WHERE id=#{id}
+	</delete>
+
+	<update id="update" parameterType="Model">
+	UPDATE base_model SET name=#{name},url=#{url} WHERE id=#{id}
+	</update>
+
+	<sql id="selectColumns" >
+		id,name,url	</sql>
+<sql id="where">	<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="name!=null and name!='' "> 
+			and name LIKE CONCAT('%', CONCAT(#{name}, '%'))
+	 		</if>  
+			<if test="url!=null and url!='' "> 
+			and url LIKE CONCAT('%', CONCAT(#{url}, '%'))
+	 		</if>  
+	</where></sql>
+	<select id="findById" parameterType="int" resultType="Model">
+		SELECT   <include refid="selectColumns"/>  FROM base_model  WHERE id=#{id} 
+	</select>
+
+	<select id="findAll"  resultType="Model">
+		SELECT   <include refid="selectColumns"/> FROM base_model  
+	</select>
+
+	<select id="findBySearch" parameterType="Model" resultType="Model">
+		SELECT  <include refid="selectColumns"/> FROM base_model    	<include refid="where" /> 
+ 	<if test="start>-1 and limit>-1">
+ 	  limit #{limit}   offset #{start}  	 </if> 
+	</select>
+
+ 	<select id="fetchTotalNumberForSearch"  parameterType="Model"  resultType="Integer">
+ 	SELECT      count(id)      FROM base_model    	<include refid="where" /> 
+	</select>
+
+
+</mapper>

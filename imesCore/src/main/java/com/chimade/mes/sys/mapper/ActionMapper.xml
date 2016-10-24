@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chimade.mes.sys.mapper.ActionMapper">
+	<insert id="save"   parameterType="Action">
+	INSERT INTO base_action(itemid,name ) VALUES (#{itemid},#{name})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+	DELETE FROM base_action WHERE id=#{id}
+	</delete>
+
+	<update id="update" parameterType="Action">
+	UPDATE base_action SET itemid=#{itemid},name=#{name} WHERE id=#{id}
+	</update>
+
+	<sql id="selectColumns" >
+		id,itemid,name	</sql>
+	<sql id="where">
+		<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="itemid!=null and itemid!='' "> 
+			and itemid LIKE CONCAT('%', CONCAT(#{itemid}, '%'))
+	 		</if>  
+			<if test="name!=null and name!='' "> 
+			and name LIKE CONCAT('%', CONCAT(#{name}, '%'))
+	 		</if>  
+	</where></sql>
+	<select id="findById" parameterType="int" resultType="Action">
+		SELECT   <include refid="selectColumns"/>  FROM base_action  WHERE id=#{id} 
+	</select>
+
+	<select id="findAll"  resultType="Action">
+		SELECT   <include refid="selectColumns"/> FROM base_action  
+	</select>
+
+	<select id="findBySearch" parameterType="Action" resultType="Action">
+		SELECT  <include refid="selectColumns"/> FROM base_action    	<include refid="where" /> 
+ 	<if test="start>-1 and limit>-1">
+ 	  limit #{limit}   offset #{start}  	 </if> 
+	</select>
+
+ 	<select id="fetchTotalNumberForSearch"  parameterType="Action"  resultType="Integer">
+ 	SELECT      count(id)      FROM base_action    	<include refid="where" /> 
+	</select>
+
+
+</mapper>

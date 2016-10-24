@@ -66,7 +66,7 @@ public class User extends PageableBaseModel {
 		this.id = id;
 	}
 
-	public User() {
+/*	public User() {
 		super();
 	}
 
@@ -77,5 +77,5 @@ public class User extends PageableBaseModel {
 		this.password = password;
 		this.loginAccount = loginAccount;
 		this.status =status;
-	}
+	}*/
 }

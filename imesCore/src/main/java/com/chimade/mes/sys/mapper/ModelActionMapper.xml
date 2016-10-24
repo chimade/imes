@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chimade.mes.sys.mapper.ModelActionMapper">
+	<insert id="save"   parameterType="ModelAction">
+	INSERT INTO base_model_action(model_id,action_id ) VALUES (#{modelId},#{actionId})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+	DELETE FROM base_model_action WHERE id=#{id}
+	</delete>
+
+	<update id="update" parameterType="ModelAction">
+	UPDATE base_model_action SET model_id=#{modelId},action_id=#{actionId} WHERE id=#{id}
+	</update>
+
+	<sql id="selectColumns" >
+		id,model_id  modelId,action_id  actionId	</sql>
+	<sql id="where">
+		<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="modelId!=null and modelId!='' "> 
+			and model_id LIKE CONCAT('%', CONCAT(#{modelId}, '%'))
+	 		</if>  
+			<if test="actionId!=null and actionId!='' "> 
+			and action_id LIKE CONCAT('%', CONCAT(#{actionId}, '%'))
+	 		</if>  
+	</where></sql>
+	<select id="findById" parameterType="int" resultType="ModelAction">
+		SELECT   <include refid="selectColumns"/>  FROM base_model_action  WHERE id=#{id} 
+	</select>
+
+	<select id="findAll"  resultType="ModelAction">
+		SELECT   <include refid="selectColumns"/> FROM base_model_action  
+	</select>
+
+	<select id="findBySearch" parameterType="ModelAction" resultType="ModelAction">
+		SELECT  <include refid="selectColumns"/> FROM base_model_action    	<include refid="where" /> 
+ 	<if test="start>-1 and limit>-1">
+ 	  limit #{limit}   offset #{start}  	 </if> 
+	</select>
+
+ 	<select id="fetchTotalNumberForSearch"  parameterType="ModelAction"  resultType="Integer">
+ 	SELECT      count(id)      FROM base_model_action    	<include refid="where" /> 
+	</select>
+
+<!-- 	<resultMap id="combineModel"    type="com.chimade.mes.sys.model.Model"> -->
+<!-- 	        <result property="model" column="model" />   -->
+<!-- 			<association    property="model"   column="modelId"	 	javaType="Model"   select="com.chimade.mes.sys.mapper.ModelMapper.findById"  />  -->
+<!-- 			<association    property="action"   column="actionId"	 	javaType="Action"   select="com.chimade.mes.sys.mapper.ActionMapper.findById"  />  -->
+<!--  	</resultMap> -->
+
+</mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chimade.mes.sys.mapper.AuthorizeModelActionMapper">
+	<insert id="save"   parameterType="AuthorizeModelAction">
+	INSERT INTO base_authorize_model_action(entity_id,type,action_id,factory_id ) VALUES (#{entityId},#{type},#{actionId},#{factoryId})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+	DELETE FROM base_authorize_model_action WHERE id=#{id}
+	</delete>
+
+	<update id="update" parameterType="AuthorizeModelAction">
+	UPDATE base_authorize_model_action SET entity_id=#{entityId},type=#{type},action_id=#{actionId},factory_id=#{factoryId} WHERE id=#{id}
+	</update>
+
+	<sql id="selectColumns" >
+		entity_id  entityId,type,action_id  actionId,factory_id  factoryId,id	</sql>
+	<sql id="where">
+		<where>
+			<if test="entityId!=null and entityId!='' "> 
+			and entity_id LIKE CONCAT('%', CONCAT(#{entityId}, '%'))
+	 		</if>  
+			<if test="type!=null and type!='' "> 
+			and type LIKE CONCAT('%', CONCAT(#{type}, '%'))
+	 		</if>  
+			<if test="actionId!=null and actionId!='' "> 
+			and action_id LIKE CONCAT('%', CONCAT(#{actionId}, '%'))
+	 		</if>  
+			<if test="factoryId!=null and factoryId!='' "> 
+			and factory_id LIKE CONCAT('%', CONCAT(#{factoryId}, '%'))
+	 		</if>  
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+	</where></sql>
+	<select id="findById" parameterType="int" resultType="AuthorizeModelAction">
+		SELECT   <include refid="selectColumns"/>  FROM base_authorize_model_action  WHERE id=#{id} 
+	</select>
+
+	<select id="findAll"  resultType="AuthorizeModelAction">
+		SELECT   <include refid="selectColumns"/> FROM base_authorize_model_action  
+	</select>
+
+	<select id="findBySearch" parameterType="AuthorizeModelAction" resultType="AuthorizeModelAction">
+		SELECT  <include refid="selectColumns"/> FROM base_authorize_model_action    	<include refid="where" /> 
+ 	<if test="start>-1 and limit>-1">
+ 	  limit #{limit}   offset #{start}  	 </if> 
+	</select>
+
+ 	<select id="fetchTotalNumberForSearch"  parameterType="AuthorizeModelAction"  resultType="Integer">
+ 	SELECT      count(id)      FROM base_authorize_model_action    	<include refid="where" /> 
+	</select>
+
+<!-- 	<resultMap id="combineEntity"    type="com.chimade.mes.sys.model.Entity"> -->
+<!-- 	        <result property="entity" column="entity" />   -->
+<!-- 			<association    property="entity"   column="entityId"	 	javaType="Entity"   select="com.chimade.mes.sys.mapper.EntityMapper.findById"  />  -->
+<!-- 			<association    property="action"   column="actionId"	 	javaType="Action"   select="com.chimade.mes.sys.mapper.ActionMapper.findById"  />  -->
+<!-- 			<association    property="factory"   column="factoryId"	 	javaType="Factory"   select="com.chimade.mes.sys.mapper.FactoryMapper.findById"  />  -->
+<!--  	</resultMap> -->
+
+</mapper>

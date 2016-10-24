@@ -53,6 +53,26 @@
 <script type="text/javascript" src="app/store/SysShopfloorStore.js"></script>
 <script type="text/javascript" src="app/model/SysShopfloorModel.js"></script>
 <script type="text/javascript" src="app/view/examples/forms/Shopfloor.js"></script>
+
+<script type="text/javascript" src="app/store/SysActionStore.js"></script>
+<script type="text/javascript" src="app/model/SysActionModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/Action.js"></script>
+
+<script type="text/javascript" src="app/store/SysModelActionStore.js"></script>
+<script type="text/javascript" src="app/model/SysModelActionModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/ModelAction.js"></script>
+
+<script type="text/javascript" src="app/store/SysFactoryUserStore.js"></script>
+<script type="text/javascript" src="app/model/SysFactoryUserModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/FactoryUser.js"></script>
+
+<script type="text/javascript" src="app/store/SysAuthorizeModelActionStore.js"></script>
+<script type="text/javascript" src="app/model/SysAuthorizeModelActionModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/AuthorizeModelAction.js"></script>
+
+<script type="text/javascript" src="app/store/SysRoleStore.js"></script>
+<script type="text/javascript" src="app/model/SysRoleModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/Role.js"></script>
 	       
 <%-- 	
 	    	    <script type="text/javascript" src="app/view/examples/trees/BasicTree.js"></script>

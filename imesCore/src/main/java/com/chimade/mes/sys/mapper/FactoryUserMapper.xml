@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chimade.mes.sys.mapper.FactoryUserMapper">
+	<insert id="save"   parameterType="FactoryUser">
+	INSERT INTO base_factory_user(factory_id,user_id ) VALUES (#{factoryId},#{userId})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+	DELETE FROM base_factory_user WHERE id=#{id}
+	</delete>
+
+	<update id="update" parameterType="FactoryUser">
+	UPDATE base_factory_user SET factory_id=#{factoryId},user_id=#{userId} WHERE id=#{id}
+	</update>
+
+	<sql id="selectColumns" >
+		id,factory_id  factoryId,user_id  userId	</sql>
+	<sql id="where">
+		<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="factoryId!=null and factoryId!='' "> 
+			and factory_id LIKE CONCAT('%', CONCAT(#{factoryId}, '%'))
+	 		</if>  
+			<if test="userId!=null and userId!='' "> 
+			and user_id LIKE CONCAT('%', CONCAT(#{userId}, '%'))
+	 		</if>  
+	</where></sql>
+	<select id="findById" parameterType="int" resultType="FactoryUser">
+		SELECT   <include refid="selectColumns"/>  FROM base_factory_user  WHERE id=#{id} 
+	</select>
+
+	<select id="findAll"  resultType="FactoryUser">
+		SELECT   <include refid="selectColumns"/> FROM base_factory_user  
+	</select>
+
+	<select id="findBySearch" parameterType="FactoryUser" resultType="FactoryUser">
+		SELECT  <include refid="selectColumns"/> FROM base_factory_user    	<include refid="where" /> 
+ 	<if test="start>-1 and limit>-1">
+ 	  limit #{limit}   offset #{start}  	 </if> 
+	</select>
+
+ 	<select id="fetchTotalNumberForSearch"  parameterType="FactoryUser"  resultType="Integer">
+ 	SELECT      count(id)      FROM base_factory_user    	<include refid="where" /> 
+	</select>
+
+<!-- 	<resultMap id="combineFactory"    type="com.chimade.mes.sys.model.Factory"> -->
+<!-- 	        <result property="factory" column="factory" />   -->
+<!-- 			<association    property="factory"   column="factoryId"	 	javaType="Factory"   select="com.chimade.mes.sys.mapper.FactoryMapper.findById"  />  -->
+<!-- 			<association    property="user"   column="userId"	 	javaType="User"   select="com.chimade.mes.sys.mapper.UserMapper.findById"  />  -->
+<!--  	</resultMap> -->
+
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chimade.mes.sys.mapper.RoleMapper">
+	<insert id="save"   parameterType="Role">
+	INSERT INTO base_role(name,factory_id ) VALUES (#{name},#{factoryId})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+	DELETE FROM base_role WHERE id=#{id}
+	</delete>
+
+	<update id="update" parameterType="Role">
+	UPDATE base_role SET name=#{name},factory_id=#{factoryId} WHERE id=#{id}
+	</update>
+
+	<sql id="selectColumns" >
+		id,name,factory_id  factoryId	</sql>
+	<sql id="where">
+		<where>
+			<if test="id!=null and id!='' "> 
+			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
+	 		</if>  
+			<if test="name!=null and name!='' "> 
+			and name LIKE CONCAT('%', CONCAT(#{name}, '%'))
+	 		</if>  
+			<if test="factoryId!=null and factoryId!='' "> 
+			and factory_id LIKE CONCAT('%', CONCAT(#{factoryId}, '%'))
+	 		</if>  
+	</where></sql>
+	<select id="findById" parameterType="int" resultType="Role">
+		SELECT   <include refid="selectColumns"/>  FROM base_role  WHERE id=#{id} 
+	</select>
+
+	<select id="findAll"  resultType="Role">
+		SELECT   <include refid="selectColumns"/> FROM base_role  
+	</select>
+
+	<select id="findBySearch" parameterType="Role" resultType="Role">
+		SELECT  <include refid="selectColumns"/> FROM base_role    	<include refid="where" /> 
+ 	<if test="start>-1 and limit>-1">
+ 	  limit #{limit}   offset #{start}  	 </if> 
+	</select>
+
+ 	<select id="fetchTotalNumberForSearch"  parameterType="Role"  resultType="Integer">
+ 	SELECT      count(id)      FROM base_role    	<include refid="where" /> 
+	</select>
+
+<!-- 	<resultMap id="combineFactory"    type="com.chimade.mes.sys.model.Factory"> -->
+<!-- 	        <result property="factory" column="factory" />   -->
+<!-- 			<association    property="factory"   column="factoryId"	 	javaType="Factory"   select="com.chimade.mes.sys.mapper.FactoryMapper.findById"  />  -->
+<!--  	</resultMap> -->
+
+</mapper>
