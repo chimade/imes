@@ -4,6 +4,7 @@
 	    <title>Kitchen Sink</title>
 <script>
 	var menuManagerTxt = "System Maintenance";
+	var factory_id ;
 </script>
 	    <link rel="stylesheet" type="text/css" href="resources/css/ext-all-debug.css" />
 	    <link rel="stylesheet" type="text/css" href="resources/css/sink.css" />
@@ -134,6 +135,7 @@
     <!-- GC -->
 
 	    <script type="text/javascript" src="app.js"></script>
+	    
 	</head>
 	
 	<body></body>

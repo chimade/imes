@@ -34,8 +34,12 @@ Ext.define('KitchenSink.view.examples.forms.ModelEdit' , 	{
 			  allowBlank:false
 			}	,
 			{
-			  fieldLabel:'状态' ,
+			  fieldLabel:'类别' ,
+			  xtype : 'combo',
+			  store : { xtype: 'store', fields: ['name','key'] , data : [ {'name':'普通','key':0}, {'name':'系统', 'key': 1}, {'name':'开发','key':2} ]  } ,
 			  name:'status',
+			  valueField : 'key',
+			  displayField : 'name',
 			  allowBlank:false
 			}
     		        ,
@@ -43,28 +47,27 @@ Ext.define('KitchenSink.view.examples.forms.ModelEdit' , 	{
     		            name: 'id',
     		            hidden:true
     		        }
-    		        ],
+    		],
 
     		        buttons: [{
     		            text: '保存'
     		         ,   handler: function() {
-    		        	 
     		        	 	var win = this.up('window');
-    		                this.up('form').getForm().isValid();
-    		                var form = this.up('form').getForm();
-    		                var formValues = form.getValues();
-    		                var beanModel = Ext.create('model.SysModelModel',  formValues);
-    		                beanModel.save({
-    		                	success: function(record ,response ) {
-    		                		var r = Ext.decode(response.response.responseText) ;
-    		                		if (r.resultFlag){
-    		                			refreshStore.load();
-    		                			win.close();
-    		                		}
-   		                	    }
-    		                	}
-    		                );
-    		  
+    		                if (   this.up('form').getForm().isValid() ) {  
+	    		                var form = this.up('form').getForm();
+	    		                var formValues = form.getValues();
+	    		                var beanModel = Ext.create('model.SysModelModel',  formValues);
+	    		                beanModel.save({
+	    		                	success: function(record ,response ) {
+	    		                		var r = Ext.decode(response.response.responseText) ;
+	    		                		if (r.resultFlag){
+	    		                			refreshStore.load(  );
+	    		                			win.close();
+	    		                		}
+	   		                	    }
+	    		                	}
+	    		                );
+    		                }
     		            }
     		        },{
     		            text: '取消'
@@ -229,7 +232,15 @@ Ext.define('KitchenSink.view.examples.forms.Model', {
         	        		            			    }
         	        		            			});
         	        		            		}
-        	        		            		gridPanel.getStore().load();
+//        	        		            	 var cp = Math.floor(	gridPanel.getStore() .totalCount/ gridPanel.getStore().pageSize);
+//        	        		            	 var loadParam =     {  start : cp , pageSize : gridPanel.getStore().pageSize    }  ;
+//        	        		            	  if  ( gridPanel.getStore().currentPage>  cp  ) {
+//        	        		            			gridPanel.getStore().load( loadParam );
+//        	        		            	  } else {
+//        	        		            		
+//        	        		            	  }
+        	        		            		  gridPanel.getStore().load( );
+        	        		            	
         		            			 }
         		            		}); 
         		            		}

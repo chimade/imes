@@ -5,8 +5,8 @@ Ext.define('KitchenSink.view.examples.forms.ModelActionEdit' , 	{
 		    constructor: function(config) {
 		    	refreshStore = config.refreshStore ;
 		    	config = Ext.apply({
-		    		width: 365,
-		    		height: 200,
+		    		width: 465,
+		    		height: 400,
 		    		x: 300,
 		    		y: 20,
 		    		constrain: true,
@@ -16,7 +16,7 @@ Ext.define('KitchenSink.view.examples.forms.ModelActionEdit' , 	{
     		        layout: 'form',
     		        frame: true,
     		        bodyPadding: '5 5 0',
-    		        width: 350,
+    		        width: 450,
     		        fieldDefaults: {
     		            msgTarget: 'side',
     		            labelWidth: 105
@@ -24,14 +24,22 @@ Ext.define('KitchenSink.view.examples.forms.ModelActionEdit' , 	{
     		        defaultType: 'textfield',
     		        items: [
     		        			{
-			  fieldLabel:'model_id' ,
-			  name:'modelId',
-			  allowBlank:false
+    		        				fieldLabel:'模块名' ,
+    		        				name:'modelId',
+    		        				displayField: 'name',
+    		    		        	valueField: 'id',
+    		        				xtype : 'combo',
+    		        				store : Ext.create('SysModelStore',{ pageSize : 100}) ,
+    		        				allowBlank:false
 			}	,
 			{
-			  fieldLabel:'action_id' ,
-			  name:'actionId',
-			  allowBlank:false
+//			  fieldLabel:'动作名' ,
+//			  name:'actionId',
+//			  allowBlank:false
+			 
+		            xtype: 'fieldcontainer',
+		            fieldLabel: '动作名',
+		            defaultType: 'checkboxfield'
 			}
     		        ,
     		        {
@@ -41,29 +49,28 @@ Ext.define('KitchenSink.view.examples.forms.ModelActionEdit' , 	{
     		        ],
 
     		        buttons: [{
-    		            text: 'Save'
+    		            text: '保存'
     		         ,   handler: function() {
     		        	 
     		        	 	var win = this.up('window');
-    		                this.up('form').getForm().isValid();
-    		                var form = this.up('form').getForm();
-    		                var formValues = form.getValues();
-    		                var beanModel = Ext.create('model.SysModelActionModel',  formValues);
-    		                beanModel.save({
-    		                	success: function(record ,response ) {
-    		                		var r = Ext.decode(response.response.responseText) ;
-    		                		if (r.resultFlag){
-    		                			refreshStore.load();
-    		                			win.close();
-    		                		}
-    		                 
-   		                	    }
-    		                	}
-    		                );
-    		  
+    		                if (   this.up('form').getForm().isValid() ) {  
+	    		                var form = this.up('form').getForm();
+	    		                var formValues = form.getValues();
+	    		                var beanModel = Ext.create('model.SysModelActionModel',  formValues);
+	    		                beanModel.save({
+	    		                	success: function(record ,response ) {
+	    		                		var r = Ext.decode(response.response.responseText) ;
+	    		                		if (r.resultFlag){
+	    		                			refreshStore.load();
+	    		                			win.close();
+	    		                		}
+	   		                	    }
+	    		                	}
+	    		                );
+    		  				}
     		            }
     		        },{
-    		            text: 'Cancel'
+    		            text: '取消'
     		            , handler: function() {
     		            	this.up('window').close();
     		            }
@@ -72,6 +79,24 @@ Ext.define('KitchenSink.view.examples.forms.ModelActionEdit' , 	{
     		} , config
 		    	  );
 		    	   this.callParent([config]);
+		    	   var st  = Ext.create('SysActionStore',{ pageSize : 100}) ;
+		    	   var checkbox =  this.down('fieldcontainer') ;
+		    	   st.load(  
+		    		   function(records, operation, success) {
+		 		    	   for(var i =0;i<st.getCount();i++){
+				    		   console.info(    st.getAt(i).get(name)  );
+				    		   checkbox.add( { 
+				                    boxLabel  :  st.getAt(i).get('name'),
+				                    name      : st.getAt(i).get('itemid'),
+				                    inputValue:  st.getAt(i).get('id'),
+				                    id        : 'checkbox'+st.getAt(i).get('id')
+				                 });
+				    	}
+		    			}
+		    	   );
+
+		    	   console.info( st);
+		    	 console.info(   this.down('fieldcontainer') );
 		    }
 		}
 ) ;
@@ -102,8 +127,8 @@ Ext.define('KitchenSink.view.examples.forms.ModelAction', {
     	 	selModel  : Ext.create('Ext.selection.CheckboxModel'    ),
     	    columns: [
     	    	{ text:'id' ,		dataIndex:'id' } ,
-		{ text:'model_id' ,		dataIndex:'modelId' } ,
-		{ text:'action_id' ,		dataIndex:'actionId' }
+	{ text:'模块名' ,		dataIndex:'modelId' } ,
+	{ text:'动作名' ,		dataIndex:'actionId' }
     	    ],
     		   dockedItems: [ 
 				{
@@ -140,11 +165,12 @@ Ext.define('KitchenSink.view.examples.forms.ModelAction', {
     				  xtype:'textfield',
 				  fieldLabel:'id',
 				  name:'id'
+		,		  hidden:true 
 				} 
 				,
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'action_id',
+				  fieldLabel:'动作名',
 				  name:'actionId'
 				} 
 				
@@ -152,9 +178,9 @@ Ext.define('KitchenSink.view.examples.forms.ModelAction', {
  		       }
 ,{
 			  items: [ 
-				{ 
+				{  
     				  xtype:'textfield',
-				  fieldLabel:'model_id',
+				  fieldLabel:'模块名',
 				  name:'modelId'
 				} 
 				
@@ -162,7 +188,7 @@ Ext.define('KitchenSink.view.examples.forms.ModelAction', {
  		       }
        		        ],
        		        buttons: ['->', {
-       		            text: 'Search',
+       		            text: '查找',
                        	handler: function() {
 		                       		 var form = this.up('form').getForm();
 		                       		 var 	 baseModelAction = form.getValues();
@@ -175,14 +201,14 @@ Ext.define('KitchenSink.view.examples.forms.ModelAction', {
 		                       		st.load( ) ;
                        	}
        		        }, {
-       		            text: 'Reset',
+       		            text: '重置',
        		            	handler: function() {
        	                		 var form = this.up('form').getForm();
        	                         form.reset();
        	                	}
        		        },
        		        {
-       		            text: 'New',
+       		            text: '新增',
        		            	handler: function() {
        		            		var p =  this.up('gridpanel').up().up() ;
        		            		var   constrainedWin = Ext.create(  'chmade.ModelActionEdit', { title:'Add ModelAction', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore() } );
@@ -190,7 +216,7 @@ Ext.define('KitchenSink.view.examples.forms.ModelAction', {
        	                	}
        		        },{
        		 
-        		            text: 'Edit',
+        		            text: '编辑',
         		            	handler: function() {
         		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ; 
         		            		if  ( selModel.length == 1 ) {
@@ -203,7 +229,7 @@ Ext.define('KitchenSink.view.examples.forms.ModelAction', {
         		            		}
         		            	}
        		        },{
-        		            text: 'Delete',
+        		            text: '删除',
         		            	handler: function() {
 
         		            		var gridPanel =  this.up('gridpanel') ;

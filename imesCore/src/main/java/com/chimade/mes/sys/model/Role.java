@@ -7,8 +7,8 @@ import com.chimade.mes.sys.model.Factory;
 public class Role  extends PageableBaseModel {
 
    private   int id;
-   private boolean   name;
    private int   factoryId;
+   private String   name;
 
 	private Factory   factory ;
    public  void  setId(int id) {
@@ -16,13 +16,6 @@ public class Role  extends PageableBaseModel {
    } 
    public  int getId ( )  {
    		return id;
-   } 
-
-   public  void  setName(boolean   name ) {
-   		this.name = name;
-   } 
-   public  boolean   getName ()  {
-   		return name;
    } 
 
    public  void  setFactoryId(int   factoryId ) {
@@ -36,6 +29,13 @@ public class Role  extends PageableBaseModel {
    } 
    public  Factory   getFactory ()  {
    		return factory;
+   } 
+
+   public  void  setName(String   name ) {
+   		this.name = name;
+   } 
+   public  String   getName ()  {
+   		return name;
    } 
 
 

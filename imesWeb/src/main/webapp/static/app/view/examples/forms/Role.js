@@ -24,13 +24,13 @@ Ext.define('KitchenSink.view.examples.forms.RoleEdit' , 	{
     		        defaultType: 'textfield',
     		        items: [
     		        			{
-			  fieldLabel:'name' ,
-			  name:'name',
+			  fieldLabel:'工厂' ,
+			  name:'factoryId',
 			  allowBlank:false
 			}	,
 			{
-			  fieldLabel:'factory_id' ,
-			  name:'factoryId',
+			  fieldLabel:'名字' ,
+			  name:'name',
 			  allowBlank:false
 			}
     		        ,
@@ -41,29 +41,28 @@ Ext.define('KitchenSink.view.examples.forms.RoleEdit' , 	{
     		        ],
 
     		        buttons: [{
-    		            text: 'Save'
+    		            text: '保存'
     		         ,   handler: function() {
     		        	 
     		        	 	var win = this.up('window');
-    		                this.up('form').getForm().isValid();
-    		                var form = this.up('form').getForm();
-    		                var formValues = form.getValues();
-    		                var beanModel = Ext.create('model.SysRoleModel',  formValues);
-    		                beanModel.save({
-    		                	success: function(record ,response ) {
-    		                		var r = Ext.decode(response.response.responseText) ;
-    		                		if (r.resultFlag){
-    		                			refreshStore.load();
-    		                			win.close();
-    		                		}
-    		                 
-   		                	    }
-    		                	}
-    		                );
-    		  
+    		                if (   this.up('form').getForm().isValid() ) {  
+	    		                var form = this.up('form').getForm();
+	    		                var formValues = form.getValues();
+	    		                var beanModel = Ext.create('model.SysRoleModel',  formValues);
+	    		                beanModel.save({
+	    		                	success: function(record ,response ) {
+	    		                		var r = Ext.decode(response.response.responseText) ;
+	    		                		if (r.resultFlag){
+	    		                			refreshStore.load();
+	    		                			win.close();
+	    		                		}
+	   		                	    }
+	    		                	}
+	    		                );
+    		  				}
     		            }
     		        },{
-    		            text: 'Cancel'
+    		            text: '取消'
     		            , handler: function() {
     		            	this.up('window').close();
     		            }
@@ -102,8 +101,8 @@ Ext.define('KitchenSink.view.examples.forms.Role', {
     	 	selModel  : Ext.create('Ext.selection.CheckboxModel'    ),
     	    columns: [
     	    	{ text:'id' ,		dataIndex:'id' } ,
-		{ text:'name' ,		dataIndex:'name' } ,
-		{ text:'factory_id' ,		dataIndex:'factoryId' }
+	{ text:'工厂' ,		dataIndex:'factoryId' } ,
+	{ text:'名字' ,		dataIndex:'name' }
     	    ],
     		   dockedItems: [ 
 				{
@@ -140,29 +139,30 @@ Ext.define('KitchenSink.view.examples.forms.Role', {
     				  xtype:'textfield',
 				  fieldLabel:'id',
 				  name:'id'
+		,		  hidden:true 
 				} 
 				,
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'factory_id',
-				  name:'factoryId'
+				  fieldLabel:'名字',
+				  name:'name'
 				} 
 				
  			]
  		       }
 ,{
 			  items: [ 
-				{ 
+				{  
     				  xtype:'textfield',
-				  fieldLabel:'name',
-				  name:'name'
+				  fieldLabel:'工厂',
+				  name:'factoryId'
 				} 
 				
  			]
  		       }
        		        ],
        		        buttons: ['->', {
-       		            text: 'Search',
+       		            text: '查找',
                        	handler: function() {
 		                       		 var form = this.up('form').getForm();
 		                       		 var 	 baseRole = form.getValues();
@@ -175,14 +175,14 @@ Ext.define('KitchenSink.view.examples.forms.Role', {
 		                       		st.load( ) ;
                        	}
        		        }, {
-       		            text: 'Reset',
+       		            text: '重置',
        		            	handler: function() {
        	                		 var form = this.up('form').getForm();
        	                         form.reset();
        	                	}
        		        },
        		        {
-       		            text: 'New',
+       		            text: '新增',
        		            	handler: function() {
        		            		var p =  this.up('gridpanel').up().up() ;
        		            		var   constrainedWin = Ext.create(  'chmade.RoleEdit', { title:'Add Role', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore() } );
@@ -190,7 +190,7 @@ Ext.define('KitchenSink.view.examples.forms.Role', {
        	                	}
        		        },{
        		 
-        		            text: 'Edit',
+        		            text: '编辑',
         		            	handler: function() {
         		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ; 
         		            		if  ( selModel.length == 1 ) {
@@ -203,7 +203,7 @@ Ext.define('KitchenSink.view.examples.forms.Role', {
         		            		}
         		            	}
        		        },{
-        		            text: 'Delete',
+        		            text: '删除',
         		            	handler: function() {
 
         		            		var gridPanel =  this.up('gridpanel') ;

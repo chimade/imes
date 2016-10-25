@@ -42,7 +42,11 @@ Ext.define('KitchenSink.view.Header', {
 			 store:  Ext.create('SysCompanyStore') ,
 			 displayField: 'name',
 		    valueField: 'id',
- 
+		    listeners: {
+		    	'select' : function(combo,record, obj) {
+		    		factory_id = combo.getValue() ;
+		    	}
+		    },
 		    hideTrigger : true,
 		},
  /*

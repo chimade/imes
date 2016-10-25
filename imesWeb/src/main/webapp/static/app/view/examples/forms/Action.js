@@ -24,12 +24,12 @@ Ext.define('KitchenSink.view.examples.forms.ActionEdit' , 	{
     		        defaultType: 'textfield',
     		        items: [
     		        			{
-			  fieldLabel:'itemid' ,
+			  fieldLabel:'项目标示' ,
 			  name:'itemid',
 			  allowBlank:false
 			}	,
 			{
-			  fieldLabel:'name' ,
+			  fieldLabel:'名字' ,
 			  name:'name',
 			  allowBlank:false
 			}
@@ -41,29 +41,28 @@ Ext.define('KitchenSink.view.examples.forms.ActionEdit' , 	{
     		        ],
 
     		        buttons: [{
-    		            text: 'Save'
+    		            text: '保存'
     		         ,   handler: function() {
     		        	 
     		        	 	var win = this.up('window');
-    		                this.up('form').getForm().isValid();
-    		                var form = this.up('form').getForm();
-    		                var formValues = form.getValues();
-    		                var beanModel = Ext.create('model.SysActionModel',  formValues);
-    		                beanModel.save({
-    		                	success: function(record ,response ) {
-    		                		var r = Ext.decode(response.response.responseText) ;
-    		                		if (r.resultFlag){
-    		                			refreshStore.load();
-    		                			win.close();
-    		                		}
-    		                 
-   		                	    }
-    		                	}
-    		                );
-    		  
+    		                if (   this.up('form').getForm().isValid() ) {  
+	    		                var form = this.up('form').getForm();
+	    		                var formValues = form.getValues();
+	    		                var beanModel = Ext.create('model.SysActionModel',  formValues);
+	    		                beanModel.save({
+	    		                	success: function(record ,response ) {
+	    		                		var r = Ext.decode(response.response.responseText) ;
+	    		                		if (r.resultFlag){
+	    		                			refreshStore.load();
+	    		                			win.close();
+	    		                		}
+	   		                	    }
+	    		                	}
+	    		                );
+    		  				}
     		            }
     		        },{
-    		            text: 'Cancel'
+    		            text: '取消'
     		            , handler: function() {
     		            	this.up('window').close();
     		            }
@@ -102,8 +101,8 @@ Ext.define('KitchenSink.view.examples.forms.Action', {
     	 	selModel  : Ext.create('Ext.selection.CheckboxModel'    ),
     	    columns: [
     	    	{ text:'id' ,		dataIndex:'id' } ,
-		{ text:'itemid' ,		dataIndex:'itemid' } ,
-		{ text:'name' ,		dataIndex:'name' }
+	{ text:'项目标示' ,		dataIndex:'itemid' } ,
+	{ text:'名字' ,		dataIndex:'name' }
     	    ],
     		   dockedItems: [ 
 				{
@@ -140,11 +139,12 @@ Ext.define('KitchenSink.view.examples.forms.Action', {
     				  xtype:'textfield',
 				  fieldLabel:'id',
 				  name:'id'
+		,		  hidden:true 
 				} 
 				,
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'name',
+				  fieldLabel:'名字',
 				  name:'name'
 				} 
 				
@@ -152,9 +152,9 @@ Ext.define('KitchenSink.view.examples.forms.Action', {
  		       }
 ,{
 			  items: [ 
-				{ 
+				{  
     				  xtype:'textfield',
-				  fieldLabel:'itemid',
+				  fieldLabel:'项目标示',
 				  name:'itemid'
 				} 
 				
@@ -162,7 +162,7 @@ Ext.define('KitchenSink.view.examples.forms.Action', {
  		       }
        		        ],
        		        buttons: ['->', {
-       		            text: 'Search',
+       		            text: '查找',
                        	handler: function() {
 		                       		 var form = this.up('form').getForm();
 		                       		 var 	 baseAction = form.getValues();
@@ -175,14 +175,14 @@ Ext.define('KitchenSink.view.examples.forms.Action', {
 		                       		st.load( ) ;
                        	}
        		        }, {
-       		            text: 'Reset',
+       		            text: '重置',
        		            	handler: function() {
        	                		 var form = this.up('form').getForm();
        	                         form.reset();
        	                	}
        		        },
        		        {
-       		            text: 'New',
+       		            text: '新增',
        		            	handler: function() {
        		            		var p =  this.up('gridpanel').up().up() ;
        		            		var   constrainedWin = Ext.create(  'chmade.ActionEdit', { title:'Add Action', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore() } );
@@ -190,7 +190,7 @@ Ext.define('KitchenSink.view.examples.forms.Action', {
        	                	}
        		        },{
        		 
-        		            text: 'Edit',
+        		            text: '编辑',
         		            	handler: function() {
         		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ; 
         		            		if  ( selModel.length == 1 ) {
@@ -203,7 +203,7 @@ Ext.define('KitchenSink.view.examples.forms.Action', {
         		            		}
         		            	}
        		        },{
-        		            text: 'Delete',
+        		            text: '删除',
         		            	handler: function() {
 
         		            		var gridPanel =  this.up('gridpanel') ;

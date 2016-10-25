@@ -72,7 +72,7 @@ Ext.define('KitchenSink.view.examples.forms.UserEdit' , 	{
     		        ,
     		        {
     		        	
-    		          xtype: 'combo',
+    		        	xtype: 'combo',
  		                blankText : '状态,不能为空',
     		            fieldLabel: '状态',
     		            name: 'status',
