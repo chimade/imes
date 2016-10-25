@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chimade.mes.sys.mapper.ModelMapper">
 	<insert id="save"   parameterType="Model">
-	INSERT INTO base_model(name,url ) VALUES (#{name},#{url})
+	INSERT INTO base_model(name,url,status ) VALUES (#{name},#{url},#{status})
 	</insert>
 
 	<delete id="delete" parameterType="int">
@@ -10,11 +10,11 @@
 	</delete>
 
 	<update id="update" parameterType="Model">
-	UPDATE base_model SET name=#{name},url=#{url} WHERE id=#{id}
+	UPDATE base_model SET name=#{name},url=#{url},status=#{status} WHERE id=#{id}
 	</update>
 
 	<sql id="selectColumns" >
-		id,name,url	</sql>
+		id,name,url,status	</sql>
 	<sql id="where">
 		<where>
 			<if test="id!=null and id!='' "> 
@@ -25,6 +25,9 @@
 	 		</if>  
 			<if test="url!=null and url!='' "> 
 			and url LIKE CONCAT('%', CONCAT(#{url}, '%'))
+	 		</if>  
+			<if test="status!=null and status!='' "> 
+			and status LIKE CONCAT('%', CONCAT(#{status}, '%'))
 	 		</if>  
 	</where></sql>
 	<select id="findById" parameterType="int" resultType="Model">

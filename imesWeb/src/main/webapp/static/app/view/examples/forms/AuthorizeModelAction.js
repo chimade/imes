@@ -24,26 +24,30 @@ Ext.define('KitchenSink.view.examples.forms.AuthorizeModelActionEdit' , 	{
     		        defaultType: 'textfield',
     		        items: [
     		        	{
-			  fieldLabel:'entity_id' ,
-			  name:'entityId',
+			  fieldLabel:'用户名' ,
+			  name:'userId',
 			  allowBlank:false
 			}	,
 			{
-			  fieldLabel:'type' ,
+			  fieldLabel:'类型' ,
 			  name:'type',
 			  allowBlank:false
 			}	,
 			{
-			  fieldLabel:'action_id' ,
+			  fieldLabel:'动作' ,
 			  name:'actionId',
 			  allowBlank:false
 			}	,
 			{
-			  fieldLabel:'factory_id' ,
+			  fieldLabel:'工厂' ,
 			  name:'factoryId',
 			  allowBlank:false
 			}	,
-
+			{
+			  fieldLabel:'角色' ,
+			  name:'roleId',
+			  allowBlank:false
+			}
     		        ,
     		        {
     		            name: 'id',
@@ -52,7 +56,7 @@ Ext.define('KitchenSink.view.examples.forms.AuthorizeModelActionEdit' , 	{
     		        ],
 
     		        buttons: [{
-    		            text: 'Save'
+    		            text: '保存'
     		         ,   handler: function() {
     		        	 
     		        	 	var win = this.up('window');
@@ -67,14 +71,13 @@ Ext.define('KitchenSink.view.examples.forms.AuthorizeModelActionEdit' , 	{
     		                			refreshStore.load();
     		                			win.close();
     		                		}
-    		                 
    		                	    }
     		                	}
     		                );
     		  
     		            }
     		        },{
-    		            text: 'Cancel'
+    		            text: '取消'
     		            , handler: function() {
     		            	this.up('window').close();
     		            }
@@ -112,11 +115,12 @@ Ext.define('KitchenSink.view.examples.forms.AuthorizeModelAction', {
     	 	xtype : 'gridpanel',
     	 	selModel  : Ext.create('Ext.selection.CheckboxModel'    ),
     	    columns: [
-    	    	{ text:'entity_id' ,		dataIndex:'entityId' } ,
-		{ text:'type' ,		dataIndex:'type' } ,
-		{ text:'action_id' ,		dataIndex:'actionId' } ,
-		{ text:'factory_id' ,		dataIndex:'factoryId' } ,
-		{ text:'id' ,		dataIndex:'id' }
+    	    	{ text:'用户名' ,		dataIndex:'userId' } ,
+	{ text:'类型' ,		dataIndex:'type' } ,
+	{ text:'动作' ,		dataIndex:'actionId' } ,
+	{ text:'工厂' ,		dataIndex:'factoryId' } ,
+	{ text:'id' ,		dataIndex:'id' } ,
+	{ text:'角色' ,		dataIndex:'roleId' }
     	    ],
     		   dockedItems: [ 
 				{
@@ -151,13 +155,13 @@ Ext.define('KitchenSink.view.examples.forms.AuthorizeModelAction', {
 			  items: [ 
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'entity_id',
-				  name:'entityId'
+				  fieldLabel:'用户名',
+				  name:'userId'
 				} 
 				,
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'action_id',
+				  fieldLabel:'动作',
 				  name:'actionId'
 				} 
 				,
@@ -165,29 +169,36 @@ Ext.define('KitchenSink.view.examples.forms.AuthorizeModelAction', {
     				  xtype:'textfield',
 				  fieldLabel:'id',
 				  name:'id'
+		,		  hidden:true 
 				} 
 				
  			]
  		       }
 ,{
 			  items: [ 
-				{ 
+				{  
     				  xtype:'textfield',
-				  fieldLabel:'type',
+				  fieldLabel:'类型',
 				  name:'type'
 				} 
 				,
-				{ 
+				{  
     				  xtype:'textfield',
-				  fieldLabel:'factory_id',
+				  fieldLabel:'工厂',
 				  name:'factoryId'
+				} 
+				,
+				{  
+    				  xtype:'textfield',
+				  fieldLabel:'角色',
+				  name:'roleId'
 				} 
 				
  			]
  		       }
        		        ],
        		        buttons: ['->', {
-       		            text: 'Search',
+       		            text: '查找',
                        	handler: function() {
 		                       		 var form = this.up('form').getForm();
 		                       		 var 	 baseAuthorizeModelAction = form.getValues();
@@ -200,14 +211,14 @@ Ext.define('KitchenSink.view.examples.forms.AuthorizeModelAction', {
 		                       		st.load( ) ;
                        	}
        		        }, {
-       		            text: 'Reset',
+       		            text: '重置',
        		            	handler: function() {
        	                		 var form = this.up('form').getForm();
        	                         form.reset();
        	                	}
        		        },
        		        {
-       		            text: 'New',
+       		            text: '新增',
        		            	handler: function() {
        		            		var p =  this.up('gridpanel').up().up() ;
        		            		var   constrainedWin = Ext.create(  'chmade.AuthorizeModelActionEdit', { title:'Add AuthorizeModelAction', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore() } );
@@ -215,7 +226,7 @@ Ext.define('KitchenSink.view.examples.forms.AuthorizeModelAction', {
        	                	}
        		        },{
        		 
-        		            text: 'Edit',
+        		            text: '编辑',
         		            	handler: function() {
         		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ; 
         		            		if  ( selModel.length == 1 ) {
@@ -228,7 +239,7 @@ Ext.define('KitchenSink.view.examples.forms.AuthorizeModelAction', {
         		            		}
         		            	}
        		        },{
-        		            text: 'Delete',
+        		            text: '删除',
         		            	handler: function() {
 
         		            		var gridPanel =  this.up('gridpanel') ;

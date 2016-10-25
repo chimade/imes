@@ -1,11 +1,12 @@
 Ext.define('model.SysAuthorizeModelActionModel', {
     extend: 'Ext.data.Model',  
     fields: [
-    	{ name:'entityId' },
+    	{ name:'userId' },
 	{ name:'type' },
 	{ name:'actionId' },
 	{ name:'factoryId' },
-	{ name:'id' }
+	{ name:'id' },
+	{ name:'roleId' }
     ]
 	,
 	proxy: {

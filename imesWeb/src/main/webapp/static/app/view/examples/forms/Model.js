@@ -24,13 +24,18 @@ Ext.define('KitchenSink.view.examples.forms.ModelEdit' , 	{
     		        defaultType: 'textfield',
     		        items: [
     		        			{
-			  fieldLabel:'name' ,
+			  fieldLabel:'名字' ,
 			  name:'name',
 			  allowBlank:false
 			}	,
 			{
-			  fieldLabel:'url' ,
+			  fieldLabel:'路径' ,
 			  name:'url',
+			  allowBlank:false
+			}	,
+			{
+			  fieldLabel:'状态' ,
+			  name:'status',
 			  allowBlank:false
 			}
     		        ,
@@ -41,7 +46,7 @@ Ext.define('KitchenSink.view.examples.forms.ModelEdit' , 	{
     		        ],
 
     		        buttons: [{
-    		            text: 'Save'
+    		            text: '保存'
     		         ,   handler: function() {
     		        	 
     		        	 	var win = this.up('window');
@@ -56,14 +61,13 @@ Ext.define('KitchenSink.view.examples.forms.ModelEdit' , 	{
     		                			refreshStore.load();
     		                			win.close();
     		                		}
-    		                 
    		                	    }
     		                	}
     		                );
     		  
     		            }
     		        },{
-    		            text: 'Cancel'
+    		            text: '取消'
     		            , handler: function() {
     		            	this.up('window').close();
     		            }
@@ -102,8 +106,9 @@ Ext.define('KitchenSink.view.examples.forms.Model', {
     	 	selModel  : Ext.create('Ext.selection.CheckboxModel'    ),
     	    columns: [
     	    	{ text:'id' ,		dataIndex:'id' } ,
-		{ text:'name' ,		dataIndex:'name' } ,
-		{ text:'url' ,		dataIndex:'url' }
+	{ text:'名字' ,		dataIndex:'name' } ,
+	{ text:'路径' ,		dataIndex:'url' } ,
+	{ text:'状态' ,		dataIndex:'status' }
     	    ],
     		   dockedItems: [ 
 				{
@@ -140,11 +145,12 @@ Ext.define('KitchenSink.view.examples.forms.Model', {
     				  xtype:'textfield',
 				  fieldLabel:'id',
 				  name:'id'
+		,		  hidden:true 
 				} 
 				,
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'url',
+				  fieldLabel:'路径',
 				  name:'url'
 				} 
 				
@@ -152,17 +158,23 @@ Ext.define('KitchenSink.view.examples.forms.Model', {
  		       }
 ,{
 			  items: [ 
-				{ 
+				{  
     				  xtype:'textfield',
-				  fieldLabel:'name',
+				  fieldLabel:'名字',
 				  name:'name'
+				} 
+				,
+				{  
+    				  xtype:'textfield',
+				  fieldLabel:'状态',
+				  name:'status'
 				} 
 				
  			]
  		       }
        		        ],
        		        buttons: ['->', {
-       		            text: 'Search',
+       		            text: '查找',
                        	handler: function() {
 		                       		 var form = this.up('form').getForm();
 		                       		 var 	 baseModel = form.getValues();
@@ -175,14 +187,14 @@ Ext.define('KitchenSink.view.examples.forms.Model', {
 		                       		st.load( ) ;
                        	}
        		        }, {
-       		            text: 'Reset',
+       		            text: '重置',
        		            	handler: function() {
        	                		 var form = this.up('form').getForm();
        	                         form.reset();
        	                	}
        		        },
        		        {
-       		            text: 'New',
+       		            text: '新增',
        		            	handler: function() {
        		            		var p =  this.up('gridpanel').up().up() ;
        		            		var   constrainedWin = Ext.create(  'chmade.ModelEdit', { title:'Add Model', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore() } );
@@ -190,7 +202,7 @@ Ext.define('KitchenSink.view.examples.forms.Model', {
        	                	}
        		        },{
        		 
-        		            text: 'Edit',
+        		            text: '编辑',
         		            	handler: function() {
         		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ; 
         		            		if  ( selModel.length == 1 ) {
@@ -203,7 +215,7 @@ Ext.define('KitchenSink.view.examples.forms.Model', {
         		            		}
         		            	}
        		        },{
-        		            text: 'Delete',
+        		            text: '删除',
         		            	handler: function() {
 
         		            		var gridPanel =  this.up('gridpanel') ;

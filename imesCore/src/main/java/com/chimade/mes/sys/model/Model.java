@@ -8,6 +8,7 @@ public class Model  extends PageableBaseModel {
    private   int id;
    private String   name;
    private String   url;
+   private int   status;
 
    public  void  setId(int id) {
    		this.id = id;
@@ -28,6 +29,13 @@ public class Model  extends PageableBaseModel {
    } 
    public  String   getUrl ()  {
    		return url;
+   } 
+
+   public  void  setStatus(int   status ) {
+   		this.status = status;
+   } 
+   public  int   getStatus ()  {
+   		return status;
    } 
 
 

@@ -10,6 +10,7 @@
 <!-- 	    <link rel="stylesheet" type="text/css" href="resources/css/ext-neptune.css" /> -->
 	    <!-- Ext JS -->
 	    <script type="text/javascript" src="js/ext-all.js"></script>
+	    <script type="text/javascript" src="js/TabCloseMenu.js"></script>
 	    <script type="text/javascript" src="js/chmade-util.js"></script>
 	      
 	      <script type="text/javascript" src="app/view/examples/Example.js"></script>

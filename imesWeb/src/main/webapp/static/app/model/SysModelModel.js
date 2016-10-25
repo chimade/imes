@@ -3,7 +3,8 @@ Ext.define('model.SysModelModel', {
     fields: [
     	{ name:'id' },
 	{ name:'name' },
-	{ name:'url' }
+	{ name:'url' },
+	{ name:'status' }
     ]
 	,
 	proxy: {

@@ -42,18 +42,23 @@ Ext.define('KitchenSink.view.Viewport', {
                 {
                 	   region: 'center',
                 	   xtype:'tabpanel',
-                    cls: 'x-example-panel',
-                    flex: 1,
+                	   plugins: new Ext.create('Ext.ux.TabCloseMenu',{
+                		   closeTabText:'关闭面板',
+                		   closeOthersTabsText: '关闭其他',
+                		   closeAllTabsText :'关闭所有'
+                	   }),
+                	   cls: 'x-example-panel',
+                	   flex: 1,
 //                    title: '&nbsp;',
-                    id   : 'examplePanel',
-                    layout: {
-                        type: 'fit',
+                	   id   : 'examplePanel',
+                	   layout: {
+                		   type: 'fit',
 //                        type: 'vbox',
 //                        align: 'center',
-                        pack: 'center'
-                    },
-                    overflowY: 'auto',
-                    bodyPadding: 0
+                		   pack: 'center'
+                	   },
+                	   overflowY: 'auto',
+                	   bodyPadding: 0
                 }
             ]
 //            ,
