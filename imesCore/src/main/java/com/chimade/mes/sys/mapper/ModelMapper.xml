@@ -15,7 +15,8 @@
 
 	<sql id="selectColumns" >
 		id,name,url	</sql>
-<sql id="where">	<where>
+	<sql id="where">
+		<where>
 			<if test="id!=null and id!='' "> 
 			and id LIKE CONCAT('%', CONCAT(#{id}, '%'))
 	 		</if>  

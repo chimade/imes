@@ -54,6 +54,10 @@
 <script type="text/javascript" src="app/model/SysShopfloorModel.js"></script>
 <script type="text/javascript" src="app/view/examples/forms/Shopfloor.js"></script>
 
+<script type="text/javascript" src="app/store/SysModelStore.js"></script>
+<script type="text/javascript" src="app/model/SysModelModel.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/Model.js"></script>
+
 <script type="text/javascript" src="app/store/SysActionStore.js"></script>
 <script type="text/javascript" src="app/model/SysActionModel.js"></script>
 <script type="text/javascript" src="app/view/examples/forms/Action.js"></script>
