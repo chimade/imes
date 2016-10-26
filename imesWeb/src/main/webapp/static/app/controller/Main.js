@@ -4,7 +4,7 @@ Ext.define('KitchenSink.controller.Main', {
     stores: [
         'Examples',
 //        'Companies',
-        'Restaurants',
+//        'Restaurants',
 //        'States',
 //        'TreeStore'
     ],

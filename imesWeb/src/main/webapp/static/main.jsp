@@ -58,7 +58,8 @@
 
 <script type="text/javascript" src="app/store/SysModelStore.js"></script>
 <script type="text/javascript" src="app/model/SysModelModel.js"></script>
-<script type="text/javascript" src="app/view/examples/forms/Model.js"></script>
+<!-- <script type="text/javascript" src="app/view/examples/forms/Model.js"></script> -->
+<script type="text/javascript" src="app/view/examples/forms/authorization/Model.js"></script>
 
 <script type="text/javascript" src="app/store/SysActionStore.js"></script>
 <script type="text/javascript" src="app/model/SysActionModel.js"></script>
@@ -66,7 +67,8 @@
 
 <script type="text/javascript" src="app/store/SysModelActionStore.js"></script>
 <script type="text/javascript" src="app/model/SysModelActionModel.js"></script>
-<script type="text/javascript" src="app/view/examples/forms/ModelAction.js"></script>
+<!-- <script type="text/javascript" src="app/view/examples/forms/ModelAction.js"></script> -->
+<script type="text/javascript" src="app/view/examples/forms/authorization/ModelAction.js"></script>
 
 <script type="text/javascript" src="app/store/SysFactoryUserStore.js"></script>
 <script type="text/javascript" src="app/model/SysFactoryUserModel.js"></script>
@@ -74,8 +76,9 @@
 
 <script type="text/javascript" src="app/store/SysAuthorizeModelActionStore.js"></script>
 <script type="text/javascript" src="app/model/SysAuthorizeModelActionModel.js"></script>
-<script type="text/javascript" src="app/view/examples/forms/AuthorizeModelAction.js"></script>
 
+<script type="text/javascript" src="app/view/examples/forms/authorization/AuthorizeModelAction.js"></script>
+<!-- <script type="text/javascript" src="app/view/examples/forms/AuthorizeModelAction.js"></script> -->
 <script type="text/javascript" src="app/store/SysRoleStore.js"></script>
 <script type="text/javascript" src="app/model/SysRoleModel.js"></script>
 <script type="text/javascript" src="app/view/examples/forms/Role.js"></script>
@@ -103,18 +106,18 @@
 
 
    --%>
-   <script type="text/javascript" src="app/model/Restaurant.js"></script>
-   <script type="text/javascript" src="app/store/Restaurants.js"></script>
-   <script type="text/javascript" src="app/view/examples/grids/BasicGrid.js"></script>
+<!--    <script type="text/javascript" src="app/model/Restaurant.js"></script> -->
+<!--    <script type="text/javascript" src="app/store/Restaurants.js"></script> -->
+<!--    <script type="text/javascript" src="app/view/examples/grids/BasicGrid.js"></script> -->
    
      <script type="text/javascript" src="app/model/SysUserModel.js"></script>
    <script type="text/javascript" src="app/store/SysUserStore.js"></script> 
 
 <!--    <script type="text/javascript" src="app/view/examples/PanelExample.js"></script> -->
-<script type="text/javascript" src="app/store/States.js"></script>
-<script type="text/javascript" src="app/view/examples/forms/Register.js"></script>
+<!-- <script type="text/javascript" src="app/store/States.js"></script> -->
+<!-- <script type="text/javascript" src="app/view/examples/forms/Register.js"></script> -->
 <!--    <script type="text/javascript" src="app/view/examples/forms/Contact.js"></script> -->
- <script type="text/javascript" src="app/view/examples/forms/Login.js"></script>
+<!--  <script type="text/javascript" src="app/view/examples/forms/Login.js"></script> -->
  <script type="text/javascript" src="app/view/examples/forms/User.js"></script>
 <!--  <script type="text/javascript" src="app/store/TreeStore.js"></script> -->
 
