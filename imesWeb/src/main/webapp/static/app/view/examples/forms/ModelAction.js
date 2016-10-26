@@ -56,7 +56,18 @@ Ext.define('KitchenSink.view.examples.forms.ModelActionEdit' , 	{
     		                if (   this.up('form').getForm().isValid() ) {  
 	    		                var form = this.up('form').getForm();
 	    		                var formValues = form.getValues();
-	    		                var beanModel = Ext.create('model.SysModelActionModel',  formValues);
+ 
+	    		                var modelId = formValues.modelId;
+	    		                var actionIds = formValues.actionId ;
+	    		                var m = new Array();
+	    		                if (  actionIds.length ){
+	    		                    for(var i=0 ; i< actionIds.length;i++) {
+	    		                    	m.push(  Ext.create('model.SysModelActionModel',  { "modelId":modelId, "actionId":actionIds[i] }) );
+	    		                    }
+	    		                } else
+	    		                	m.push(  Ext.create('model.SysModelActionModel',  { "modelId":modelId, "actionId":actionIds }) );
+	    		                for(var i=0 ; i< m.length;i++) {
+	    		                var beanModel = m[i];
 	    		                beanModel.save({
 	    		                	success: function(record ,response ) {
 	    		                		var r = Ext.decode(response.response.responseText) ;
@@ -65,8 +76,20 @@ Ext.define('KitchenSink.view.examples.forms.ModelActionEdit' , 	{
 	    		                			win.close();
 	    		                		}
 	   		                	    }
+	    		                ,
+	   		                	    failure : function(record,response){
+	   		                 
+	   		                	    		var msg = response.request.scope.reader.jsonData.msg ;
+	   		                	    		Ext.Msg.show({
+	   		                	    	     title:'提示',
+	   		                	    	     msg:  msg,
+	   		                	    	     buttons: Ext.Msg.YES,
+	   		                	    	     icon: Ext.Msg.WARNING
+	   		                	    	});
+	   		                	    }  
 	    		                	}
 	    		                );
+	    		                }
     		  				}
     		            }
     		        },{
@@ -84,19 +107,15 @@ Ext.define('KitchenSink.view.examples.forms.ModelActionEdit' , 	{
 		    	   st.load(  
 		    		   function(records, operation, success) {
 		 		    	   for(var i =0;i<st.getCount();i++){
-				    		   console.info(    st.getAt(i).get(name)  );
 				    		   checkbox.add( { 
 				                    boxLabel  :  st.getAt(i).get('name'),
-				                    name      : st.getAt(i).get('itemid'),
+				                    name      : 'actionId',
 				                    inputValue:  st.getAt(i).get('id'),
 				                    id        : 'checkbox'+st.getAt(i).get('id')
 				                 });
 				    	}
 		    			}
 		    	   );
-
-		    	   console.info( st);
-		    	 console.info(   this.down('fieldcontainer') );
 		    }
 		}
 ) ;
