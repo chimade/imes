@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.chimade.mes.sys.model.Model;
+import com.chimade.mes.sys.model.ModelAction;
 import com.chimade.mes.sys.model.PageExtjsGridData;
 import com.chimade.mes.sys.model.PageReturnMsgBean;
-import com.chimade.mes.sys.model.ModelAction;
 import com.chimade.mes.sys.service.ModelActionService;
 import com.chimade.mes.sys.util.SystemContant;
 
@@ -72,9 +73,12 @@ public class ModelActionController {
 	}
 	
 	@RequestMapping(value = "/baseModelAction/baseModelActions", method = { RequestMethod.POST })
-	public @ResponseBody    PageExtjsGridData<ModelAction>   getModelActionBySearch(@RequestBody ModelAction baseModelAction,HttpServletRequest request){
-		List<ModelAction> findAll = baseModelActionService.findBySearch(  baseModelAction );
-		PageExtjsGridData<ModelAction> pd = new  PageExtjsGridData<ModelAction>( ); 
+//	public @ResponseBody    PageExtjsGridData<ModelAction>   getModelActionBySearch(@RequestBody ModelAction baseModelAction,HttpServletRequest request){
+		public @ResponseBody    PageExtjsGridData<Model>   getModelActionBySearch(@RequestBody ModelAction baseModelAction,HttpServletRequest request){
+//		List<ModelAction> findAll = baseModelActionService.findBySearch(  baseModelAction );
+		List<Model> findAll = baseModelActionService.findModelMapActionBySearch(  baseModelAction );
+//		PageExtjsGridData<ModelAction> pd = new  PageExtjsGridData<ModelAction>( ); 
+		PageExtjsGridData<Model> pd = new  PageExtjsGridData<Model>( ); 
 		pd.setGridDatas(findAll);
 		int total = baseModelActionService.fetchTotalNumberForSearch(baseModelAction);
 		pd.setTotalProperty(  total  );

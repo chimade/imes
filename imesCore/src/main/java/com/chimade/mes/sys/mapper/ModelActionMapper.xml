@@ -2,19 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chimade.mes.sys.mapper.ModelActionMapper">
 	<insert id="save"   parameterType="ModelAction">
-	INSERT INTO base_model_action(model_id,action_id ) VALUES (#{modelId},#{actionId})
+		INSERT INTO base_model_action(model_id,action_id ) VALUES (#{modelId},#{actionId})
 	</insert>
 
 	<delete id="delete" parameterType="int">
-	DELETE FROM base_model_action WHERE id=#{id}
+		DELETE FROM base_model_action WHERE id=#{id}
 	</delete>
 
 	<update id="update" parameterType="ModelAction">
-	UPDATE base_model_action SET model_id=#{modelId},action_id=#{actionId} WHERE id=#{id}
+		UPDATE base_model_action SET model_id=#{modelId},action_id=#{actionId} WHERE id=#{id}
 	</update>
 
 	<sql id="selectColumns" >
-		id,model_id  modelId,action_id  actionId	</sql>
+		id,model_id  modelId,action_id  actionId	
+	</sql>
 	<sql id="where">
 		<where>
 			<if test="id!=null and id!='' "> 
@@ -26,7 +27,8 @@
 			<if test="actionId!=null and actionId!='' "> 
 			and action_id LIKE CONCAT('%', CONCAT(#{actionId}, '%'))
 	 		</if>  
-	</where></sql>
+	</where>
+	</sql>
 	<select id="findById" parameterType="int" resultType="ModelAction">
 		SELECT   <include refid="selectColumns"/>  FROM base_model_action  WHERE id=#{id} 
 	</select>
@@ -35,20 +37,55 @@
 		SELECT   <include refid="selectColumns"/> FROM base_model_action  
 	</select>
 
-	<select id="findBySearch" parameterType="ModelAction" resultType="ModelAction">
-		SELECT  <include refid="selectColumns"/> FROM base_model_action    	<include refid="where" /> 
- 	<if test="start>-1 and limit>-1">
- 	  limit #{limit}   offset #{start}  	 </if> 
+	<select id="findBySearch" parameterType="ModelAction"     resultType="ModelAction">
+		SELECT 
+		 <include refid="selectColumns"/>
+		 FROM base_model_action    	<include refid="where" />
+ 
+	 	<if test="start>-1 and limit>-1">
+	 	 	 limit #{limit}   offset #{start}
+	  	 </if> 
 	</select>
+	
+	<sql id="combineWHere">
+			<where>
+			<if test="modelId!=null and modelId!='' "> 
+			and ma.model_id =#{modelId}
+	 		</if>  
+			<if test="actionId!=null and actionId!='' "> 
+			and ma.action_id=#{actionId}
+	 		</if>  
+		</where>
+	</sql>
+	
+
 
  	<select id="fetchTotalNumberForSearch"  parameterType="ModelAction"  resultType="Integer">
- 	SELECT      count(id)      FROM base_model_action    	<include refid="where" /> 
+ 		SELECT    count ( model_id )  FROM ( SELECT   model_id     FROM base_model_action  ma  	<include refid="combineWHere" />   group by model_id   )   as t
 	</select>
+	
+		 <resultMap id="ModelMap" type="com.chimade.mes.sys.model.Model">
+			 <id property="id" column="id" />
+			 <result property="name" column="name" />
+			 <result property="url" column="url" />
+			 <result property="status" column="status" />
+		 <collection property="actions" column="a_id" ofType="com.chimade.mes.sys.model.Action" javaType="ArrayList" resultMap="ActionMap"/>
+	 </resultMap>
 
-<!-- 	<resultMap id="combineModel"    type="com.chimade.mes.sys.model.Model"> -->
-<!-- 	        <result property="model" column="model" />   -->
-<!-- 			<association    property="model"   column="modelId"	 	javaType="Model"   select="com.chimade.mes.sys.mapper.ModelMapper.findById"  />  -->
-<!-- 			<association    property="action"   column="actionId"	 	javaType="Action"   select="com.chimade.mes.sys.mapper.ActionMapper.findById"  />  -->
-<!--  	</resultMap> -->
+	 <resultMap id="ActionMap" type="com.chimade.mes.sys.model.Action">
+	 	<id property="id" column="a_id" />
+	 	<result property="name" column="a_name" />
+		<result property="itemid" column="a_itemid" />
+	 </resultMap>
 
+	 <select id="findModelMapActionBySearch" resultMap="ModelMap" >
+ 					select   m.id as id , m.name as name , m.status as status ,m.url  as url  , a.name as  a_name ,a.id as a_id  ,a.itemid as a_itemid
+					from base_model m
+					left outer join  base_model_action ma  on m.id = ma.model_id
+					left outer join base_action  a on  a.id = ma.action_id
+					<include refid="combineWHere" /> 
+					order by m.id
+	 </select> 
+	
+	
 </mapper>

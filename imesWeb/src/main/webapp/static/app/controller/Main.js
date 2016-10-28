@@ -90,7 +90,6 @@ Ext.define('KitchenSink.controller.Main', {
         document.title = document.title.split(' - ')[0] + ' - ' + title;
         
         //create the example
-// console.info( className);
         example = Ext.create(className);
  
         //remove all items from the example panel and add new example
@@ -144,7 +143,6 @@ Ext.define('KitchenSink.controller.Main', {
 //        	while (parentNode && parentNode.get('text') != "Root") {
             path = parentNode.raw['label'] + '/' + Ext.String.capitalize(path);
 //            path = parentNode.get('text') + '/' + Ext.String.capitalize(path);
-
             parentNode = parentNode.parentNode;
         }
 
@@ -153,22 +151,29 @@ Ext.define('KitchenSink.controller.Main', {
 
     classNameFromRecord: function(record) {
         var path = this.filePathFromRecord(record);
-
-        path = 'KitchenSink.view.examples.' + path.replace('/', '.');
-
+	 
+        path = 'KitchenSink.view.examples.' + path.replace(/\//g,".")
+//        path = 'KitchenSink.view.examples.' + path.replace('/', '.');
         return path;
     },
 
     formatPath: function(string) {
+ 
         var result = string.split(' ')[0].charAt(0).toLowerCase() + string.split(' ')[0].substr(1),
             paths = string.split(' '),
             ln = paths.length,
             i;
-
+ 
         for (i = 1; i < ln; i++) {
-            result = result + Ext.String.capitalize(paths[i]);
+   
+//        	if (  paths[i].substring(0,1) =="/")
+//        		 paths[i] =  paths[i].substring(1, paths[i].length );
+        	if ( i == (ln-1))
+        		result = result + Ext.String.capitalize(paths[i]);
+        	else 
+        		  result = result + paths[i] ;
+           
         }
-
         return result;
     }
 });

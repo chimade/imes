@@ -13,8 +13,7 @@
 	UPDATE base_model SET name=#{name},url=#{url},status=#{status} WHERE id=#{id}
 	</update>
 
-	<sql id="selectColumns" >
-		id,name,url,status	</sql>
+	<sql id="selectColumns" >		id,name,url,status </sql>
 	<sql id="where">
 		<where>
 			<if test="id!=null and id!='' "> 
@@ -38,12 +37,16 @@
 		SELECT   <include refid="selectColumns"/> FROM base_model  
 	</select>
 
-	<select id="findBySearch" parameterType="Model" resultType="Model">
+	<select id="findBySearch" parameterType="Model"  resultMap="combineModelAction">
+<!-- 	 resultType="Model"> -->
 		SELECT  <include refid="selectColumns"/> FROM base_model    	<include refid="where" /> 
  	<if test="start>-1 and limit>-1">
  	  limit #{limit}   offset #{start}  	 </if> 
 	</select>
 
+	<resultMap id="combineModelAction"    type="com.chimade.mes.sys.model.Model">
+<!-- 		<collection property="actions"  ofType="com.chimade.mes.sys.model.Action"  column="actionId"   select="com.chimade.mes.sys.mapper.ActionMapper.findById" /> -->
+ 	</resultMap>
  	<select id="fetchTotalNumberForSearch"  parameterType="Model"  resultType="Integer">
  	SELECT      count(id)      FROM base_model    	<include refid="where" /> 
 	</select>

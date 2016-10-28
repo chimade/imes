@@ -63,7 +63,8 @@
 
 <script type="text/javascript" src="app/store/SysActionStore.js"></script>
 <script type="text/javascript" src="app/model/SysActionModel.js"></script>
-<script type="text/javascript" src="app/view/examples/forms/Action.js"></script>
+<script type="text/javascript" src="app/view/examples/forms/authorization/Action.js"></script>
+<!-- <script type="text/javascript" src="app/view/examples/forms/Action.js"></script> -->
 
 <script type="text/javascript" src="app/store/SysModelActionStore.js"></script>
 <script type="text/javascript" src="app/model/SysModelActionModel.js"></script>
@@ -77,8 +78,8 @@
 <script type="text/javascript" src="app/store/SysAuthorizeModelActionStore.js"></script>
 <script type="text/javascript" src="app/model/SysAuthorizeModelActionModel.js"></script>
 
-<script type="text/javascript" src="app/view/examples/forms/authorization/AuthorizeModelAction.js"></script>
-<!-- <script type="text/javascript" src="app/view/examples/forms/AuthorizeModelAction.js"></script> -->
+<!-- <script type="text/javascript" src="app/view/examples/forms/authorization/AuthorizeModelAction.js"></script> -->
+<script type="text/javascript" src="app/view/examples/forms/AuthorizeModelAction.js"></script>
 <script type="text/javascript" src="app/store/SysRoleStore.js"></script>
 <script type="text/javascript" src="app/model/SysRoleModel.js"></script>
 <script type="text/javascript" src="app/view/examples/forms/Role.js"></script>

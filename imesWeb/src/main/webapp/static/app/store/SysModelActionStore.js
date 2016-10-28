@@ -23,7 +23,7 @@ Ext.define('SysModelActionStore', {
 //            property: 'baseModelActionName',
 //            direction: 'ASC'
 //        }],
-        pageSize: 2,
+        pageSize: 10,
         autoLoad : true 
         }, config);
         this.callParent([config]);

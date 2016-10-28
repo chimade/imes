@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.chimade.mes.sys.mapper.ModelActionMapper;
+import com.chimade.mes.sys.model.Model;
 import com.chimade.mes.sys.model.ModelAction;
 import com.chimade.mes.sys.service.ModelActionService;
  
@@ -54,6 +55,12 @@ public class ModelActionServiceImpl implements ModelActionService {
 	
 	public List<ModelAction> findBySearch(ModelAction baseModelAction) {
 		List<ModelAction> findAllList = mapper.findBySearch (baseModelAction)  ;
+		return findAllList;
+	}
+
+	@Override
+	public List<Model> findModelMapActionBySearch(ModelAction baseModelAction) {
+		List<Model> findAllList = mapper.findModelMapActionBySearch (baseModelAction)  ;
 		return findAllList;
 	}
 	

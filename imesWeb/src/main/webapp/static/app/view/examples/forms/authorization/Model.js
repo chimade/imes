@@ -83,7 +83,7 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelEdit' , 	{
 		}
 ) ;
  
-Ext.define('KitchenSink.view.examples.forms.Model', {
+Ext.define('KitchenSink.view.examples.forms.authorization.Model', {
     extend:  'Ext.panel.Panel',
     alias: 'chmade.sysModel',
     header: false,

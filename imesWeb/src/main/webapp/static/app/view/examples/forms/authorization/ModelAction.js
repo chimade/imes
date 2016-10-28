@@ -5,8 +5,8 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelActionEdit' , 	{
 		    constructor: function(config) {
 		    	refreshStore = config.refreshStore ;
 		    	config = Ext.apply({
-		    		width: 465,
-		    		height: 400,
+		    		width: 410,
+		    		height: 260,
 		    		x: 300,
 		    		y: 20,
 		    		constrain: true,
@@ -16,7 +16,7 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelActionEdit' , 	{
     		        layout: 'form',
     		        frame: true,
     		        bodyPadding: '5 5 0',
-    		        width: 450,
+    		        width:400,
     		        fieldDefaults: {
     		            msgTarget: 'side',
     		            labelWidth: 105
@@ -39,6 +39,13 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelActionEdit' , 	{
 			 
 		            xtype: 'fieldcontainer',
 		            fieldLabel: '动作名',
+//		            layout: 'hbox',
+//		            layout: 'anchor',
+//		            layout:'fit',
+		            layout: {
+		                type: 'table',
+		                columns: 2
+		            },
 		            defaultType: 'checkboxfield'
 			}
     		        ,
@@ -108,6 +115,8 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelActionEdit' , 	{
 		    		   function(records, operation, success) {
 		 		    	   for(var i =0;i<st.getCount();i++){
 				    		   checkbox.add( { 
+				    			   
+				    			   width : 100,
 				                    boxLabel  :  st.getAt(i).get('name'),
 				                    name      : 'actionId',
 				                    inputValue:  st.getAt(i).get('id'),
@@ -120,7 +129,7 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelActionEdit' , 	{
 		}
 ) ;
  
-Ext.define('KitchenSink.view.examples.forms.ModelAction', {
+Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
     extend:  'Ext.panel.Panel',
     alias: 'chmade.sysModelAction',
     header: false,
@@ -129,7 +138,34 @@ Ext.define('KitchenSink.view.examples.forms.ModelAction', {
     beforeRender: function() {
         var me = this;
         me.callParent();
-     	pluginStore =  Ext.create('SysModelActionStore');
+//     	pluginStore =  Ext.create('SysModelActionStore');
+     	pluginStore =  Ext.create('SysModelStore',{
+      
+     	        model: 'model.SysModelModel',
+     	        proxy: {
+     	        	  headers: { 
+     	        	        'Accept': 'application/json',
+     	        	        'Content-Type': 'application/json' 
+     	        	    },
+     	            type: 'jsonajax', 
+     	            url:'/imes/sys/baseModelAction/baseModelActions',
+     	    		method:'post',
+     	    		actionMethods : 'post',
+     	            reader: { 
+     	            	type: 'json',
+     	            	 root: 'gridDatas',
+     	            	 idProperty: 'id',
+     	                totalProperty: 'totalProperty'
+     	            }
+     	        },
+ 
+     	        pageSize: 10,
+     	        autoLoad : true 
+      
+     	}
+     			
+     	
+     	);
     	 this.down('gridpanel') .reconfigure(  pluginStore );
     	 this.down('pagingtoolbar') .bindStore(  pluginStore );
     } ,
@@ -144,10 +180,26 @@ Ext.define('KitchenSink.view.examples.forms.ModelAction', {
     	 	margin: ' 0 0  0 10',
     	 	xtype : 'gridpanel',
     	 	selModel  : Ext.create('Ext.selection.CheckboxModel'    ),
+            features: [{
+                id: 'group',
+                ftype: 'groupingsummary',
+                groupHeaderTpl: '{id}',
+                hideGroupedHeader: true,
+                enableGroupingMenu: false
+            }],
     	    columns: [
-    	    	{ text:'id' ,		dataIndex:'id' } ,
-	{ text:'模块名' ,		dataIndex:'modelId' } ,
-	{ text:'动作名' ,		dataIndex:'actionId' }
+    	    	{ text:'id' ,		dataIndex:'id' ,hidden : true } ,
+    	    	{ text:'模块名' ,		dataIndex:'name' } ,
+//    	    	{ text:'动作名' ,		dataIndex:'actionId' }
+    	    	{ text:'动作名' ,		 renderer: function (value, meta, record) {  
+    	    		var display = "";
+    	    		if  (  record.raw.actions  &&   record.raw.actions.length ) {
+    	    			for(var k=0 ;k<   record.raw.actions.length;k++  ) {
+    	    				display = display +  record.raw.actions[k].name+"  "  ;
+    	    			}
+    	    		}
+    	    				return  display;
+    	    	}   	},
     	    ],
     		   dockedItems: [ 
 				{

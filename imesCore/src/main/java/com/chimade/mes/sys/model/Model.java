@@ -1,6 +1,7 @@
 package com.chimade.mes.sys.model ;
 
-import com.chimade.mes.sys.model.PageableBaseModel; 
+import java.util.ArrayList;
+import java.util.List; 
 
 
 public class Model  extends PageableBaseModel {
@@ -9,8 +10,14 @@ public class Model  extends PageableBaseModel {
    private String   name;
    private String   url;
    private int   status;
-
-   public  void  setId(int id) {
+	private List<Action>   actions = new ArrayList<Action>()	;
+   public List<Action> getActions() {
+		return actions;
+	}
+	public void setActions(List<Action> actions) {
+		this.actions = actions;
+	}
+public  void  setId(int id) {
    		this.id = id;
    } 
    public  int getId ( )  {
