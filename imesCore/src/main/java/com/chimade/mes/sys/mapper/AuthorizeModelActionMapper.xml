@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chimade.mes.sys.mapper.AuthorizeModelActionMapper">
 	<insert id="save"   parameterType="AuthorizeModelAction">
-	INSERT INTO base_authorize_model_action(user_id,type,action_id,factory_id,role_id ) VALUES (#{userId},#{type},#{actionId},#{factoryId},#{roleId})
+	INSERT INTO base_authorize_model_action(user_id,type,action_id,factory_id,role_id,model_id ) VALUES (#{userId},#{type},#{actionId},#{factoryId},#{roleId},#{modelId})
 	</insert>
 
 	<delete id="delete" parameterType="int">
@@ -10,11 +10,11 @@
 	</delete>
 
 	<update id="update" parameterType="AuthorizeModelAction">
-	UPDATE base_authorize_model_action SET user_id=#{userId},type=#{type},action_id=#{actionId},factory_id=#{factoryId},role_id=#{roleId} WHERE id=#{id}
+	UPDATE base_authorize_model_action SET user_id=#{userId},type=#{type},action_id=#{actionId},factory_id=#{factoryId},role_id=#{roleId},model_id=#{modelId} WHERE id=#{id}
 	</update>
 
 	<sql id="selectColumns" >
-		user_id  userId,type,action_id  actionId,factory_id  factoryId,id,role_id  roleId	</sql>
+		user_id  userId,type,action_id  actionId,factory_id  factoryId,id,role_id  roleId,model_id  modelId	</sql>
 	<sql id="where">
 		<where>
 			<if test="userId!=null and userId!='' "> 
@@ -34,6 +34,9 @@
 	 		</if>  
 			<if test="roleId!=null and roleId!='' "> 
 			and role_id LIKE CONCAT('%', CONCAT(#{roleId}, '%'))
+	 		</if>  
+			<if test="modelId!=null and modelId!='' "> 
+			and model_id LIKE CONCAT('%', CONCAT(#{modelId}, '%'))
 	 		</if>  
 	</where></sql>
 	<select id="findById" parameterType="int" resultType="AuthorizeModelAction">
@@ -58,14 +61,16 @@
 	</select>
 
 <!-- 	<resultMap id="combineAuthorizeModelAction"    type="com.chimade.mes.sys.model.AuthorizeModelAction"> -->
-<!-- 	        <result property="userId" column="user_id" />   -->
-<!-- 			<association    property="user"   column="user_id"	 	javaType="User"   select="com.chimade.mes.sys.mapper.UserMapper.findById"  />  -->
-<!-- 	        <result property="actionId" column="action_id" />   -->
-<!-- 			<association    property="action"   column="action_id"	 	javaType="Action"   select="com.chimade.mes.sys.mapper.ActionMapper.findById"  />  -->
-<!-- 	        <result property="factoryId" column="factory_id" />   -->
-<!-- 			<association    property="factory"   column="factory_id"	 	javaType="Factory"   select="com.chimade.mes.sys.mapper.FactoryMapper.findById"  />  -->
-<!-- 	        <result property="roleId" column="role_id" />   -->
-<!-- 			<association    property="role"   column="role_id"	 	javaType="Role"   select="com.chimade.mes.sys.mapper.RoleMapper.findById"  />  -->
+<!-- 	        <result property="userId" column="userId" />   -->
+<!-- 	        <result property="actionId" column="actionId" />   -->
+<!-- 	        <result property="factoryId" column="factoryId" />   -->
+<!-- 	        <result property="roleId" column="roleId" />   -->
+<!-- 	        <result property="modelId" column="modelId" />   -->
+<!-- 			<association    property="user"   column="userId"	 	javaType="User"   select="com.chimade.mes.sys.mapper.UserMapper.findById"  />  -->
+<!-- 			<association    property="action"   column="actionId"	 	javaType="Action"   select="com.chimade.mes.sys.mapper.ActionMapper.findById"  />  -->
+<!-- 			<association    property="factory"   column="factoryId"	 	javaType="Factory"   select="com.chimade.mes.sys.mapper.FactoryMapper.findById"  />  -->
+<!-- 			<association    property="role"   column="roleId"	 	javaType="Role"   select="com.chimade.mes.sys.mapper.RoleMapper.findById"  />  -->
+<!-- 			<association    property="model"   column="modelId"	 	javaType="Model"   select="com.chimade.mes.sys.mapper.ModelMapper.findById"  />  -->
 <!--  	</resultMap> -->
 
 </mapper>

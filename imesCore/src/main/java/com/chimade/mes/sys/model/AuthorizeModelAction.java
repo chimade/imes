@@ -5,6 +5,7 @@ import com.chimade.mes.sys.model.User;
 import com.chimade.mes.sys.model.Action; 
 import com.chimade.mes.sys.model.Factory; 
 import com.chimade.mes.sys.model.Role; 
+import com.chimade.mes.sys.model.Model; 
 
 
 public class AuthorizeModelAction  extends PageableBaseModel {
@@ -15,11 +16,13 @@ public class AuthorizeModelAction  extends PageableBaseModel {
    private int   factoryId;
    private   int id;
    private int   roleId;
+   private int   modelId;
 
 	private User   user ;
 	private Action   action ;
 	private Factory   factory ;
 	private Role   role ;
+	private Model   model ;
    public  void  setUserId(int   userId ) {
    		this.userId = userId;
    } 
@@ -84,6 +87,19 @@ public class AuthorizeModelAction  extends PageableBaseModel {
    } 
    public  Role   getRole ()  {
    		return role;
+   } 
+
+   public  void  setModelId(int   modelId ) {
+   		this.modelId = modelId;
+   } 
+   public  int   getModelId ()  {
+   		return modelId;
+   } 
+   public  void  setModel(Model  model   ) {
+   		this.model = model;
+   } 
+   public  Model   getModel ()  {
+   		return model;
    } 
 
 

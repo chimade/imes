@@ -47,6 +47,11 @@ Ext.define('KitchenSink.view.examples.forms.AuthorizeModelActionEdit' , 	{
 			  fieldLabel:'角色' ,
 			  name:'roleId',
 			  allowBlank:false
+			}	,
+			{
+			  fieldLabel:'模块' ,
+			  name:'modelId',
+			  allowBlank:false
 			}
     		        ,
     		        {
@@ -120,7 +125,8 @@ Ext.define('KitchenSink.view.examples.forms.AuthorizeModelAction', {
 	{ text:'动作' ,		dataIndex:'actionId' } ,
 	{ text:'工厂' ,		dataIndex:'factoryId' } ,
 	{ text:'id' ,		dataIndex:'id' } ,
-	{ text:'角色' ,		dataIndex:'roleId' }
+	{ text:'角色' ,		dataIndex:'roleId' } ,
+	{ text:'模块' ,		dataIndex:'modelId' }
     	    ],
     		   dockedItems: [ 
 				{
@@ -170,6 +176,12 @@ Ext.define('KitchenSink.view.examples.forms.AuthorizeModelAction', {
 				  fieldLabel:'id',
 				  name:'id'
 		,		  hidden:true 
+				} 
+				,
+				{ 
+    				  xtype:'textfield',
+				  fieldLabel:'模块',
+				  name:'modelId'
 				} 
 				
  			]

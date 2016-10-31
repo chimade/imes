@@ -8,8 +8,14 @@ public class Action  extends PageableBaseModel {
    private   int id;
    private String   itemid;
    private String   name;
-
-   public  void  setId(int id) {
+   private int modelActionId ;
+   public int getModelActionId() {
+	return modelActionId;
+	}
+	public void setModelActionId(int modelActionId) {
+		this.modelActionId = modelActionId;
+	}
+public  void  setId(int id) {
    		this.id = id;
    } 
    public  int getId ( )  {

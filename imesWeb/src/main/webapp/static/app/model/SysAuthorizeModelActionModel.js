@@ -6,7 +6,8 @@ Ext.define('model.SysAuthorizeModelActionModel', {
 	{ name:'actionId' },
 	{ name:'factoryId' },
 	{ name:'id' },
-	{ name:'roleId' }
+	{ name:'roleId' },
+	{ name:'modelId' }
     ]
 	,
 	proxy: {

@@ -69,6 +69,7 @@
 			 <result property="name" column="name" />
 			 <result property="url" column="url" />
 			 <result property="status" column="status" />
+<!-- 		 <collection property="actions" column="a_id" ofType="com.chimade.mes.sys.model.Action"   select="com.chimade.mes.sys.mapper.ActionMapper.findById"/> -->
 		 <collection property="actions" column="a_id" ofType="com.chimade.mes.sys.model.Action" javaType="ArrayList" resultMap="ActionMap"/>
 	 </resultMap>
 
@@ -76,10 +77,11 @@
 	 	<id property="id" column="a_id" />
 	 	<result property="name" column="a_name" />
 		<result property="itemid" column="a_itemid" />
+		<result property="modelActionId" column="ma_id"/>
 	 </resultMap>
 
 	 <select id="findModelMapActionBySearch" resultMap="ModelMap" >
- 					select   m.id as id , m.name as name , m.status as status ,m.url  as url  , a.name as  a_name ,a.id as a_id  ,a.itemid as a_itemid
+ 					select   m.id as id , m.name as name , m.status as status ,m.url  as url  , a.name as  a_name ,a.id as a_id  ,a.itemid as a_itemid , ma.id as ma_id
 					from base_model m
 					left outer join  base_model_action ma  on m.id = ma.model_id
 					left outer join base_action  a on  a.id = ma.action_id

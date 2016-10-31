@@ -73,7 +73,8 @@ CREATE TABLE base_authorize_model_action (
     action_id integer,
     factory_id integer,
     id integer NOT NULL,
-    role_id integer
+    role_id integer,
+    model_id integer
 );
 
 
@@ -112,6 +113,13 @@ COMMENT ON COLUMN base_authorize_model_action.factory_id IS '工厂';
 --
 
 COMMENT ON COLUMN base_authorize_model_action.role_id IS '角色';
+
+
+--
+-- Name: COLUMN base_authorize_model_action.model_id; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN base_authorize_model_action.model_id IS '模块';
 
 
 --

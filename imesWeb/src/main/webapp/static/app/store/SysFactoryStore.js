@@ -24,7 +24,7 @@ Ext.define('SysFactoryStore', {
 //            direction: 'ASC'
 //        }],
         pageSize: 10,
-        autoLoad : true 
+        autoLoad : false 
         }, config);
         this.callParent([config]);
     }
