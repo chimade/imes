@@ -15,6 +15,16 @@ public class User extends PageableBaseModel {
 	private String userName;
 	private String password;
 	private String loginAccount;
+	
+	private Model model ;
+	public Model getModel() {
+		return model;
+	}
+
+	public void setModel(Model model) {
+		this.model = model;
+	}
+
 	/**
 	 *  1 enable , 0 disabled
 	 */

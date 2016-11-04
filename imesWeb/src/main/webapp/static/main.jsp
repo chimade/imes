@@ -69,6 +69,8 @@
 <script type="text/javascript" src="app/store/SysModelActionStore.js"></script>
 <script type="text/javascript" src="app/model/SysModelActionModel.js"></script>
 <!-- <script type="text/javascript" src="app/view/examples/forms/ModelAction.js"></script> -->
+
+<script type="text/javascript" src="app/view/examples/forms/authorization/ModelAssociationUser.js"></script>
 <script type="text/javascript" src="app/view/examples/forms/authorization/ModelAction.js"></script>
 
 <script type="text/javascript" src="app/store/SysFactoryUserStore.js"></script>

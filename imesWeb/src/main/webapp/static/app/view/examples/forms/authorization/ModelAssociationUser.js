@@ -153,22 +153,31 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelActionEdit' , 	{
 		    }
 		}
 ) ;
-
  
-Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
-    extend:  'Ext.panel.Panel',
+Ext.define('KitchenSink.view.examples.forms.authorization.ModelAssociationUser', {
+    extend:  'Ext.window.Window',
     requires: [
                'Ext.grid.Panel',
                'Ext.grid.column.Action'
            ],
-    alias: 'chmade.sysModelAction',
+    alias: 'chmade.modelAssociationUser',
     header: false,
-    pluginStore : undefined ,
-    minHeight : 510,
+    title: '',
+	closable : true ,
+	maximizable :true ,
+//    pluginStore : undefined ,
+    constructor: function(config) {
+    	refreshStore = config.refreshStore ;
+    	config = Ext.apply({
+    		x: 270,
+    		y:110,
+    	constrain: true,
+
+//	    layout: 'fit',
+ /*
     beforeRender: function() {
+    	console.info( "run ModelAssociationUser");
         var me = this;
-//        me.callParent();
-//     	pluginStore =  Ext.create('SysModelActionStore');
      	pluginStore =  Ext.create('SysModelStore',{
       
      	        model: 'model.SysModelModel',
@@ -200,7 +209,13 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
     	 this.down('pagingtoolbar') .bindStore(  pluginStore );   var me = this;
          me.callParent();
     } ,
+    */
     title : '',
+    width : 840,
+    height : 500,
+    modal : true,
+	closable : true ,
+	maximizable :true ,
     layout: {
     	type:'fit',
         pack: 'center'
@@ -210,11 +225,11 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
     	
     	 	margin: ' 0 0  0 10',
     	 	xtype : 'gridpanel',
-    	 	selModel  : Ext.create('Ext.selection.CheckboxModel'    ),
     	    columns: [
     	    	{ text:'id' ,		dataIndex:'id' ,hidden : true } ,
-    	    	{ text:'模块名' ,		dataIndex:'name' } ,
-    	    	{ 	text:'动作名' ,	flex:8,	 
+    	    	{ text:'用户名' ,		dataIndex:'name' } ,
+    	    	{ text:'权限列表' ,		dataIndex:'name' } ,
+    	    /*	{ 	text:'动作名' ,	flex:8,	 
     	    			renderer: function (value, meta, record) {  
 		    	    		var display = "";
 		    	    		if  (  record.raw.actions  &&   record.raw.actions.length ) {
@@ -229,9 +244,6 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
     	    		text:'用户' ,	 
     		    	 width: 125 ,
 	    			renderer: function (value, meta, record) {  
-	    				var me = this ; 
-	    				var p =  me.up() ;
-	    				console.info( record.data['name'] );
 	    				var id = Ext.id();
 	    				Ext.defer(function(){
 	    					Ext.widget('button',{
@@ -239,10 +251,7 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
 	    							text:'关联: '+record.data['name'] ,
 	    							width: 100,
 	    							handler : function( ) {
-	           		            		var   f = Ext.create(  'chmade.modelAssociationUser', { title:' 关联用户 ->  '+ record.data['name'], constrainTo : p.getEl() , refreshStore: me.getStore() ,    	closable : true ,
-	           		            			maximizable :true 	 } );
-	           		            	 
-	           		            		f.show();
+	    								console.info("run here");
 	    							}
 	    					});
 	    				}, 50);
@@ -265,30 +274,7 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
     				return Ext.String.format('<div id="{0}"></div>',id );
     		}   	
     	}
-    	    	/*
-    	    	{
-    	            xtype:'actioncolumn',
-    	            text:'action',
-    	            width:150,
-    	            items: [ {
-    	            	
-    	                xtype : 'button',
-    	                icon: 'http://127.0.0.1:8080/imes/static/resources/images/user.png',  
-    	                tooltip: 'Edit',
-    	                handler: function(grid, rowIndex, colIndex) {
-    	                    var rec = grid.getStore().getAt(rowIndex);
-    	                    alert("Edit " + rec.get('firstname'));
-    	                }
-    	            },{
-    	                icon: '/imes/static/resources/images/group.png',
-    	                tooltip: 'Delete',
-    	                handler: function(grid, rowIndex, colIndex) {
-    	                    var rec = grid.getStore().getAt(rowIndex);
-    	                    alert("Terminate " + rec.get('firstname'));
-    	                }
-    	            }
-    	            ]
-    	        } */
+ */
     	    ],
     		   dockedItems: [ 
 				{
@@ -297,7 +283,8 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
 				    displayInfo: true
 				},
     		     {
-					
+//				    header: false,
+//				    pluginStore : undefined ,
     		     layout:'fit',
        		    xtype: 'toolbar',
        		    dock: 'top',
@@ -345,7 +332,8 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
 				
  			]
  		       }
-       		        ],
+       		        ]
+       		        /*,
        		        buttons: ['->', {
        		            text: '查找',
                        	handler: function() {
@@ -384,7 +372,7 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
     		 					                   checked : checked ,
     		 					                    inputValue:  st.getAt(i).get('id'),
     		 					                    id        : 'checkbox'+st.getAt(i).get('id')
-    		 					            };
+    		 					                 };
     		 				    		   checkbox.add(  checkObj  );
     		 				    	}
     		 		    			}
@@ -458,9 +446,14 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
         		            	
         		            	}
        		        }
+       		      
        		        ]
+       		          */
        		    }
           }]
     	} 
   ]
+    	} ,config);
+    	   this.callParent([config]);
+    }
 });
