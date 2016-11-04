@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.chimade.mes.sys.model.AuthorizeModelAction;
 import com.chimade.mes.sys.model.PageExtjsGridData;
 import com.chimade.mes.sys.model.PageReturnMsgBean;
-import com.chimade.mes.sys.model.AuthorizeModelAction;
+import com.chimade.mes.sys.model.User;
 import com.chimade.mes.sys.service.AuthorizeModelActionService;
 import com.chimade.mes.sys.util.SystemContant;
 
@@ -77,6 +78,16 @@ public class AuthorizeModelActionController {
 		PageExtjsGridData<AuthorizeModelAction> pd = new  PageExtjsGridData<AuthorizeModelAction>( ); 
 		pd.setGridDatas(findAll);
 		int total = baseAuthorizeModelActionService.fetchTotalNumberForSearch(baseAuthorizeModelAction);
+		pd.setTotalProperty(  total  );
+		return pd ;
+	}
+	
+	@RequestMapping(value = "/baseAuthorizeModelAction/modelLkUser", method = { RequestMethod.POST })
+	public @ResponseBody    PageExtjsGridData<User>   getModelAuthorizationLinkUserBySearch(@RequestBody User user,HttpServletRequest request){
+		List<User> findAll = baseAuthorizeModelActionService.findModelLinkUserBySearch(  user );
+		PageExtjsGridData<User> pd = new  PageExtjsGridData<User>( ); 
+		pd.setGridDatas(findAll);
+		int total = baseAuthorizeModelActionService.fetchTotalNumberForSearchMolelLinkUser(user);
 		pd.setTotalProperty(  total  );
 		return pd ;
 	}

@@ -73,4 +73,49 @@
 <!-- 			<association    property="model"   column="modelId"	 	javaType="Model"   select="com.chimade.mes.sys.mapper.ModelMapper.findById"  />  -->
 <!--  	</resultMap> -->
 
+		 <resultMap id="ModelMap" type="com.chimade.mes.sys.model.Model">
+			 <id property="id" column="id" />
+			 <result property="name" column="name" />
+			 <result property="url" column="url" />
+			 <result property="status" column="status" />
+<!-- 		 <collection property="actions" column="a_id" ofType="com.chimade.mes.sys.model.Action"   select="com.chimade.mes.sys.mapper.ActionMapper.findById"/> -->
+		 <collection property="actions" column="a_id" ofType="com.chimade.mes.sys.model.Action" javaType="ArrayList" resultMap="ActionMap"/>
+	 </resultMap>
+
+	 <resultMap id="ActionMap" type="com.chimade.mes.sys.model.Action">
+	 	<id property="id" column="a_id" />
+	 	<result property="name" column="a_name" />
+		<result property="itemid" column="a_itemid" />
+		<result property="modelActionId" column="ma_id"/>
+	 </resultMap>
+
+	 <select id="findUserMapModelBySearch" resultMap="ModelMap" >
+ 					select   m.id as id , m.name as name , m.status as status ,m.url  as url  , a.name as  a_name ,a.id as a_id  ,a.itemid as a_itemid , ma.id as ma_id
+					from base_model m
+					left outer join  base_model_action ma  on m.id = ma.model_id
+					left outer join base_action  a on  a.id = ma.action_id
+<!-- 					<include refid="combineWHere" />  -->
+					order by m.id
+	 </select> 
+	 <select id="findModelLinkUserBySearch"		parameterType="com.chimade.mes.sys.model.User"  resultType="com.chimade.mes.sys.model.User" >
+							 select  u.user_name as  userName, u.id, u.status,u.login_account as loginAccount  ,m.name as m_name ,  m.id as m_id , ma.id as ma_id , a.name as a_name 
+							  from base_user  u 
+							left join base_authorize_model_action  ama on ama.user_id = u.id
+							left join base_model m on m.id = ama.model_id
+							left join base_action a on a.id =ama.action_id
+							left join base_model_action  ma 
+							on ma.id= ama.model_id and ma.model_id=m.id and ama.action_id = ma.action_id
+				<include refid="whereModelLinkUser" />
+							order by m.id
+	 </select> 
+	  	<select id="fetchTotalNumberForSearchMolelLinkUser"  parameterType="com.chimade.mes.sys.model.User"  resultType="Integer">
+ 				SELECT      count(id)      FROM base_user    	<include refid="whereModelLinkUser" />
+		</select>
+	 <sql id="whereModelLinkUser">
+		<where>
+			<if test="userName!=null and  userName!='' "> 
+			and user_name LIKE CONCAT('%', CONCAT(#{userName}, '%'))
+	 		</if>  
+ 
+	</where></sql>
 </mapper>

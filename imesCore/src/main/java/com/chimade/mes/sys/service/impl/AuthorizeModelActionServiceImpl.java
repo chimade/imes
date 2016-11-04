@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.chimade.mes.sys.mapper.AuthorizeModelActionMapper;
 import com.chimade.mes.sys.model.AuthorizeModelAction;
+import com.chimade.mes.sys.model.User;
 import com.chimade.mes.sys.service.AuthorizeModelActionService;
  
 
@@ -55,6 +56,17 @@ public class AuthorizeModelActionServiceImpl implements AuthorizeModelActionServ
 	public List<AuthorizeModelAction> findBySearch(AuthorizeModelAction baseAuthorizeModelAction) {
 		List<AuthorizeModelAction> findAllList = mapper.findBySearch (baseAuthorizeModelAction)  ;
 		return findAllList;
+	}
+
+	@Override
+	public List<User> findModelLinkUserBySearch(User user) {
+		List<User> findAllList = mapper.findModelLinkUserBySearch (user)  ;
+		return findAllList;
+	}
+
+ 
+	public int fetchTotalNumberForSearchMolelLinkUser(User user) {
+		return mapper.fetchTotalNumberForSearchMolelLinkUser(user).intValue();
 	}
 	
 	

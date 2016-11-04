@@ -1,8 +1,7 @@
-Ext.define('KitchenSink.view.examples.forms.authorization.ModelActionEdit' , 	{
+Ext.define('KitchenSink.view.examples.forms.authorization.ModelAssociationActionEdit' , 	{
 		    extend:  'Ext.Window',
-		    alias: 'chmade.ModelActionEdit',
+		    alias: 'chmade.ModelAssociationActionEdit',
 		    refreshStore : null ,
-		 
 		    constructor: function(config) {
 		    	refreshStore = config.refreshStore ;
 		    	config = Ext.apply({
@@ -31,7 +30,9 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelActionEdit' , 	{
     		    		        	valueField: 'id',
     		        		 		xtype : 'combo',
     		        				store : Ext.create('SysModelStore',{ pageSize : 100}) ,  
-    		        				allowBlank:false
+    		        				allowBlank:false,
+    		        				readOnly : true
+    		        				
     		        			}	,
 					 		{
 						            xtype: 'fieldcontainer',
@@ -42,28 +43,18 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelActionEdit' , 	{
 						            },
 						            defaultType: 'checkboxfield'
 							}
-//				    		        ,
-//    		        {
-//    		            name: 'id',
-//    		            hidden:true
-//    		        }
     		        ],
 
     		        buttons: [{
     		            text: '保存'
     		         ,   handler: function() {
-    		        	 
     		        	 	var win = this.up('window');
     		                if (   this.up('form').getForm().isValid() ) {  
 	    		                var form = this.up('form').getForm();
-	    		                
-	    		                
 	    		                var checkboxs = Ext.ComponentQuery.query(".checkbox");
-//	    		                var removeIds = new Array();
 	    		                for(var k=0 ;k< checkboxs.length ; k++) {
 	    		                	if (   checkboxs[k]  &&  checkboxs[k].modelActionId ) {
 	    		                		if (    checkboxs[k].modelActionId !="" ) {
-//	    		                				console.info("find modelActionId is not empty ");
 	    		                				if (   checkboxs[k].getValue()	 == false ) { 
 	    		                						var deleRec =   Ext.create('model.SysModelActionModel',  {'id' :checkboxs[k].modelActionId,  "modelId":0, "actionId":0 });
 	    		                						deleRec.destroy();
@@ -71,7 +62,6 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelActionEdit' , 	{
 	    		                		}
 	    		                }
 	    		                }
-	    		                
 	    		                var removeIds = new Array();
 	    		                var formValues = form.getValues();
 	    		                var modelId = formValues.modelId;
@@ -80,7 +70,6 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelActionEdit' , 	{
 	    		                if (  actionIds.length ){
 	    		                    for(var i=0 ; i< actionIds.length;i++) {
 	    		                    	var cbobj = Ext.getCmp('checkbox'+actionIds[i]);
-//	    		                    	console.info(  cbobj );
 	    		                    	var idval =null ;
 	    		                    	if ( cbobj) {
 	    		                    		idval = cbobj.modelActionId ;
@@ -106,7 +95,6 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelActionEdit' , 	{
 	   		                	    }
 	    		                ,
 	   		                	    failure : function(record,response){
-	   		                 
 	   		                	    		var msg = response.request.scope.reader.jsonData.msg ;
 	   		                	    		Ext.Msg.show({
 	   		                	    	     title:'提示',
@@ -131,54 +119,37 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelActionEdit' , 	{
     		config
 		);
 		    	   this.callParent([config]);
-		    	 
-//		    	   var st  = Ext.create('SysActionStore',{ pageSize : 100}) ;
-//		    	   var checkbox =  this.down('fieldcontainer') ;
-//		    	   st.load(  
-//		    		   function(records, operation, success) {
-//		    			   myLoadRecord();
-//		 		    	   for(var i =0;i<st.getCount();i++){
-//		 		    		   var checkObj = {
-//					    			   width : 100,
-//					                    boxLabel  :  st.getAt(i).get('name'),
-//					                    name      : 'actionId',
-//					                    inputValue:  st.getAt(i).get('id'),
-//					                    id        : 'checkbox'+st.getAt(i).get('id')
-//					                 };
-//				    		   checkbox.add(  checkObj  );
-//				    	}
-//		    			}
-//		    	   );
-		    	 
 		    }
 		}
 ) ;
-
  
-Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
-    extend:  'Ext.panel.Panel',
+Ext.define('KitchenSink.view.examples.forms.authorization.ModelAssociationUser', {
+    extend:  'Ext.window.Window',
     requires: [
                'Ext.grid.Panel',
                'Ext.grid.column.Action'
            ],
-    alias: 'chmade.sysModelAction',
+    alias: 'chmade.modelAssociationUser',
     header: false,
+    title: '',
+	closable : true ,
+	maximizable :true ,
+	modelId :undefined ,
+	modelName : undefined ,
     pluginStore : undefined ,
-    minHeight : 510,
-    beforeRender: function() {
-        var me = this;
-//        me.callParent();
-//     	pluginStore =  Ext.create('SysModelActionStore');
+    constructor: function(config) {
+    	refreshStore = config.refreshStore ;
+    	modelId = config.modelId;
+    	modelName = config.modelName;
      	pluginStore =  Ext.create('SysModelStore',{
-      
-     	        model: 'model.SysModelModel',
+     	        model: 'model.SysUserModel',
      	        proxy: {
      	        	  headers: { 
      	        	        'Accept': 'application/json',
      	        	        'Content-Type': 'application/json' 
      	        	    },
      	            type: 'jsonajax', 
-     	            url:'/imes/sys/baseModelAction/baseModelActions',
+     	            url:'/imes/sys/baseAuthorizeModelAction/modelLkUser',
      	    		method:'post',
      	    		actionMethods : 'post',
      	            reader: { 
@@ -188,109 +159,35 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
      	                totalProperty: 'totalProperty'
      	            }
      	        },
- 
      	        pageSize: 10,
      	        autoLoad : true 
-      
      	}
-     			
-     	
      	);
-    	 this.down('gridpanel') .reconfigure(  pluginStore );
-    	 this.down('pagingtoolbar') .bindStore(  pluginStore );   var me = this;
-         me.callParent();
-    } ,
-    title : '',
-    layout: {
-    	type:'fit',
-        pack: 'center'
-    },
-    items: [
-    {
-    	
+
+    	config = Ext.apply(  {
+    		x: 270,
+    		y:110,
+    		constrain: true,
+		    title : '',
+		    width : 840,
+		    height : 500,
+		    modal : true,
+			closable : true ,
+			maximizable :true ,
+		    layout: {
+		    	type:'fit',
+		        pack: 'center'
+		    },
+		    items: [
+		    {
     	 	margin: ' 0 0  0 10',
     	 	xtype : 'gridpanel',
     	 	selModel  : Ext.create('Ext.selection.CheckboxModel'    ),
     	    columns: [
     	    	{ text:'id' ,		dataIndex:'id' ,hidden : true } ,
-    	    	{ text:'模块名' ,		dataIndex:'name' } ,
-    	    	{ 	text:'动作名' ,	flex:8,	 
-    	    			renderer: function (value, meta, record) {  
-		    	    		var display = "";
-		    	    		if  (  record.raw.actions  &&   record.raw.actions.length ) {
-		    	    			for(var k=0 ;k<   record.raw.actions.length;k++  ) {
-		    	    				display = display +  record.raw.actions[k].name+"  "  ;
-		    	    			}
-		    	    		}
-    	    				return  display;
-    	    		}   	
-    	    	}, 
-    	    	{ 
-    	    		text:'用户' ,	 
-    		    	 width: 125 ,
-	    			renderer: function (value, meta, record) {  
-	    				var me = this ; 
-	    				var p =  me.up() ;
-	    				console.info( record);
-	    				console.info( record.data['name'] );
-	    				var id = Ext.id();
-	    				Ext.defer(function(){
-	    					Ext.widget('button',{
-	    							renderTo:id,
-	    							text:'关联: '+record.data['name'] ,
-	    							width: 100,
-	    							handler : function( ) {
-	           		            		var   f = Ext.create(  'chmade.modelAssociationUser', { title:' 关联用户 ->  '+ record.data['name'], constrainTo : p.getEl() , refreshStore: me.getStore() ,    	closable : true ,
-	           		            			maximizable :true , modelName:record.data['name'],modelId: record.data['id']
-	           		            			} );
-	           		            	 
-	           		            		f.show();
-	    							}
-	    					});
-	    				}, 50);
-	    				return Ext.String.format('<div id="{0}"></div>',id );
-	    		}   	
-	    	} ,
-	    	{ 
-	    	 width: 125 ,
-	    		text:'角色' , 
-    			renderer: function (value, meta, record) {  
-    				var id = Ext.id();
-    				Ext.defer(function(){
-    					Ext.widget('button',{
-    							renderTo:id,
-    							text:'关联: '+record.data['name'] ,
-    							width: 100,
-    							handler : function( ) { console.info("run here");}
-    					});
-    				}, 50);
-    				return Ext.String.format('<div id="{0}"></div>',id );
-    		}   	
-    	}
-    	    	/*
-    	    	{
-    	            xtype:'actioncolumn',
-    	            text:'action',
-    	            width:150,
-    	            items: [ {
-    	            	
-    	                xtype : 'button',
-    	                icon: 'http://127.0.0.1:8080/imes/static/resources/images/user.png',  
-    	                tooltip: 'Edit',
-    	                handler: function(grid, rowIndex, colIndex) {
-    	                    var rec = grid.getStore().getAt(rowIndex);
-    	                    alert("Edit " + rec.get('firstname'));
-    	                }
-    	            },{
-    	                icon: '/imes/static/resources/images/group.png',
-    	                tooltip: 'Delete',
-    	                handler: function(grid, rowIndex, colIndex) {
-    	                    var rec = grid.getStore().getAt(rowIndex);
-    	                    alert("Terminate " + rec.get('firstname'));
-    	                }
-    	            }
-    	            ]
-    	        } */
+    	    	{ text:'用户名' ,	flex: 2, 	dataIndex:'loginAccount' } ,
+    	    	{ text:'权限列表' ,	flex: 10,	dataIndex:'name' } ,
+    	 
     	    ],
     		   dockedItems: [ 
 				{
@@ -299,7 +196,8 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
 				    displayInfo: true
 				},
     		     {
-					
+//				    header: false,
+//				    pluginStore : undefined ,
     		     layout:'fit',
        		    xtype: 'toolbar',
        		    dock: 'top',
@@ -324,19 +222,20 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
 			  items: [ 
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'id',
-				  name:'id'
-		,		  hidden:true 
+    				  fieldLabel:'id',
+    				  name:'id'
+    				, hidden:true 
 				} 
 				,
 				{ 
     				  xtype:'textfield',
-				  fieldLabel:'动作名',
-				  name:'actionId'
+    				  fieldLabel:'用户账号',
+					 name:'loginAccount'
 				} 
 				
  			]
  		       }
+       		        /*
 ,{
 			  items: [ 
 				{  
@@ -346,8 +245,11 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
 				} 
 				
  			]
+
  		       }
-       		        ],
+*/
+       		        ]
+       		      ,
        		        buttons: ['->', {
        		            text: '查找',
                        	handler: function() {
@@ -368,6 +270,7 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
        	                         form.reset();
        	                	}
        		        },
+       		        /*
        		        {
        		            text: '新增',
        		            	handler: function() {
@@ -386,33 +289,34 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
     		 					                   checked : checked ,
     		 					                    inputValue:  st.getAt(i).get('id'),
     		 					                    id        : 'checkbox'+st.getAt(i).get('id')
-    		 					            };
+    		 					                 };
     		 				    		   checkbox.add(  checkObj  );
     		 				    	}
     		 		    			}
     		 		    	   );
        		            		constrainedWin.show();
        	                	}
-       		        },{
-       		 
+       		        }
+       		        
+       		        ,*/
+       		        {
         		            text: '编辑',
         		            	handler: function() {
         		            		var selModel =  this.up('gridpanel').getSelectionModel().getSelection() ; 
         		            		if  ( selModel.length == 1 ) { 
-            		            		var p =  this.up('gridpanel').up().up() ;
-            		            		var   constrainedWin = Ext.create(  'chmade.ModelActionEdit', { title:'Edit ModelAction', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore()  } );
+            		            		var p =  this.up('gridpanel').up();
+            		            		var   constrainedWin = Ext.create(  'chmade.ModelAssociationActionEdit', { title:'Edit ModelAssociationActionEdit ', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore()  } );
             		            		var actionId = new Array();
-            		            		var  loadRecord ={data: {modelId: selModel[0].data.id } } ;
-            		            	 
+            		            		var  loadRecord ={data: {modelId:  modelId } } ;
              		 		    	   var st  = Ext.create('SysActionStore',{ pageSize : 100}) ;
             		 		    	   var checkbox =  constrainedWin.down('fieldcontainer') ;
             		 		    	   st.load(  
             		 		    		   function(records, operation, success) {
             		 		    				constrainedWin.down('form').getForm().loadRecord(  loadRecord  );
-            		 		    			
             		 		 		    	   for(var i =0;i<st.getCount();i++){
             		 		 		    		   var checked= false ;
             		 		 		    		   var modelActionId="" ; 
+            		 		 		    		   /*
             		 		 		    		   for(var k=0;k < selModel[0].raw.actions.length;k++		) {
             		 		 		    			   if  (selModel[0].raw.actions[k].id == st.getAt(i).get('id') ) {
             		 		 		    				   checked = true;
@@ -420,6 +324,7 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
             		 		 		    				   break;
             		 		 		    			   }
             		 		 		    		   }
+            		 		 		    		   */
             		 		 		    		   var checkObj = {
             		 					    			   width : 100,
             		 					                    boxLabel  :  st.getAt(i).get('name'),
@@ -429,7 +334,7 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
             		 					                    inputValue:  st.getAt(i).get('id'),
             		 					                    id        : 'checkbox'+st.getAt(i).get('id')
             		 					                 };
-            		 				    		   checkbox.add(  checkObj  );
+            		 		 		    		   	checkbox.add(  checkObj  );
             		 				    	}
             		 		    			}
             		 		    	   );
@@ -438,7 +343,15 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
         		            			 alert("please select  one record  to edit ");
         		            		}
         		            	}
-       		        },{
+       		        },
+       		        {
+    		            text: '关闭',
+    		            	handler: function() {
+    		            		 var w=this.up('window');
+    		            		 w.close();
+    		            	}
+       		        }
+       		        /*,{
         		            text: '删除',
         		            	handler: function() {
 
@@ -460,9 +373,17 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
         		            	
         		            	}
        		        }
+       		      */
        		        ]
+       		       
        		    }
           }]
     	} 
   ]
+    	} ,config);
+    	   this.callParent([config]);
+    	   
+         	 this.down('gridpanel') .reconfigure(  pluginStore );
+        	 this.down('pagingtoolbar') .bindStore(  pluginStore );   
+    }
 });
