@@ -9,7 +9,16 @@ public class Action  extends PageableBaseModel {
    private String   itemid;
    private String   name;
    private int modelActionId ;
-   public int getModelActionId() {
+   private int authorizationModelActionId ;
+   
+   
+   public int getAuthorizationModelActionId() {
+	return authorizationModelActionId;
+}
+public void setAuthorizationModelActionId(int authorizationModelActionId) {
+	this.authorizationModelActionId = authorizationModelActionId;
+}
+public int getModelActionId() {
 	return modelActionId;
 	}
 	public void setModelActionId(int modelActionId) {

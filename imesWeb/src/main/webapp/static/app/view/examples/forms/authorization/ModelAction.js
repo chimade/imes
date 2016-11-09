@@ -242,6 +242,7 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
 	    							handler : function( ) {
 	           		            		var   f = Ext.create(  'chmade.modelAssociationUser', { title:' 关联用户 ->  '+ record.data['name'], constrainTo : p.getEl() , refreshStore: me.getStore() ,    	closable : true ,
 	           		            			maximizable :true , modelName:record.data['name'],modelId: record.data['id']
+	           		            			,actions: record.raw.actions
 	           		            			} );
 	           		            	 
 	           		            		f.show();
