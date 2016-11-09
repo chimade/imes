@@ -137,8 +137,11 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAssociationUser',
 	modelId :undefined ,
 	modelName : undefined ,
     pluginStore : undefined ,
+    actions : undefined ,
     constructor: function(config) {
     	refreshStore = config.refreshStore ;
+    	actions = config.actions;
+    	console.info( actions);
     	modelId = config.modelId;
     	modelName = config.modelName;
      	pluginStore =  Ext.create('SysModelStore',{
@@ -308,36 +311,22 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAssociationUser',
             		            		var   constrainedWin = Ext.create(  'chmade.ModelAssociationActionEdit', { title:'Edit ModelAssociationActionEdit ', constrainTo : p.getEl() , refreshStore: this.up('gridpanel').getStore()  } );
             		            		var actionId = new Array();
             		            		var  loadRecord ={data: {modelId:  modelId } } ;
-             		 		    	   var st  = Ext.create('SysActionStore',{ pageSize : 100}) ;
             		 		    	   var checkbox =  constrainedWin.down('fieldcontainer') ;
-            		 		    	   st.load(  
-            		 		    		   function(records, operation, success) {
-            		 		    				constrainedWin.down('form').getForm().loadRecord(  loadRecord  );
-            		 		 		    	   for(var i =0;i<st.getCount();i++){
+            		 		    				constrainedWin.down('form').getForm().loadRecord(  loadRecord );
+            		 		 		    	   for(var i =0;i<actions.length;i++){
             		 		 		    		   var checked= false ;
             		 		 		    		   var modelActionId="" ; 
-            		 		 		    		   /*
-            		 		 		    		   for(var k=0;k < selModel[0].raw.actions.length;k++		) {
-            		 		 		    			   if  (selModel[0].raw.actions[k].id == st.getAt(i).get('id') ) {
-            		 		 		    				   checked = true;
-            		 		 		    				   modelActionId =selModel[0].raw.actions[k].modelActionId ;
-            		 		 		    				   break;
-            		 		 		    			   }
-            		 		 		    		   }
-            		 		 		    		   */
             		 		 		    		   var checkObj = {
             		 					    			   width : 100,
-            		 					                    boxLabel  :  st.getAt(i).get('name'),
+            		 					                    boxLabel  :  actions[i].name,
             		 					                   modelActionId :  modelActionId,
             		 					                    name      : 'actionId',
             		 					                   checked : checked ,
-            		 					                    inputValue:  st.getAt(i).get('id'),
-            		 					                    id        : 'checkbox'+st.getAt(i).get('id')
+            		 					                    inputValue:  actions[i].id ,
+            		 					                    id        : 'checkbox'+actions[i].id
             		 					                 };
             		 		 		    		   	checkbox.add(  checkObj  );
             		 				    	}
-            		 		    			}
-            		 		    	   );
             		            		constrainedWin.show();
         		            		} else {
         		            			 alert("please select  one record  to edit ");
