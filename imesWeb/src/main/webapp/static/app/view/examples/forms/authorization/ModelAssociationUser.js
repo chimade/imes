@@ -317,13 +317,11 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAssociationUser',
             		 		    		constrainedWin.down('form').getForm().loadRecord(  loadRecord );
             		 		 		    	   for(var i =0;i<actions.length;i++){
             		 		 		    		   var checked= false ;
-            		 		 		    		   var authorizationModelActionId = null  ;
             		 		 		    		   if (  selActions ) {
             		 		 		    			   for( var m=0 ; m<selActions.length; m++ ){
 //            		 		 		    				   console.info( selActions[m]);
             		 		 		    				   if  ( selActions[m].id == actions[i].id ){
             		 		 		    					   checked = true ; 
-            		 		 		    					 authorizationModelActionId =  selActions[m].authorizationModelActionId ;
             		 		 		    					   break; 
             		 		 		    				   }
             		 		 		    			   }
@@ -338,7 +336,7 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAssociationUser',
             		 					                   checked : checked ,
             		 					                    inputValue:  actions[i].id ,
             		 					                    id        : 'checkbox'+actions[i].id ,
-            		 					                   authModelActionId : authorizationModelActionId
+            		 					                   authModelActionId : null
             		 					                 };
             		 		 		    		   	checkbox.add(  checkObj  );
             		 				    	}
