@@ -231,8 +231,8 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
 	    			renderer: function (value, meta, record) {  
 	    				var me = this ; 
 	    				var p =  me.up() ;
-	    				console.info( record);
-	    				console.info( record.data['name'] );
+//	    				console.info( record);
+//	    				console.info( record.data['name'] );
 	    				var id = Ext.id();
 	    				Ext.defer(function(){
 	    					Ext.widget('button',{
@@ -244,7 +244,6 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
 	           		            			maximizable :true , modelName:record.data['name'],modelId: record.data['id']
 	           		            			,actions: record.raw.actions
 	           		            			} );
-	           		            	 
 	           		            		f.show();
 	    							}
 	    					});
@@ -256,13 +255,22 @@ Ext.define('KitchenSink.view.examples.forms.authorization.ModelAction', {
 	    	 width: 125 ,
 	    		text:'角色' , 
     			renderer: function (value, meta, record) {  
+    				var me = this ; 
+    				var p =  me.up() ;
     				var id = Ext.id();
     				Ext.defer(function(){
     					Ext.widget('button',{
     							renderTo:id,
     							text:'关联: '+record.data['name'] ,
     							width: 100,
-    							handler : function( ) { console.info("run here");}
+    							handler : function( ) { 
+           		            		var   f = Ext.create(  'chmade.modelAssociationRole',
+           		            				{ title:' 关联角色 ->  '+ record.data['name'], constrainTo : p.getEl() , refreshStore: me.getStore() ,    	closable : true ,	maximizable :true , modelName:record.data['name'],modelId: record.data['id']
+           		            			,actions: record.raw.actions
+           		            			} );
+           		            		f.show();
+    							
+    							}
     					});
     				}, 50);
     				return Ext.String.format('<div id="{0}"></div>',id );
