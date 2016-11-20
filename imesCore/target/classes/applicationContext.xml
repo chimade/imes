@@ -82,7 +82,7 @@
    </aop:config>
    
    
-<!--    <bean id="shiroSecurityRealm"   class="com.chimade.mes.security.ShiroSecurityRealm" /> -->
+   <bean id="shiroSecurityRealm"   class="com.chimade.mes.security.ShiroSecurityRealm" />
    	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="shiroSecurityRealm" />
 	</bean>

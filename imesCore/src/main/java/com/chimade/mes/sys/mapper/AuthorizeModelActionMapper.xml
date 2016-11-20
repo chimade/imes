@@ -190,5 +190,25 @@
 				<include refid="whereModelLinkRole" />
 							order by r.id
 	 </select> 
+	 
+	 <resultMap 	type="com.chimade.mes.sys.model.Model"  id="authoModelActionMap" >
+	 			 <id property="id" column="m_id" />
+	 			 <result property="name"  column="m_name"/>
+	 			  <result property="url"  column="url"/>
+	 			   <association property="actions"  resultMap="authoActionMap"></association>
+	 </resultMap>
+ 	 <resultMap 	type="com.chimade.mes.sys.model.Action"  id="authoActionMap" >
+	 			 <id property="id" column="authoActionMap" />
+	 			 <result property="name"  column="a_name"/>
+	 			 <result property="itemid"  column="itemid"/>
+	 </resultMap>
+	<select id="listUserAuthorizeById"		parameterType="Integer"   resultMap="authoModelActionMap"  >
+ 		SELECT   m.name  m_name, m.id  m_id , a.name  a_name, m.url , a.itemid ,a.id a_id  
+		FROM base_model  m
+		LEFT JOIN base_action  a ON a.id IN ( 
+			SELECT  DISTINCT action_id  FROM base_authorize_model_action  ama  
+			WHERE 	 ama.user_id=848 OR  ama.role_id IN ( SELECT  role_id  FROM base_user_role  ur WHERE ur.user_id=848 )
+		) 
+	 </select> 
 		
 </mapper>

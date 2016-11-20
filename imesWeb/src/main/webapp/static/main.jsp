@@ -1,8 +1,54 @@
+<%@page import="org.springframework.context.ApplicationContext"%>
+<%@page import="java.util.List"%>
+<%@page import="com.chimade.mes.sys.model.Model"%>
+<%@page import="com.chimade.mes.sys.model.User"%>
+<%@page import="com.chimade.mes.sys.service.AuthorizeModelActionService"%>
+<%@page import="com.chimade.mes.sys.util.SystemContant"%>
+<%!
+	String loadUreeMenu (ApplicationContext ctx, int userId ) {
+			StringBuffer bf = new StringBuffer();
+		try {
+		AuthorizeModelActionService as =  ( AuthorizeModelActionService)ctx.getBean("authorizeModelActionServiceImpl");
+		List< Model> lm = as.listUserAuthorizeById(userId);
+		
+		bf.append("var menuUrls=new Array( ");
+ 		for( int k = 0 ; k< lm.size() ; k ++ ) {
+ 				bf.append( " '" +lm.get(k).getUrl() +"'");
+ 				if   ( k<  (lm.size()-1) ) 
+ 					bf.append(",");
+ 		}
+ 		bf.append(");\r\n");
+		bf.append("var models=[");
+ 		for( int k = 0 ; k< lm.size() ; k ++ ) {
+ 				bf.append( lm.get(k).toJsonFormat() );
+ 				if   ( k<  (lm.size()-1) ) 
+ 					bf.append(",");
+ 		}
+ 		bf.append("] ;\r\n");
+		}catch(Exception e) {
+			System.out.println(e.toString());
+		}
+	  	return bf.toString();
+	}
+%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
 	    <title>Kitchen Sink</title>
 <script>
+<%
+if (  request.getSession().getAttribute(SystemContant.SESSION_SYS_USER) != null ){
+ 	ApplicationContext ctx = org.springframework.web.context.support.WebApplicationContextUtils.getWebApplicationContext(getServletContext());    
+//  	 String[] beanNames = 	ctx.getBeanDefinitionNames();
+//  	 for( String n : beanNames) {
+//  		 System.out.println( n);
+//  	 }
+
+
+	String authoStr =  loadUreeMenu( ctx  , ( (User)request.getSession().getAttribute(SystemContant.SESSION_SYS_USER)).getId() );
+	out.println(   authoStr );
+}
+%>
 	var menuManagerTxt = "System Maintenance";
 	var factory_id ;
 </script>
@@ -145,5 +191,9 @@
 	    
 	</head>
 	
-	<body></body>
+	<body>
+	</body>
 </html>
+<script>
+
+</script>

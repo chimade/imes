@@ -26,6 +26,11 @@ Ext.define('KitchenSink.controller.Main', {
     ],
 
     init: function() {
+    	 this.control({
+             'viewport > panel': {
+                 render: this.onPanelRendered
+             }
+         });
         this.control({
             'viewport exampleList': {
             	//itemclick for support tabpanel
@@ -73,7 +78,62 @@ Ext.define('KitchenSink.controller.Main', {
             }
         });
     },
-
+    onPanelRendered: function() {
+    	  var st = this.getExamplesStore();
+//    	  console.info( st);
+//    	  var st = this.getExampleList().down('treepanel') ;
+//    	  console.info(  st.getRootNode());
+    	  st.getRootNode() .cascade( function (){
+    		  console.info( this);
+    		  if (   this.data.leaf == true ) {
+    			  var  hideFlag = true ;
+    			  for( var k=0 ;  k< menuUrls.length; k++	) {
+    				  if (  this.raw['label'].toLowerCase()  ==menuUrls[k].toLowerCase()  ){
+//    					  this.getUI().hide();
+    					  hideFlag = false ;
+    				  }
+    			  }
+    			  if  ( hideFlag 	){
+    				console.info( this);
+//    				this.parentNode.removeChild(this);
+    			  }
+    			  
+    		  }
+    	  });
+//    	  var temp= new Array();
+////    		var endFlag =  menuUrls.length ; 
+////    		console.info(  endFlag  );
+//	        function getChilds( node) {
+////	        	endFlag = endFlag -1 ;
+//	        	var ns = node.childNodes ; 
+//	        	Ext.each( ns ,function(){
+//	        		var nd = this ; 
+////	        		endFlag = endFlag -1 ;
+//	        		if (! nd.hasChildNodes() ) {
+//			        		for( var k=0 ;  k< menuUrls.length; k++	) {
+////			        			 console.info(  menuUrls[k] );
+////			        			 console.info(    nd.raw['label'].toLowerCase() );
+//			        			 if (   nd.raw['label'].toLowerCase()  !=menuUrls[k].toLowerCase()  ) {
+////			        				 temp.push( nd );
+////			        				  var items = nd.getReferences().treelistRef.itemMap;
+////			        				  for(var j in items) {
+////			        					  items[j].destroy();
+////			        				  }
+//			        			 } else {
+////			        				 endFlag = endFlag -1 ;
+//			        				 console.info( nd );
+////			        				 if (  endFlag ==)
+//			        			 }
+//			        		};
+//	        		} else {
+//	        			getChilds(nd);
+//	        		}
+//	        	}) ;
+// 
+//	        }
+//	        getChilds( st.getRootNode() 	);
+ 
+    } ,
     setActiveExample: function(className, title) {
         var examplePanel = this.getExamplePanel(),
             path, example, className;

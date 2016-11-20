@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.chimade.mes.sys.mapper.AuthorizeModelActionMapper;
 import com.chimade.mes.sys.model.AuthorizeModelAction;
+import com.chimade.mes.sys.model.Model;
 import com.chimade.mes.sys.model.Role;
 import com.chimade.mes.sys.model.User;
 import com.chimade.mes.sys.service.AuthorizeModelActionService;
@@ -79,6 +80,11 @@ public class AuthorizeModelActionServiceImpl implements AuthorizeModelActionServ
 	@Override
 	public int fetchTotalNumberForSearchMolelLinkRole(Role role) {
 		return mapper.fetchTotalNumberForSearchMolelLinkRole(role).intValue();
+	}
+
+	@Override
+	public List<Model> listUserAuthorizeById(int userId) {
+		return mapper.listUserAuthorizeById(  userId );
 	}
 	
 	

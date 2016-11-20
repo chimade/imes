@@ -11,6 +11,31 @@ public class Model  extends PageableBaseModel {
    private String   url;
    private int   status;
 	private List<Action>   actions = new ArrayList<Action>()	;
+	
+	public String toJsonFormat() {
+		StringBuffer buf = new StringBuffer() ;
+		buf.append("{");
+		buf.append("'id' : ").append(id).append(",");
+		buf.append("'status' : ").append(status).append(" ,");
+		buf.append("'name' : '").append(name).append("' , ");
+		buf.append("'url' : '").append(url).append("' ");
+		if  ( actions.size() > 0	 ) {
+			buf.append(" , ");
+			buf.append(" actions : [");
+			for(  int i=0 ; i<actions.size() ;i++) {
+				buf.append(" {");
+				buf.append("'name' : '").append(actions.get(i).getName()).append("' , ");
+				buf.append("'itemid' : '").append(actions.get(i).getItemid()).append("' , ");
+				buf.append("'id' :").append(actions.get(i).getId()) ;
+				buf.append("}");
+				if (  i < (actions.size() -1)) 
+					buf.append(",");
+			}
+			buf.append("] " );
+		}
+		buf.append("}");
+		return buf.toString() ;
+	}
    public List<Action> getActions() {
 		return actions;
 	}

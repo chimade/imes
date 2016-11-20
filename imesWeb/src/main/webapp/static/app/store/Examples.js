@@ -77,7 +77,7 @@ Ext.define('KitchenSink.store.Examples', {
                     { leaf: true, text: '角色管理',label :'Role' },
 //                    { leaf: true, text: '动作管理',label :'Action' },
 //                    { leaf: true, text: '模块动作关联管理',label :'ModelAction' },
-                    { leaf: true, text: '模块动作分配管理',label :'AuthorizeModelAction' },
+                    { leaf: true, text: '模块动作分配管理',label :'AuthorizeModelAction' ,hidden : true },
                     { leaf: true, text: '工厂用户关联管理',label :'FactoryUser' },
 
                     { leaf: true, text: '条码管理',label :'Label' },
