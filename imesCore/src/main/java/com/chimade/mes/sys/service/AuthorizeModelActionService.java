@@ -16,5 +16,7 @@ public interface AuthorizeModelActionService extends BaseService<AuthorizeModelA
 	int fetchTotalNumberForSearchMolelLinkRole(Role role);
 	
 	List<Model> listUserAuthorizeById(  int  userId );
+	
+	String createtUserJsonMenuByModel( int userId  ) ;
 }
 

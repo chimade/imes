@@ -1,11 +1,10 @@
  {
-                text: '系统管理',
+                 text: '系统管理',
                 label : 'Forms',
                 expanded: true,
                 children: [
                     { leaf: true, text: '公司管理',label :'Company' },
                     { leaf: true, text: '工厂管理',label :'Factory' },
-//                    { leaf: true, text: 'Login' ,label:'Login'},
                     { text:'模块动作管理', label:' authorization ' ,expanded: true,
                     	 children: [
                     		 { leaf: true, text: '动作管理',label :'Action' },
@@ -14,11 +13,8 @@
                     		 ]
                     
                     },
-//                    { leaf: true, text: 'Register',label :'Register' },
                     { leaf: true, text: '用户管理',label :'User' },
                     { leaf: true, text: '角色管理',label :'Role' },
-//                    { leaf: true, text: '动作管理',label :'Action' },
-//                    { leaf: true, text: '模块动作关联管理',label :'ModelAction' },
                     { leaf: true, text: '模块动作分配管理',label :'AuthorizeModelAction' ,hidden : true },
                     { leaf: true, text: '工厂用户关联管理',label :'FactoryUser' },
 
@@ -32,6 +28,5 @@
                     { leaf: true, text: '打印',label :'Printer' },
                     { leaf: true, text: '流程',label :'Process' },
                     { leaf: true, text: '车间',label :'Shopfloor' }
-//                    { leaf: true, text: 'User Manager Maintenace',label :'UserManager' }
                 ]
             } 

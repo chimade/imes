@@ -10,13 +10,42 @@ import com.google.gson.reflect.TypeToken;
 
 public class ReadJsonMenu {
 
-	public  Menu loadOrigniMenu() {
+	public static  Menu loadOrigniMenu(  ) {
+		
+		String jsonstr = readOriginContent() ;
+		Gson gson = new Gson();  
+//		java.lang.reflect.Type type =new TypeToken<List<Menu>>() {       }.getType();
+//		java.lang.reflect.Type type = new TypeToken<Menu>() {}.getType();
+		Menu jsonBean = gson.fromJson( jsonstr , Menu.class);
+		return jsonBean ;
+	}
+	
+	
+	public static  String readOriginContent(  ){
+			String path = ImesContext.WEBINFPath +"/treemenu.json";
+			StringBuffer buf = new StringBuffer() ;
+			try {
+				FileReader f = new FileReader( path) ;
+				BufferedReader br = new BufferedReader(f);
+				String v = br.readLine();
+				while (  v  != null	 ) {
+					buf.append(v+"\r\n");
+					 v = br.readLine();
+				}
+				br.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return buf.toString();
+		}
+		
+	public static  List<Menu>  loadOrigniMenus() {
 		String path = ImesContext.WEBINFPath +"/treemenu.json";
 		StringBuffer buf = new StringBuffer() ;
 		try {
 			FileReader f = new FileReader( path) ;
 			BufferedReader br = new BufferedReader(f);
-	
+			
 			String v = br.readLine();
 			while (  v  != null	 ) {
 				buf.append(v);
@@ -26,9 +55,9 @@ public class ReadJsonMenu {
 			e.printStackTrace();
 		}
 		Gson gson = new Gson();  
-//		java.lang.reflect.Type type =new TypeToken<List<Menu>>() {       }.getType();
+		java.lang.reflect.Type type =new TypeToken<List<Menu>>() {       }.getType();
 //		java.lang.reflect.Type type = new TypeToken<Menu>() {}.getType();
-		Menu jsonBean = gson.fromJson(buf.toString(), Menu.class);
+		List<Menu> jsonBean = gson.fromJson(buf.toString(), type);
 		return jsonBean ;
 	}
 	

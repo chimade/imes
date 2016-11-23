@@ -10,7 +10,9 @@
 		try {
 		AuthorizeModelActionService as =  ( AuthorizeModelActionService)ctx.getBean("authorizeModelActionServiceImpl");
 		List< Model> lm = as.listUserAuthorizeById(userId);
-		
+		String authoStr = as.createtUserJsonMenuByModel(userId);
+// 		System.out.println( authoStr);
+		bf.append(authoStr+"\r\n");
 		bf.append("var menuUrls=new Array( ");
  		for( int k = 0 ; k< lm.size() ; k ++ ) {
  				bf.append( " '" +lm.get(k).getUrl() +"'");
@@ -36,19 +38,6 @@
 	<head>
 	    <title>Kitchen Sink</title>
 <script>
-<%
-if (  request.getSession().getAttribute(SystemContant.SESSION_SYS_USER) != null ){
- 	ApplicationContext ctx = org.springframework.web.context.support.WebApplicationContextUtils.getWebApplicationContext(getServletContext());    
-//  	 String[] beanNames = 	ctx.getBeanDefinitionNames();
-//  	 for( String n : beanNames) {
-//  		 System.out.println( n);
-//  	 }
-
-
-	String authoStr =  loadUreeMenu( ctx  , ( (User)request.getSession().getAttribute(SystemContant.SESSION_SYS_USER)).getId() );
-	out.println(   authoStr );
-}
-%>
 	var menuManagerTxt = "System Maintenance";
 	var factory_id ;
 </script>
@@ -61,9 +50,23 @@ if (  request.getSession().getAttribute(SystemContant.SESSION_SYS_USER) != null 
 	    <script type="text/javascript" src="js/chmade-util.js"></script>
 	      
 	      <script type="text/javascript" src="app/view/examples/Example.js"></script>
-	    <script type="text/javascript" src="app/store/Examples.js"></script>
+<!-- 	    <script type="text/javascript" src="app/store/Examples.js"></script> -->
 	    
-	    
+	    <script>
+	    <%
+	    if (  request.getSession().getAttribute(SystemContant.SESSION_SYS_USER) != null ){
+	     	ApplicationContext ctx = org.springframework.web.context.support.WebApplicationContextUtils.getWebApplicationContext(getServletContext());    
+//	      	 String[] beanNames = 	ctx.getBeanDefinitionNames();
+//	      	 for( String n : beanNames) {
+//	      		 System.out.println( n);
+//	      	 }
+
+
+	    	String authoStr =  loadUreeMenu( ctx  , ( (User)request.getSession().getAttribute(SystemContant.SESSION_SYS_USER)).getId() );
+	    	out.println(   authoStr );
+	    }
+	    %>
+	    </script>
 	    <%-- below is projectt --%>
 <script type="text/javascript" src="app/store/SysCompanyStore.js"></script>
 <script type="text/javascript" src="app/model/SysCompanyModel.js"></script>
